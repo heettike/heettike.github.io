@@ -1,99 +1,118 @@
+<!-- built with temper: https://temper.one -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>heet tike</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        .container { width: 80%; margin: auto; overflow: hidden; }
-        nav { float: left; margin-top: 2px; }
-        nav ul { margin: 0; padding: 0; }
-        nav ul li { display: inline; margin-right: 5px; }
-        section { padding: 20px; }
-        .about, .blogs, .contact, .projects, .image-dump { margin-bottom: 20px; }
-        footer { background: #333; color: #fff; text-align: center; padding: 10px; margin-top: 20px; }
-        a {
-            text-decoration-color:aqua;
-            color: black;
-        }
-        a:visited {
-            color: black; 
-        }
-    </style>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>heet tike</title>
+
+  
+    <link class="googlefont" href="
+    https://fonts.googleapis.com/css2?family=Ovo&display=swap
+    " rel="stylesheet">
+
+  
+  <style type="text/css" style="display:block">
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+    font-weight: inherit;
+  }
+
+  body {
+    background: #000000;
+    color: #ffffff;
+    width: 100%;
+  }
+
+  /* FONT FACE */
+  
+
+  /* PAGE */
+  .text {
+    font-family:"Ovo", serif;
+        display: none;
+    opacity: 0;
+    font-size: 3.5vw;
+    line-height: 3.5vw;
+            font-variant-ligatures: normal;
+    visibility: hidden;
+  }
+
+  h1 {
+    font: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+  }
+
+  .text p, h1 {
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+    animation: fadein .2s forwards ease-out;
+    padding: 1.4vw 10vw 2.1vw 3vw;
+  }
+
+  .text a {
+    text-decoration: underline;
+    text-decoration-skip: ink;
+    color: inherit;
+    padding-left: .5vw;
+    padding-right: .5vw;
+    margin-left: -.5vw;
+    margin-right: -.5vw;
+    cursor: pointer;
+  }
+
+  .text a:hover {
+    text-decoration: none;
+  }
+
+  .text a:focus {
+    text-decoration: none;
+    outline: solid 4px rgba(0,0,0,.4);
+  }
+
+    ::selection {
+    background: #fff;
+    background: rgba(250,250,250,.99);
+    color: #000;
+  }
+  
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+      margin-top: 1.5vw;
+    }
+
+    100% {
+      opacity: 1;
+      margin-top: 0;
+    }
+  }
+  </style>
+
 </head>
-<body>
-    <header>
-        <div class="container">
-            <h1 style="margin-bottom:0">heet tike</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">about</a></li>
-                    <li><a href="#musings">musings</a></li>
-                    <li><a href="#fun stuff">da vinci</a></li>
-                    <li><a href="#reach out">reach out</a></li>
-                    <li><a href="#vibes">vibes</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <div class="container">
-<img src="./images/screenshot.png" width="50%" height="50%"/>
-</div>
-    <section id="about" class="container">
-        <h2>a monkey mind</h2>
-        <p>i love to  <br><br>
-        </p>
-    </section>
+<body style="display:none;">
+  <div class="text">
+    <h1 style="animation-delay: .1s;"><b style="">who/ heet tike</b></h1>
+                              <p style="animation-delay: 0.2s;">about/ 22. odd jobs. knowledge athlete. entrepreneur.&nbsp; live projects: math, poker, drums, code, bouldering, content virality, investing, hiring, health &amp; service businesses</p>
+                                <p style="animation-delay: 0.3s;">essays/&nbsp;<a target="_blank" href="https://twitter.com/HeetTike/status/1772956778361176365/photo/1">couch surfing</a>; <a target="_blank" href="https://twitter.com/HeetTike/status/1764290673585401881/photo/1">problem solvers</a>; <a target="_blank" href="https://twitter.com/HeetTike/status/1756682970738356308/photo/1">wasting youth</a>;</p>
+                                <p style="animation-delay: 0.4s;">blogs/&nbsp; 22nd year; 21st year; leap of faith; good addiction products; corporate to startups; monthly resolutions; guide to $$; out of sync; 3 years in du;&nbsp;</p>
+                                <p style="animation-delay: 0.5s;">work/ founder <a target="_blank" href="http://ripen.in">ripen.in </a>(6th avatar) &amp; <a target="_blank" href="paturn.io">paturn.io</a><br></p>
+                                <p style="animation-delay: 0.6s;">reach/ <a target="_blank" href="https://twitter.com/HeetTike">twitter</a>, <a target="_blank" href="https://www.instagram.com/heetike/">IG</a>, <a target="_blank" href="mailto: tike@ripen.in">email,</a> <a target="_blank" href="https://www.linkedin.com/in/heettike/">linkedin</a></p>
+                                                                                                                                                                  </div>
 
-    <section id="musings" class="container">
-        <h2>musings</h2>
-        <p>i love to write.</p>
-    <ul>
-        <li><a href="blog1.html">couch surfing</a></li>
-        <li><a href="blog2.html">leap of faith</a></li>
-        <li><a href="blog3.html">problem solvers</a></li>
-        <li><a href="blog4.html">chess, poker & math</a></li>
-        <li><a href="blog5.html">22nd year of my life</a></li>
-    </ul>
-    </section>
+  <!-- DON’T REMOVE THE FOLLOWING TWO LINES! -->
+  <script type="text/javascript">const fs = 3.5;</script>
+  <script type="text/javascript" src="https://temper.one/temper.js"></script>
 
-    <section id="fun stuff" class="container">
-        <h2>da vinci syndrome</h2>
-        <p>"why does this not exist yet?" is my </p>
-        <ul>
-            <li><a href="blog1.html">z-fellows</a></li>
-            <li><a href="blog2.html">paturn.io</a></li>
-            <li><a href="blog3.html">wtf.archives</a></li>
-            <li><a href="blog4.html">100 math problems</a></li>
-            <li><a href="blog5.html">raw mango</a></li>
-            <li><a href="blog6.html">the feynman</a></li>
-            <li><a href="blog7.html">the co3 bot</a></li>
-            <li><a href="blog8.html">ripen job boards</a></li>
-            <li>couple of crypto projects that reached $100K mcap</li>
-        </ul>
-        <p>i enjoy collaboration -- holler at me if i can help you</p>
-    </section>
+</body>
+</html>
 
-    <section id="reach out" class="container">
-        <h2>reach out</h2>
-          <ul>
-            <li><a href="mailto:tike@ripen.in" target="_blank">e-mail</a></li>
-            <li><a href="https://twitter.com/heetike" target="_blank">twitter</a></li>
-            <li><a href="https://www.instagram.com/heetike/" target="_blank">instagram</a></li>
-          </ul>
-          
-        </section>
-    </section>
-
-    <section id="vibes" class="container">
-        <h2>vibes</h2>
-        <p>Place where you can dump images. Showcase your photography, designs, or any visuals you'd like to share.</p>
-        <!-- Example of an image: <img src="path_to_your_image.jpg" alt="Description of the image"> -->
-    </section>
-
-    <footer>
-        <p>tk© 2024</p>
     </footer>
 </body>
 </html>
