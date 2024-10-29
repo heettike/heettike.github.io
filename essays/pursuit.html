@@ -7,25 +7,63 @@
   
   <link class="googlefont" href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
   
-  <!-- Same style block as previous essays -->
-  <style>
-    .back-link:hover {
-      opacity: 1;
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 100%;
+      font-weight: inherit;
     }
     
-    @keyframes fadein {
-      0% {
-        opacity: 0;
-        margin-top: 1.5vw;
-      }
-      
-      100% {
-        opacity: 1;
-        margin-top: 0;
-      }
+    body {
+      background: #000000;
+      color: #ffffff;
+      width: 100%;
     }
     
-    // Add these new styles
+    .text {
+      font-family:"Ovo", serif;
+      display: none;
+      opacity: 0;
+      font-size: 26px;
+      line-height: 30px;
+      font-variant-ligatures: normal;
+      visibility: hidden;
+    }
+    
+    .text p {
+      margin: 20px 0;
+      opacity: 0;
+      display: none;
+      visibility: hidden;
+      animation: fadein .2s forwards ease-out;
+      padding: 1.4vw 10vw 2.1vw 3vw;
+    }
+    
+    .title {
+      font-family: "Ovo", serif;
+      font-size: 52px;
+      line-height: 60px;
+      padding: 1.4vw 10vw 0.5vw 3vw;
+      animation: fadein .2s forwards ease-out;
+      opacity: 0;
+      display: none;
+      visibility: hidden;
+    }
+    
+    .date {
+      font-family: "Ovo", serif;
+      font-size: 26px;
+      line-height: 30px;
+      padding: 0 10vw 2.1vw 3vw;
+      opacity: 0.5;
+      animation: fadein .2s forwards ease-out;
+      opacity: 0;
+      display: none;
+      visibility: hidden;
+    }
+    
     .text a {
       text-decoration: none;
       text-decoration-skip-ink: auto;
@@ -46,6 +84,18 @@
     .text a:focus {
       text-decoration: none;
       outline: solid 4px rgba(0,0,0,.4);
+    }
+    
+    @keyframes fadein {
+      0% {
+        opacity: 0;
+        margin-top: 1.5vw;
+      }
+      
+      100% {
+        opacity: 1;
+        margin-top: 0;
+      }
     }
   </style>
 </head>
