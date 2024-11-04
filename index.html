@@ -32,97 +32,132 @@
       visibility: hidden;
     }
     
-    h1 {
-      font: inherit;
-      line-height: inherit;
-      letter-spacing: inherit;
+    .container {
+      display: flex;
+      gap: 4vw;
+      padding: 3vw;
+      max-width: 1200px;
+      margin: 0 auto;
     }
     
-    .text p, h1 {
+    .photo-section {
+      flex-shrink: 0;
+      width: 300px;
+    }
+    
+    .photo-placeholder {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #111111;
+      border-radius: 2px;
+      margin-bottom: 2vw;
+      animation: fadein .2s forwards ease-out;
+      opacity: 0;
+    }
+    
+    .content-section {
+      flex-grow: 1;
+    }
+    
+    .section {
+      margin-bottom: 3vw;
+      animation: fadein .2s forwards ease-out;
+      opacity: 0;
+    }
+    
+    .label {
+      font-size: 20px;
+      opacity: 0.5;
+      margin-bottom: 1vw;
+    }
+    
+    .text p {
       margin: 20px 0;
       opacity: 0;
       display: none;
       visibility: hidden;
       animation: fadein .2s forwards ease-out;
-      padding: 1.4vw 10vw 2.1vw 3vw;
     }
     
     .text a {
       text-decoration: none;
-      text-decoration-skip-ink: auto;
       color: inherit;
-      padding-left: .5vw;
-      padding-right: .5vw;
-      margin-left: -.5vw;
-      margin-right: -.5vw;
-      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
     }
     
     .text a:hover {
-      text-decoration: underline;
-    }
-    
-    .text a:focus {
-      text-decoration: none;
-      outline: solid 4px rgba(0,0,0,.4);
-    }
-    
-    ::selection {
-      background: #fff;
-      background: rgba(250,250,250,.99);
-      color: #000;
+      opacity: 1;
     }
     
     @keyframes fadein {
       0% {
         opacity: 0;
-        margin-top: 1.5vw;
+        transform: translateY(10px);
       }
-      
       100% {
         opacity: 1;
-        margin-top: 0;
-      }
-    }
-
-    @media only screen and (min-width: 640px) {
-      .line-break-mobile {
-        display: none;
+        transform: translateY(0);
       }
     }
     
-    .label {
-      width: 100px;
-      flex-shrink: 0;
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .photo-section {
+        width: 200px;
+      }
     }
     
-    .content {
-      flex-grow: 1;
+    .view-more {
+      display: inline-block;
+      margin-top: 15px;
+      font-size: 20px;  /* reduced from 22px */
+      letter-spacing: 0.02em;
     }
   </style>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="34a57a50-da0a-4664-8f3e-756e2d3d4490"></script>
 </head>
 <body style="display:none;">
   <div class="text">
-    <div style="display: flex;">
-      <p class="label" style="animation-delay: 0.2s;">about/</p>
-      <p class="content"> disciple of experience & failures. <br class="line-break-mobile">do something bigger than self. make loads of money while you're at it.<br class="line-break-mobile"> (rn: on a hunt.) </p>
-    </div>
-    <div style="display: flex;">
-      <p class="label" style="animation-delay: 0.3s;">learning<br>(11.24)/</p>
-      <p class="content">discipline,<br class="line-break-mobile"> bouldering, <br class="line-break-mobile">crypto trading, prompt engineering, <br class="line-break-mobile"> vipassana, being a better human & writing long form.</p>
-    </div>
-    <div style="display: flex;">
-      <p class="label" style="animation-delay: 0.4s;">essays/</p>
-      <p class="content"> <a target="_blank" href="https://heettike.bearblog.dev/create-art-ffs/">create art ffs; <a href="./essays.html#essays">+ a few more..</a></p>
-    </div>
-     <div style="display: flex;">
-      <p class="label" style="animation-delay: 0.5s;">work/</p>
-      <p class="content"> prev. founder at <a href="https://ripen.in">ripen</a> & <a href="https://imaginedhq.com/">imagined</a><a href="./work.html#work"> (details)</a></p>
-    </div>
-    <div style="display: flex;">
-      <p class="label" style="animation-delay: 0.6s;">address/</p>
-      <p class="content"><a target="_blank" href="https://twitter.com/HeetTike">twt</a>, <a target="_blank" href="https://open.spotify.com/user/heettike?si=26258bf129ab4a6b">tunes,</a> <a target="_blank" href="https://www.instagram.com/heetike/">gram</a>, <a target="_blank" href="mailto:tike@ripen.in"><br class="line-break-mobile">mail</a> </a></p>
+    <div class="container">
+      <div class="photo-section">
+        <div class="photo-placeholder" style="animation-delay: 0.1s;"></div>
+        <p style="animation-delay: 0.2s;">
+          <a href="https://twitter.com/HeetTike">twt</a> · 
+          <a href="https://open.spotify.com/user/heettike">tunes</a> · 
+          <a href="https://www.instagram.com/heetike/">gram</a> · 
+          <a href="mailto:tike@ripen.in">mail</a>
+        </p>
+      </div>
+      
+      <div class="content-section">
+        <div class="section" style="animation-delay: 0.3s;">
+          <div class="label">about/</div>
+          <p>23, based out of india. letting curiosity drive the wheel. </p>
+        </div>
+        
+        <div class="section" style="animation-delay: 0.4s;">
+          <div class="label">practising (11.24)/</div>
+          <p>discipline, bouldering, trading, prompt engineering, vipassana & writing long form.</p>
+        </div>
+        
+        <div class="section" style="animation-delay: 0.5s;">
+          <div class="label">essays/ <a href="/essays.html" style="opacity: 0.5;">[all ↗]</a></div>
+          <p>
+            
+            <a href="/essays/createartffs.html">create art ffs,</a>
+            <a href="/essays/pursuit.html">pursuit of intentionality</a>
+          </p>
+        </div>
+        
+        <div class="section" style="animation-delay: 0.6s;">
+          <div class="label">work/</div>
+          <p>exploring & breaking things. in last 3 yrs, founded ripen.in: products & communities built to gamify adulthood, raised $550k from zerodha/goodcapital & imaginedhq.com: venture studio, service & internal products, $200k in revenue over 3 quarters. <a href="/work.html">(more info)</a></p>
+        </div>
+
+      </div>
     </div>
   </div>
   
