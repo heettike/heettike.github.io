@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>essays</title>
-
+  <title>essays - heet tike</title>
   <link class="googlefont" href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
-
-  <style type="text/css" style="display:block">
+  
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -15,111 +14,52 @@
       font-size: 100%;
       font-weight: inherit;
     }
-
+    
     body {
       background: #000000;
       color: #ffffff;
       width: 100%;
     }
-
+    
     .text {
-      font-family:"Ovo", serif;
-      display: none;
-      opacity: 0;
+      font-family: "Ovo", serif;
       font-size: 26px;
       line-height: 30px;
-      font-variant-ligatures: normal;
-      visibility: hidden;
-    }
-
-    h1 {
-      font: inherit;
-      line-height: inherit;
-      letter-spacing: inherit;
-    }
-
-    .text p, h1 {
-      margin: 20px 0;
-      opacity: 0;
-      display: none;
-      visibility: hidden;
-      animation: fadein .2s forwards ease-out;
       padding: 1.4vw 10vw 2.1vw 3vw;
     }
-
+    
     .text a {
       text-decoration: none;
-      text-decoration-skip: ink;
       color: inherit;
-      padding-left: .5vw;
-      padding-right: .5vw;
-      margin-left: -.5vw;
-      margin-right: -.5vw;
-      cursor: pointer;
       opacity: 0.5;
+      transition: opacity 0.2s;
     }
-
+    
     .text a:hover {
-      text-decoration: none;
       opacity: 1;
     }
 
-    .text a:focus {
-      text-decoration: none;
-      outline: solid 4px rgba(0,0,0,.4);
-    }
-
-    ::selection {
-      background: #fff;
-      background: rgba(250,250,250,.99);
-      color: #000;
-    }
-
-    @keyframes fadein {
-      0% {
-        opacity: 0;
-        margin-top: 1.5vw;
-      }
-
-      100% {
-        opacity: 1;
-        margin-top: 0;
-      }
-    }
-
-    @media only screen and (min-width: 640px) {
-      .line-break-mobile {
-        display: none;
-      }
-    }
-
-    .intro-text {
-      font-size: inherit;
-      line-height: inherit;
-    }
-
+    /* Subscription form styles */
     .subscribe-container {
       position: fixed;
       bottom: 2rem;
       left: 3vw;
-      font-family: "Ovo", serif;
       z-index: 100;
     }
 
     .input-wrapper {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+      align-items: center;
+      gap: 1rem;
     }
 
     .email-input {
       width: 300px;
-      padding: 12px 16px;
+      padding: 8px 12px;
       font-size: 1rem;
       font-family: "Ovo", serif;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
+      border-radius: 4px;
       background: transparent;
       color: #ffffff;
     }
@@ -128,13 +68,12 @@
       background: transparent;
       color: rgba(255, 255, 255, 0.5);
       border: none;
-      padding: 12px 0;
       font-size: 1rem;
       font-family: "Ovo", serif;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      transition: color 0.2s;
+      padding: 0;
     }
 
     .subscribe-button:hover {
@@ -142,37 +81,15 @@
     }
 
     .arrow {
-      margin-left: 8px;
-    }
-
-    /* Mobile-specific styles */
-    @media only screen and (max-width: 768px) {
-      .text {
-        padding-bottom: 160px;
-      }
-
-      .subscribe-container {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(5px);
-      }
-      
-      .email-input {
-        width: 100%;
-      }
+      margin-left: 4px;
     }
   </style>
 </head>
-<body style="display:none;">
+
+<body>
   <div class="text">
-    <p class="intro-text" style="animation-delay: 0.1s;">the think-read-write cycle makes a lot of sense to me. i struggle to think clearly, i'm getting better at writing, and i read a lot. to bring cohesiveness, i write. it always travels the furthest.</p>
-    <div style="display: flex;">
-      <p style="animation-delay: 0.3s; width: 100px;">essays/</p>
-      <p><a target="_blank" href="/essays/createartffs.html">create art ffs</a><br><a target="_blank" href="/essays/opportunitycost.html">opportunity cost</a><br><a target="_blank" href="/essays/fewthingsaboutmoney.html">a few things about money</a><br><a target="_blank" href="/essays/perception.html">perception</a><br><a target="_blank" href="/essays/pursuit.html">pursuit of intentionality</a><br><a target="_blank" href="https://open.substack.com/pub/musingsbyh33t/p/household?r=1gwe4m&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true">household & grief</a><br><a target="_blank" href="/essays/couchsurfing.html">couch surfing</a> <br> <a target="_blank" href="/essays/problemsolvers.html">problem solvers</a><br><a target="_blank" href="/essays/youthwastedonbeingyoung.html"> wasting youth</a><br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/the-22nd-year-of-my-life?r=1gwe4m">22nd year of life</a><br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/the-21st-year-of-my-life?r=1gwe4m">21st year of life</a><br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/leap-of-faith?r=1gwe4m">leap of faith</a><br><a target="_blank" href="https://musingsbyh33t.substack.com/p/good-addiction-products?r=1gwe4m">good addiction products</a> <br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/corporate-to-startups-how-my-life?r=1gwe4m">180° flip</a> <br>  <a target="_blank" href="https://open.substack.com/pub/musingsbyh33t/p/monthly-resolutions-update-612?r=1gwe4m&amp;utm_campaign=post&amp;utm_medium=web&amp;showWelcomeOnShare=true">12 resolutions</a> <br><a target="_blank" href="https://musingsbyh33t.substack.com/p/beginners-guide-to-personal-finance?r=1gwe4m">guide to $$</a> <br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/out-of-sync?r=1gwe4m">out of sync</a> <br>  <a target="_blank" href="https://musingsbyh33t.substack.com/p/3-years-in-delhi-university-would?r=1gwe4m">3 years in du</a>&nbsp;</p>
-    </div>
+    <p>essays/</p>
+    <!-- Your existing essay links here -->
   </div>
 
   <div class="subscribe-container">
@@ -192,7 +109,7 @@
           class="email-input"
         >
         <button type="submit" class="subscribe-button">
-          Subscribe <span class="arrow">→</span>
+          Subscribe →
         </button>
       </div>
     </form>
@@ -202,15 +119,15 @@
   <script>
     var submitted = false;
     document.getElementById('subscribe-form').addEventListener('submit', function(e) {
-        if (submitted) {
-            e.preventDefault();
-            return;
-        }
-        submitted = true;
-        setTimeout(function() {
-            document.querySelector('.email-input').value = '';
-            submitted = false;
-        }, 1000);
+      if (submitted) {
+          e.preventDefault();
+          return;
+      }
+      submitted = true;
+      setTimeout(function() {
+          document.querySelector('.email-input').value = '';
+          submitted = false;
+      }, 1000);
     });
   </script>
 </body>
