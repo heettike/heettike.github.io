@@ -99,21 +99,18 @@
     }
 
     .subscribe-container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 3vw;
-      font-family: "Ovo", serif;
       position: fixed;
       bottom: 2rem;
-      left: 0;
-      right: 0;
+      left: 3vw;
+      font-family: "Ovo", serif;
+      z-index: 100;
     }
 
     .input-wrapper {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
     .email-input {
@@ -123,7 +120,8 @@
       font-family: "Ovo", serif;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
-      background: transparent;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
       color: #ffffff;
     }
 
@@ -146,6 +144,26 @@
 
     .arrow {
       margin-left: 8px;
+    }
+
+    /* Mobile-specific styles */
+    @media only screen and (max-width: 768px) {
+      .subscribe-container {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+      }
+      
+      .email-input {
+        width: 100%;
+      }
+      
+      .input-wrapper {
+        width: 100%;
+      }
     }
   </style>
 </head>
