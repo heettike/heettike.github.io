@@ -192,7 +192,7 @@
       action="https://docs.google.com/forms/d/e/1FAIpQLSckFIqsbbnciiF06TEhiML2NluVMVjmoTuekcXdrqnai1wbPQ/formResponse" 
       method="POST" 
       target="hidden_iframe" 
-      onsubmit="submitted=true;"
+      onsubmit="return validateForm();"
     >
       <div class="input-wrapper">
         <input 
@@ -211,18 +211,31 @@
   </div>
 
   <script>
-    var submitted = false;
-    document.getElementById('subscribe-form').addEventListener('submit', function(e) {
-      if (submitted) {
-          e.preventDefault();
-          return;
-      }
-      submitted = true;
-      setTimeout(function() {
-          document.querySelector('.email-input').value = '';
-          submitted = false;
-      }, 1000);
-    });
+    function validateForm() {
+        // Get the email input
+        var email = document.querySelector('.email-input').value;
+        
+        // Log for debugging
+        console.log('Submitting email:', email);
+        
+        try {
+            // Submit the form
+            document.getElementById('subscribe-form').submit();
+            
+            // Clear the input
+            setTimeout(function() {
+                document.querySelector('.email-input').value = '';
+            }, 1000);
+            
+            // Log success
+            console.log('Form submitted successfully');
+            return true;
+        } catch (error) {
+            // Log any errors
+            console.error('Form submission error:', error);
+            return false;
+        }
+    }
   </script>
 </body>
 </html>
