@@ -39,58 +39,47 @@
       opacity: 1;
     }
 
-    /* Subscription form styles */
-    .subscribe-container {
-      position: fixed;
-      bottom: 2rem;
-      left: 3vw;
-      z-index: 100;
-    }
-
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .email-input {
-      width: 300px;
-      padding: 8px 12px;
-      font-size: 1rem;
-      font-family: "Ovo", serif;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-      background: transparent;
-      color: #ffffff;
-    }
-
-    .subscribe-button {
-      background: transparent;
-      color: rgba(255, 255, 255, 0.5);
-      border: none;
-      font-size: 1rem;
-      font-family: "Ovo", serif;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      padding: 0;
-    }
-
-    .subscribe-button:hover {
-      color: rgba(255, 255, 255, 1);
-    }
-
-    .arrow {
-      margin-left: 4px;
-    }
-
-    /* Previous styles remain */
-    .essays-header {
-      margin-bottom: 1rem;
-    }
-    
+    /* Original essay list styling */
     .essays-list {
       margin-left: 2rem;
+      margin-top: 1rem;
+    }
+
+    /* Fixed mobile subscription form */
+    @media only screen and (max-width: 768px) {
+      .text {
+        padding-bottom: 120px; /* Space for fixed subscription form */
+      }
+
+      .subscribe-container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+      }
+
+      .input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .email-input {
+        width: 100%;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+      }
+
+      .subscribe-button {
+        white-space: nowrap;
+      }
     }
   </style>
 </head>
