@@ -102,48 +102,12 @@
       position: fixed;
       bottom: 2rem;
       left: 3vw;
-      font-family: "Ovo", serif;
       z-index: 100;
     }
 
-    .input-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-
-    .email-input {
-      width: 300px;
-      padding: 12px 16px;
-      font-size: 1rem;
-      font-family: "Ovo", serif;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-      color: #ffffff;
-    }
-
-    .subscribe-button {
+    .tally-iframe {
       background: transparent;
-      color: rgba(255, 255, 255, 0.5);
       border: none;
-      padding: 12px 0;
-      font-size: 1rem;
-      font-family: "Ovo", serif;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      transition: color 0.2s;
-    }
-
-    .subscribe-button:hover {
-      color: rgba(255, 255, 255, 1);
-    }
-
-    .arrow {
-      margin-left: 8px;
     }
 
     /* Mobile-specific styles */
@@ -170,6 +134,8 @@
       }
     }
   </style>
+
+  <script src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body style="display:none;">
   <div class="text">
@@ -181,11 +147,17 @@
   </div>
 
   <div class="subscribe-container">
-    <form action="https://tally.so/r/3j0el6" method="POST" class="subscribe-form">
+    <form 
+      id="subscribe-form" 
+      action="https://docs.google.com/forms/d/e/1FAIpQLSckFIqsbbnciiF06TEhiML2NluVMVjmoTuekcXdrqnai1wbPQ/formResponse" 
+      method="POST" 
+      target="hidden_iframe" 
+      onsubmit="submitted=true;"
+    >
       <div class="input-wrapper">
         <input 
           type="email" 
-          name="email" 
+          name="entry.258490315"
           placeholder="me@email.com" 
           required 
           class="email-input"
@@ -195,10 +167,31 @@
         </button>
       </div>
     </form>
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
   </div>
 
   <!-- DON'T REMOVE THE FOLLOWING TWO LINES! -->
   <script type="text/javascript">const fs = 3.5;</script>
   <script type="text/javascript" src="https://temper.one/temper.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      Tally.loadEmbeds();
+    });
+
+    var submitted = false;
+    document.getElementById('subscribe-form').addEventListener('submit', function(e) {
+        if (submitted) {
+            e.preventDefault();
+            return;
+        }
+        submitted = true;
+        // Clear the input and show brief "Subscribed!" message
+        setTimeout(function() {
+            document.querySelector('.email-input').value = '';
+            submitted = false;
+        }, 1000);
+    });
+  </script>
 </body>
 </html>
