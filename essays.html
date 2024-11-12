@@ -191,8 +191,7 @@
       id="subscribe-form" 
       action="https://docs.google.com/forms/d/e/1FAIpQLSckFIqsbbnciiF06TEhiML2NluVMVjmoTuekcXdrqnai1wbPQ/formResponse" 
       method="POST" 
-      target="hidden_iframe" 
-      onsubmit="return validateForm();"
+      target="hidden_iframe"
     >
       <div class="input-wrapper">
         <input 
@@ -207,35 +206,30 @@
         </button>
       </div>
     </form>
-    <iframe name="hidden_iframe" style="display:none;"></iframe>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
   </div>
 
   <script>
-    function validateForm() {
-        // Get the email input
-        var email = document.querySelector('.email-input').value;
-        
-        // Log for debugging
-        console.log('Submitting email:', email);
-        
-        try {
-            // Submit the form
-            document.getElementById('subscribe-form').submit();
-            
-            // Clear the input
-            setTimeout(function() {
-                document.querySelector('.email-input').value = '';
-            }, 1000);
-            
-            // Log success
-            console.log('Form submitted successfully');
-            return true;
-        } catch (error) {
-            // Log any errors
-            console.error('Form submission error:', error);
-            return false;
-        }
-    }
+    // Wait for iframe to load
+    var iframe = document.getElementById('hidden_iframe');
+    iframe.onload = function() {
+      // Clear the form after successful submission
+      var input = document.querySelector('.email-input');
+      if (input.value) {
+        console.log('Submission completed for:', input.value);
+        input.value = '';
+      }
+    };
+
+    // Handle form submission
+    document.getElementById('subscribe-form').addEventListener('submit', function(e) {
+      var email = document.querySelector('.email-input').value;
+      console.log('Attempting to submit:', email);
+      
+      // Don't prevent default - let the form submit naturally
+      // Just log the attempt
+      console.log('Form submitted, awaiting response...');
+    });
   </script>
 </body>
 </html>
