@@ -130,20 +130,32 @@
     @media only screen and (max-width: 768px) {
       .social-links {
         font-size: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
       }
       
-      .social-links span:nth-child(3) {
-        display: none;  /* Hide the third bullet point */
+      .social-row {
+        margin: 0.3rem 0;
       }
       
-      /* First line: twt • tunes */
-      .social-links a:nth-child(3),
-      .social-links a:nth-child(4) {
+      /* Hide the original layout on mobile */
+      .social-links > a, 
+      .social-links > span {
+        display: none;
+      }
+      
+      /* Show the new rows on mobile */
+      .social-row {
         display: block;
-        margin-top: 0.3rem;
+      }
+    }
+    
+    /* Desktop: hide the rows, show inline */
+    @media screen and (min-width: 769px) {
+      .social-row {
+        display: none;
+      }
+      
+      .social-links {
+        display: inline;
       }
     }
   </style>
@@ -176,7 +188,8 @@
           </video>
         </div>
         <div class="social-links">
-          <a href="#">twt</a> • <a href="#">tunes</a> • <a href="#">gram</a> • <a href="#">mail</a>
+          <div class="social-row">twt • tunes</div>
+          <div class="social-row">IG • mail</div>
         </div>
       </div>
       
