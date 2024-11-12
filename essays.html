@@ -81,6 +81,65 @@
         white-space: nowrap;
       }
     }
+
+    .subscribe-container {
+      position: fixed;
+      bottom: 2rem;
+      left: 3vw;
+      z-index: 100;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .email-input {
+      width: 300px;
+      padding: 8px 12px;
+      font-size: 1rem;
+      font-family: "Ovo", serif;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      background: transparent;
+      color: #ffffff;
+    }
+
+    .subscribe-button {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.5);
+      border: none;
+      font-size: 1rem;
+      font-family: "Ovo", serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Mobile styles */
+    @media only screen and (max-width: 768px) {
+      .text {
+        padding-bottom: 120px;  /* Space for the fixed form */
+      }
+
+      .subscribe-container {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.95);
+      }
+
+      .input-wrapper {
+        width: 100%;
+      }
+
+      .email-input {
+        flex: 1;  /* Take up available space */
+        width: auto;  /* Override desktop width */
+      }
+    }
   </style>
 </head>
 
@@ -131,7 +190,7 @@
           class="email-input"
         >
         <button type="submit" class="subscribe-button">
-          subscribe →
+          Subscribe →
         </button>
       </div>
     </form>
