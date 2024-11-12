@@ -97,6 +97,56 @@
       font-size: inherit;
       line-height: inherit;
     }
+
+    .subscribe-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 3vw;
+      font-family: "Ovo", serif;
+      position: fixed;
+      bottom: 2rem;
+      left: 0;
+      right: 0;
+    }
+
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .email-input {
+      width: 300px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-family: "Ovo", serif;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      background: transparent;
+      color: #ffffff;
+    }
+
+    .subscribe-button {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.5);
+      border: none;
+      padding: 12px 0;
+      font-size: 1rem;
+      font-family: "Ovo", serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .subscribe-button:hover {
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .arrow {
+      margin-left: 8px;
+    }
   </style>
 </head>
 <body style="display:none;">
@@ -106,6 +156,23 @@
       <p style="animation-delay: 0.3s; width: 100px;">essays/</p>
       <p><a target="_blank" href="/essays/createartffs.html">create art ffs;</a><br><a target="_blank" href="/essays/opportunitycost.html">opportunity cost;</a><br><a target="_blank" href="/essays/fewthingsaboutmoney.html">a few things about money;</a><br><a target="_blank" href="/essays/perception.html">perception;</a><br><a target="_blank" href="/essays/pursuit.html">pursuit of intentionality;</a><br><a target="_blank" href="https://open.substack.com/pub/musingsbyh33t/p/household?r=1gwe4m&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true">household & grief;</a><br><a target="_blank" href="/essays/couchsurfing.html">couch surfing</a>; <br> <a target="_blank" href="/essays/problemsolvers.html">problem solvers</a>;<br><a target="_blank" href="/essays/youthwastedonbeingyoung.html"> wasting youth</a>; <br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/the-22nd-year-of-my-life?r=1gwe4m">22nd year of life</a>;<br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/the-21st-year-of-my-life?r=1gwe4m">21st year of life</a>;<br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/leap-of-faith?r=1gwe4m">leap of faith</a>;<br><a target="_blank" href="https://musingsbyh33t.substack.com/p/good-addiction-products?r=1gwe4m">good addiction</a>; <br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/corporate-to-startups-how-my-life?r=1gwe4m">180° flip</a>; <br>  <a target="_blank" href="https://open.substack.com/pub/musingsbyh33t/p/monthly-resolutions-update-612?r=1gwe4m&amp;utm_campaign=post&amp;utm_medium=web&amp;showWelcomeOnShare=true">12 resolutions</a>; <br><a target="_blank" href="https://musingsbyh33t.substack.com/p/beginners-guide-to-personal-finance?r=1gwe4m">guide to $$</a>; <br> <a target="_blank" href="https://musingsbyh33t.substack.com/p/out-of-sync?r=1gwe4m">out of sync</a>; <br>  <a target="_blank" href="https://musingsbyh33t.substack.com/p/3-years-in-delhi-university-would?r=1gwe4m">3 years in du</a>;&nbsp;</p>
     </div>
+  </div>
+
+  <div class="subscribe-container">
+    <form action="https://tally.so/r/3j0el6" method="POST" class="subscribe-form">
+      <div class="input-wrapper">
+        <input 
+          type="email" 
+          name="email" 
+          placeholder="me@email.com" 
+          required 
+          class="email-input"
+        >
+        <button type="submit" class="subscribe-button">
+          Subscribe <span class="arrow">→</span>
+        </button>
+      </div>
+    </form>
   </div>
 
   <!-- DON'T REMOVE THE FOLLOWING TWO LINES! -->
