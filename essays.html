@@ -41,8 +41,12 @@
 
     /* Original essay list styling */
     .essays-list {
-      margin-left: 2rem;
-      margin-top: 1rem;
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+
+    .essays-list p {
+      margin: 0.2rem 0;
     }
 
     /* Fixed mobile subscription form */
@@ -105,7 +109,13 @@
       background: transparent;
       color: #ffffff;
     }
-
+    .intro {
+      margin-bottom: 1rem;  /* Space before the extra line break */
+    }
+    .essays-container {
+      margin-top: 1rem;  /* Space after the extra line break */
+    }
+    
     .subscribe-button {
       background: transparent;
       color: rgba(255, 255, 255, 0.5);
@@ -147,7 +157,9 @@
   <div class="text">
     <p>the think-read-write cycle makes a lot of sense to me. i struggle to think clearly, i'm getting better at writing, and i read a lot. to bring cohesiveness, i write. it always travels the furthest.</p>
     
-    <p class="essays-header">essays/</p>
+    <br>
+    <div class="essays-container">
+      <p>essays/</p>
     
     <div class="essays-list">
       <p><a href="essays/createartffs.html">create art ffs</a></p>
@@ -171,6 +183,7 @@
       <p><a href="https://musingsbyh33t.substack.com/p/out-of-sync?r=1gwe4m">out of sync</a></p>
       <p><a href="https://musingsbyh33t.substack.com/p/3-years-in-delhi-university-would?r=1gwe4m">3 years in du</a></p>
     </div>
+  </div>
   </div>
 
   <div class="subscribe-container">
