@@ -4,18 +4,18 @@ def update_temper_script(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
     
-    # Remove existing temper script if present
+    # Remove existing temper scripts
     if 'temper.js' in content:
         lines = content.split('\n')
         new_lines = []
         for line in lines:
-            if 'temper.js' not in line:
+            if 'temper.js' not in line and 'const fs' not in line:
                 new_lines.append(line)
         content = '\n'.join(new_lines)
     
     # Add new temper scripts before </body>
     new_scripts = '''  <script type="text/javascript">const fs = 3.5;</script>
-  <script type="text/javascript" src="https://temper.one/temper.js"></script>'''
+  <script type="text/javascript" src="https://temper.one/temper-key.js"></script>'''
     
     content = content.replace('</body>', f'{new_scripts}\n</body>')
     
