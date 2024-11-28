@@ -8,7 +8,7 @@ def modify_file(file_path):
     old_css = """    .text p {
       margin: 20px 0;"""
     new_css = """    .text p {
-      margin: 10px 0;"""
+      margin: 5px 0;"""
     
     modified_content = content.replace(old_css, new_css)
     
