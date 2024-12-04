@@ -24,19 +24,19 @@
     
     .text {
       font-family:"Ovo", serif;
-      display: none;
-      opacity: 0;
+      display: block;
+      opacity: 1;
       font-size: 18px;
       line-height: 21px;
       font-variant-ligatures: normal;
-      visibility: hidden;
+      visibility: visible;
     }
     
     .text p {
       margin: 10px 0;
-      opacity: 0;
-      display: none;
-      visibility: hidden;
+      opacity: 1;
+      display: block;
+      visibility: visible;
       animation: fadein .2s forwards ease-out;
       padding: 1.4vw 10vw 2.1vw 3vw;
     }
@@ -47,9 +47,9 @@
       line-height: 42px;
       padding: 1.4vw 10vw 0.5vw 3vw;
       animation: fadein .2s forwards ease-out;
-      opacity: 0;
-      display: none;
-      visibility: hidden;
+      opacity: 1;
+      display: block;
+      visibility: visible;
     }
     
     .date {
@@ -59,9 +59,9 @@
       padding: 0 10vw 2.1vw 3vw;
       opacity: 0.5;
       animation: fadein .2s forwards ease-out;
-      opacity: 0;
-      display: none;
-      visibility: hidden;
+      opacity: 1;
+      display: block;
+      visibility: visible;
     }
     
     .text a {
@@ -99,7 +99,7 @@
     }
   </style>
 </head>
-<body style="display:none;">
+<body>
   <div class="text">
     <p style="animation-delay: 0.1s;">
       <a href="/essays.html" class="back-link">← back</a>
@@ -130,6 +130,6 @@
   </div>
   
   <script type="text/javascript">const fs = 3.5;</script>
-  <script type="text/javascript" src="https://temper.one/temper-key.js"></script>
+  <script type="text/javascript" src="https://temper.one/temper.js"></script>
 </body>
 </html>
