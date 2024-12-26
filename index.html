@@ -118,44 +118,43 @@
       letter-spacing: 0.02em;
     }
     
-    .social-links {
-      font-size: 26px;
+    .social-links, .social-rows {
+      margin-top: 15px;
+    }
+    
+    .social-links a, .social-rows a {
+      text-decoration: none;
+      color: #ffffff;
       opacity: 0.5;
+      transition: opacity 0.2s ease;
     }
     
-    .line1, .line2 {
-      margin: 0.3rem 0;  /* Space between lines */
+    .social-links a:hover, .social-rows a:hover {
+      opacity: 1;
     }
     
-    @media only screen and (max-width: 768px) {
+    /* Desktop styles */
+    @media screen and (min-width: 769px) {
+      .social-rows {
+        display: none;
+      }
       .social-links {
+        display: block;
+        font-size: 22px;
+      }
+    }
+    
+    /* Mobile styles */
+    @media screen and (max-width: 768px) {
+      .social-links {
+        display: none;
+      }
+      .social-rows {
+        display: block;
         font-size: 20px;
       }
-      
       .social-row {
-        margin: 0.3rem 0;
-      }
-      
-      /* Hide the original layout on mobile */
-      .social-links > a, 
-      .social-links > span {
-        display: none;
-      }
-      
-      /* Show the new rows on mobile */
-      .social-row {
-        display: block;
-      }
-    }
-    
-    /* Desktop: hide the rows, show inline */
-    @media screen and (min-width: 769px) {
-      .social-row {
-        display: none;
-      }
-      
-      .social-links {
-        display: inline;
+        margin: 8px 0;
       }
     }
   </style>
@@ -187,18 +186,34 @@
             Your browser does not support the video tag.
           </video>
         </div>
-        <div class="social-links">
-          <a href="https://x.com/HeetTike">x</a> • <a href="https://open.spotify.com/user/heettike?si=5d4a5556ff734ad1">tunes</a> • <a href="https://www.instagram.com/heetike/">instagram</a>
-          <a href="https://www.linkedin.com/in/heettike">linkedin</a> • <a href="https://github.com/heettike">github</a>
+        
+        <!-- Desktop social links -->
+        <div class="social-links" style="animation-delay: 0.2s;">
+          <a href="https://x.com/HeetTike">x</a> • 
+          <a href="https://open.spotify.com/user/heettike">tunes</a> • 
+          <a href="https://www.instagram.com/heetike/">ig</a> • 
+          <a href="https://www.linkedin.com/in/heettike">in</a> • 
+          <a href="https://github.com/heettike">gh</a>
         </div>
-        <div class="social-row">
-          <a href="mailto:tike@ripen.in">e-mail</a> • 
+
+        <!-- Mobile social links -->
+        <div class="social-rows" style="animation-delay: 0.2s;">
+          <div class="social-row line1">
+            <a href="https://x.com/HeetTike">x</a> • 
+            <a href="https://www.instagram.com/heetike/">ig</a> • 
+            <a href="https://open.spotify.com/user/heettike">tunes</a>
+          </div>
+          <div class="social-row line2">
+            <a href="https://www.linkedin.com/in/heettike">in</a> • 
+            <a href="https://github.com/heettike">gh</a> • 
+            <a href="mailto:tike@ripen.in">mail</a>
+          </div>
         </div>
       </div>
       <div class="content-section">
         <div class="section" style="animation-delay: 0.3s;">
 
-          <p>23. awake after a long nap. <br> <span style="font-size: 75%"> currently <a href="/essays.html" style="opacity: 0.5;"> writing</a>, <a href="https://curius.app/heet-tike2" style="opacity: 0.5;">reading</a> <a href="https://bit.ly/internet-heet" style="opacity: 0.5;">curating, </a> fostering a house full of love, a calm mind, a fit body & (<a href="https://eli5.fun">eli5</a>). </a>spent the last 3 years building <a href="https://ripen.in">ripen</a> & <a href="https://imaginedhq.com">imagined studios</a></span></p>
+          <p>23. awake after a long nap. <br> <span style="font-size: 75%"> currently <a href="/essays.html" style="opacity: 0.5;"> writing</a>, <a href="https://curius.app/heet-tike2" style="opacity: 0.5;">reading</a> <a href="https://bit.ly/internet-heet" style="opacity: 0.5;">curating, </a> while learning to foster a house full of love, a calm mind & a fit body. </a>spent the last 3 years building <a href="https://ripen.in">ripen</a> & <a href="https://imaginedhq.com">imagined studios</a></span></p>. majored in econ from srcc / spent all of college working in finance.
         </div>
     
 
