@@ -4,32 +4,27 @@ def fix_essay_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
     
-    # Fix 1: Remove display:none from body
-    content = content.replace('<body style="display:none;">', '<body>')
-    
-    # Fix 2: Update visibility and display in text class
-    content = content.replace('''      display: none;
-      opacity: 0;
-      font-size: 18px;
-      line-height: 21px;
-      font-variant-ligatures: normal;
-      visibility: hidden;''', '''      display: block;
-      opacity: 1;
-      font-size: 18px;
-      line-height: 21px;
-      font-variant-ligatures: normal;
-      visibility: visible;''')
-    
-    # Fix 3: Update text p class
-    content = content.replace('''      opacity: 0;
-      display: none;
-      visibility: hidden;''', '''      opacity: 1;
-      display: block;
-      visibility: visible;''')
-    
-    # Fix 4: Standardize temper script
-    content = content.replace('temper-key.js', 'temper.js')
+    # Fix 1: Remove animation delays
+    content = content.replace('style="animation-delay: 0.1s;"', '')
+    content = content.replace('style="animation-delay: 0.2s;"', '')
+    content = content.replace('style="animation-delay: 0.3s;"', '')
+    content = content.replace('style="animation-delay: 0.4s;"', '')
+    content = content.replace('style="animation-delay: 0.5s;"', '')
+    content = content.replace('style="animation-delay: 0.6s;"', '')
+    content = content.replace('style="animation-delay: 0.7s;"', '')
+    content = content.replace('style="animation-delay: 0.8s;"', '')
+    content = content.replace('style="animation-delay: 0.9s;"', '')
+    content = content.replace('style="animation-delay: 1.0s;"', '')
+    content = content.replace('style="animation-delay: 1.1s;"', '')
+    content = content.replace('style="animation-delay: 1.2s;"', '')
 
+    # Fix 2: Update text width and paragraph spacing in CSS
+    content = content.replace('padding: 1.4vw 10vw 2.1vw 3vw;', 'padding: 1.4vw 25vw 1.4vw 3vw;')
+    
+    # Fix 3: Adjust paragraph margins
+    content = content.replace('margin: 5px 0;', 'margin: 12px 0;')
+    content = content.replace('margin: 15px 0;', 'margin: 12px 0;')
+    
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(content)
 
