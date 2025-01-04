@@ -39,7 +39,6 @@
       opacity: 1;
     }
 
-    /* Original essay list styling */
     .essays-list {
       margin-left: 0;
       margin-top: 0.5rem;
@@ -48,107 +47,13 @@
     .essays-list p {
       margin: 0.2rem 0;
     }
-
-    /* Fixed mobile subscription form */
-    @media only screen and (max-width: 768px) {
-      .text {
-        padding-bottom: 120px; /* Space for fixed subscription form */
-      }
-
-      .subscribe-container {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(5px);
-        z-index: 1000;
-      }
-
-      .input-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .email-input {
-        width: 100%;
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 8px 12px;
-        border-radius: 4px;
-      }
-
-      .subscribe-button {
-        white-space: nowrap;
-      }
-    }
-
-    .subscribe-container {
-      margin-top: 2rem;  /* Add top margin */
-      position: relative; /* Change from fixed to relative */
-      left: 3vw;
-      z-index: 100;
-    }
-
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .email-input {
-      width: 300px;
-      padding: 8px 12px;
-      font-size: 1rem;
-      font-family: "Ovo", serif;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-      background: transparent;
-      color: #ffffff;
-    }
+    
     .intro {
-      margin-bottom: 1rem;  /* Space before the extra line break */
-    }
-    .essays-container {
-      margin-top: 1rem;  /* Space after the extra line break */
+      margin-bottom: 1rem;
     }
     
-    .subscribe-button {
-      background: transparent;
-      color: rgba(255, 255, 255, 0.5);
-      border: none;
-      font-size: 1rem;
-      font-family: "Ovo", serif;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    /* Mobile styles */
-    @media only screen and (max-width: 768px) {
-      .text {
-        padding-bottom: 120px;  /* Space for the fixed form */
-      }
-
-      .subscribe-container {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.95);
-      }
-
-      .input-wrapper {
-        width: 100%;
-      }
-
-      .email-input {
-        flex: 1;  /* Take up available space */
-        width: auto;  /* Override desktop width */
-      }
+    .essays-container {
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -163,80 +68,32 @@
     <div class="essays-container">
       <p>essays/</p>
     
-    <div class="essays-list">
-      <p><a href="essays/fishermen.html">fishermen</a></p>
-      <p><a href="essays/metaonmoney.html">meta on money</a></p>
-      <p><a href="essays/rejection.html">rejection</a></p>
-      <p><a href="essays/createartffs.html">create art ffs</a></p>
-      <p><a href="essays/opportunitycost.html">opportunity cost</a></p>
-      <p><a href="essays/fewthingsaboutmoney.html">a few things about money</a></p>
-      <p><a href="essays/perception.html">perception</a></p>
-      <p><a href="essays/pursuit.html">pursuit of intentionality</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/household?r=1gwe4m">household</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/we-take-ourselves-too-seriously?r=1gwe4m">we take ourselves too seriously</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/being-critical?r=1gwe4m">being critical</a></p>
-      <p><a href="essays/couchsurfing.html">couch surfing</a></p>
-      <p><a href="essays/problemsolvers.html">problem solvers</a></p>
-      <p><a href="essays/youthwastedonbeingyoung.html">wasting youth</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/the-22nd-year-of-my-life?r=1gwe4m">22nd year of life </a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/the-21st-year-of-my-life?r=1gwe4m">21st year of life</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/leap-of-faith?r=1gwe4m">leap of faith</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/good-addiction-products?r=1gwe4m">good addiction</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/corporate-to-startups-how-my-life?r=1gwe4m"> corporate to startups: 180° flip</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/monthly-resolutions-update-612?r=1gwe4ml">monthly resolutions</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/beginners-guide-to-personal-finance?r=1gwe4m">beginner's guide to $$</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/out-of-sync?r=1gwe4m">out of sync</a></p>
-      <p><a href="https://musingsbyh33t.substack.com/p/3-years-in-delhi-university-would?r=1gwe4m">3 years in du</a></p>
+      <div class="essays-list">
+        <p><a href="essays/fishermen.html">fishermen</a></p>
+        <p><a href="essays/metaonmoney.html">meta on money</a></p>
+        <p><a href="essays/rejection.html">rejection</a></p>
+        <p><a href="essays/createartffs.html">create art ffs</a></p>
+        <p><a href="essays/opportunitycost.html">opportunity cost</a></p>
+        <p><a href="essays/fewthingsaboutmoney.html">a few things about money</a></p>
+        <p><a href="essays/perception.html">perception</a></p>
+        <p><a href="essays/pursuit.html">pursuit of intentionality</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/household?r=1gwe4m">household</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/we-take-ourselves-too-seriously?r=1gwe4m">we take ourselves too seriously</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/being-critical?r=1gwe4m">being critical</a></p>
+        <p><a href="essays/couchsurfing.html">couch surfing</a></p>
+        <p><a href="essays/problemsolvers.html">problem solvers</a></p>
+        <p><a href="essays/youthwastedonbeingyoung.html">wasting youth</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/the-22nd-year-of-my-life?r=1gwe4m">22nd year of life </a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/the-21st-year-of-my-life?r=1gwe4m">21st year of life</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/leap-of-faith?r=1gwe4m">leap of faith</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/good-addiction-products?r=1gwe4m">good addiction</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/corporate-to-startups-how-my-life?r=1gwe4m"> corporate to startups: 180° flip</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/monthly-resolutions-update-612?r=1gwe4ml">monthly resolutions</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/beginners-guide-to-personal-finance?r=1gwe4m">beginner's guide to $$</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/out-of-sync?r=1gwe4m">out of sync</a></p>
+        <p><a href="https://musingsbyh33t.substack.com/p/3-years-in-delhi-university-would?r=1gwe4m">3 years in du</a></p>
+      </div>
     </div>
   </div>
-  </div>
-
-  <br>
-  
-  <div class="subscribe-container">
-    <form 
-      id="subscribe-form" 
-      action="https://docs.google.com/forms/d/e/1FAIpQLSckFIqsbbnciiF06TEhiML2NluVMVjmoTuekcXdrqnai1wbPQ/formResponse" 
-      method="POST" 
-      target="hidden_iframe"
-    >
-      <div class="input-wrapper">
-        <input 
-          type="email" 
-          name="entry.258490315"
-          placeholder="your email" 
-          required 
-          class="email-input"
-        >
-        <button type="submit" class="subscribe-button">
-          subscribe →
-        </button>
-      </div>
-    </form>
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-  </div>
-
-  <script>
-    // Wait for iframe to load
-    var iframe = document.getElementById('hidden_iframe');
-    iframe.onload = function() {
-      // Clear the form after successful submission
-      var input = document.querySelector('.email-input');
-      if (input.value) {
-        console.log('Submission completed for:', input.value);
-        input.value = '';
-      }
-    };
-
-    // Handle form submission
-    document.getElementById('subscribe-form').addEventListener('submit', function(e) {
-      var email = document.querySelector('.email-input').value;
-      console.log('Attempting to submit:', email);
-      
-      // Don't prevent default - let the form submit naturally
-      // Just log the attempt
-      console.log('Form submitted, awaiting response...');
-    });
-  </script>
 </body>
 </html>
