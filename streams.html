@@ -107,7 +107,7 @@
     
     async function fetchStreams() {
       try {
-        // Use a CORS proxy to fetch the RSS feed
+        // Use CORS proxy to fetch streams
         const CORS_PROXY = 'https://corsproxy.io/';
         const STREAMS_URL = `https://streams.place/${USERNAME}/json`;
         const response = await fetch(CORS_PROXY + '?' + encodeURIComponent(STREAMS_URL));
