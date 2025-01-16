@@ -108,9 +108,13 @@
     async function fetchStreams() {
       try {
         // Use CORS proxy to fetch streams
-        const CORS_PROXY = 'https://corsproxy.io/';
+        const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
         const STREAMS_URL = `https://streams.place/${USERNAME}/json`;
-        const response = await fetch(CORS_PROXY + '?' + encodeURIComponent(STREAMS_URL));
+        const response = await fetch(CORS_PROXY + encodeURIComponent(STREAMS_URL), {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -139,15 +143,15 @@
             stream.media.forEach(media => {
               if (media.type === 'photo') {
                 mediaHtml += `<div class="stream-media">
-                  <img src="${media.urlToFile}" alt="Stream media">
+                  <img src="${media.urlToFile}" alt="Stream media" loading="lazy">
                 </div>`;
               } else if (media.type === 'animation') {
                 mediaHtml += `<div class="stream-media">
-                  <img src="${media.urlToFile}" alt="Stream animation">
+                  <img src="${media.urlToFile}" alt="Stream animation" loading="lazy">
                 </div>`;
               } else if (media.type === 'audio') {
                 mediaHtml += `<div class="stream-media">
-                  <audio controls>
+                  <audio controls preload="none">
                     <source src="${media.urlToFile}" type="audio/ogg">
                     Your browser does not support the audio element.
                   </audio>
@@ -161,7 +165,7 @@
               <div class="stream-date">${formattedDate}</div>
               <div class="stream-content">${stream.html || stream.text}</div>
               ${mediaHtml}
-              <a href="https://streams.place/${USERNAME}" target="_blank" class="stream-link">View on streams.place →</a>
+              <a href="https://streams.place/${USERNAME}#${stream.id}" target="_blank" class="stream-link">View on streams.place →</a>
             </div>
           `;
           
@@ -170,7 +174,9 @@
       } catch (error) {
         console.error('Error fetching streams:', error);
         let errorMessage = 'Failed to load streams. ';
-        if (error.message.includes('HTTP error')) {
+        if (error.message.includes('403')) {
+          errorMessage += 'Access denied. The server might be blocking our request.';
+        } else if (error.message.includes('HTTP error')) {
           errorMessage += 'The server returned an error. Please check if your username is correct.';
         } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
           errorMessage += 'Could not connect to streams.place. Please check your internet connection.';
