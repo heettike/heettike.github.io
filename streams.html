@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>streams - heet tike</title>
+  
+  <link class="googlefont" href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Ovo', serif;
+    }
+    
+    .text {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .back-link {
+      color: #999;
+      text-decoration: none;
+      opacity: 0.5;
+    }
+    
+    .back-link:hover {
+      opacity: 1;
+    }
+    
+    .title {
+      margin-bottom: 0;
+      font-size: 36px;
+      line-height: 1.2;
+    }
+    
+    .stream-container {
+      margin-top: 40px;
+    }
+    
+    .stream-item {
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .stream-date {
+      color: #999;
+      font-size: 14px;
+      opacity: 0.5;
+      margin-bottom: 10px;
+    }
+    
+    .stream-content {
+      line-height: 1.6;
+      font-size: 18px;
+    }
+    
+    .stream-media {
+      margin-top: 20px;
+    }
+    
+    .stream-media img {
+      max-width: 100%;
+      border-radius: 4px;
+    }
+    
+    .stream-media audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body style="display:none;">
+  <div class="text" style="display: block; visibility: visible; opacity: 1;">
+    <p>
+      <a href="/" class="back-link">← back</a>
+    </p>
+    
+    <h1 class="title">streams</h1>
+    
+    <div id="stream-container" class="stream-container">
+      <!-- Streams content will be loaded here -->
+    </div>
+  </div>
+
+  <script>
+    const USERNAME = 'heettike';
+    
+    async function fetchStreams() {
+      try {
+        const response = await fetch(`https://streams.place/${USERNAME}/json`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const streams = await response.json();
+        
+        if (!streams || !Array.isArray(streams) || streams.length === 0) {
+          document.getElementById('stream-container').innerHTML = '<p>No streams found. Have you created your first stream?</p>';
+          return;
+        }
+        
+        const container = document.getElementById('stream-container');
+        
+        streams.forEach(stream => {
+          const date = new Date(parseInt(stream.timestamp));
+          const formattedDate = date.toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          });
+          
+          let mediaHtml = '';
+          if (stream.media && stream.media.length > 0) {
+            stream.media.forEach(media => {
+              if (media.type === 'photo') {
+                mediaHtml += `<div class="stream-media">
+                  <img src="${media.urlToFile}" alt="Stream media">
+                </div>`;
+              } else if (media.type === 'animation') {
+                mediaHtml += `<div class="stream-media">
+                  <img src="${media.urlToFile}" alt="Stream animation">
+                </div>`;
+              } else if (media.type === 'audio') {
+                mediaHtml += `<div class="stream-media">
+                  <audio controls>
+                    <source src="${media.urlToFile}" type="audio/ogg">
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>`;
+              }
+            });
+          }
+          
+          const streamHtml = `
+            <div class="stream-item">
+              <div class="stream-date">${formattedDate}</div>
+              <div class="stream-content">${stream.html}</div>
+              ${mediaHtml}
+            </div>
+          `;
+          
+          container.innerHTML += streamHtml;
+        });
+      } catch (error) {
+        console.error('Error fetching streams:', error);
+        let errorMessage = 'Failed to load streams. ';
+        if (error.message.includes('HTTP error')) {
+          errorMessage += 'The server returned an error. Please check if your username is correct.';
+        } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+          errorMessage += 'Could not connect to streams.place. Please check your internet connection.';
+        } else {
+          errorMessage += 'Please try again later. Error: ' + error.message;
+        }
+        document.getElementById('stream-container').innerHTML = `<p style="color: #ff6b6b;">${errorMessage}</p>`;
+      }
+    }
+    
+    // Add debugging info
+    console.log('Attempting to fetch streams for user:', USERNAME);
+    fetchStreams().catch(err => {
+      console.error('Top level error:', err);
+    });
+  </script>
+  
+  <script type="text/javascript">const fs = 3.5;</script>
+  <script type="text/javascript" src="https://temper.one/temper.js"></script>
+  
+  <script>
+    // Make body visible after everything is loaded
+    document.body.style.display = 'block';
+  </script>
+</body>
+</html> 
