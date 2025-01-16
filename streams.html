@@ -93,60 +93,25 @@
     
     async function fetchStreams() {
       try {
-        const response = await fetch(`https://streams.place/${USERNAME}/json`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const streams = await response.json();
-        
-        if (!streams || !Array.isArray(streams) || streams.length === 0) {
-          document.getElementById('stream-container').innerHTML = '<p>No streams found. Have you created your first stream?</p>';
-          return;
-        }
-        
-        const container = document.getElementById('stream-container');
-        
-        streams.forEach(stream => {
-          const date = new Date(parseInt(stream.timestamp));
-          const formattedDate = date.toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-          });
-          
-          let mediaHtml = '';
-          if (stream.media && stream.media.length > 0) {
-            stream.media.forEach(media => {
-              if (media.type === 'photo') {
-                mediaHtml += `<div class="stream-media">
-                  <img src="${media.urlToFile}" alt="Stream media">
-                </div>`;
-              } else if (media.type === 'animation') {
-                mediaHtml += `<div class="stream-media">
-                  <img src="${media.urlToFile}" alt="Stream animation">
-                </div>`;
-              } else if (media.type === 'audio') {
-                mediaHtml += `<div class="stream-media">
-                  <audio controls>
-                    <source src="${media.urlToFile}" type="audio/ogg">
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>`;
-              }
-            });
+        const response = await fetch(`https://streams.place/${USERNAME}/json`, {
+          method: 'GET',
+          mode: 'no-cors',
+          credentials: 'omit',
+          headers: {
+            'Accept': 'application/json'
           }
-          
-          const streamHtml = `
-            <div class="stream-item">
-              <div class="stream-date">${formattedDate}</div>
-              <div class="stream-content">${stream.html}</div>
-              ${mediaHtml}
-            </div>
-          `;
-          
-          container.innerHTML += streamHtml;
         });
+
+        // When using no-cors, we can't access the response directly
+        // Instead, we'll embed the content using an iframe
+        const container = document.getElementById('stream-container');
+        container.innerHTML = `
+          <iframe 
+            src="https://streams.place/${USERNAME}" 
+            style="width: 100%; border: none; height: 800px; background: transparent;"
+            onload="this.style.height = this.contentWindow.document.documentElement.scrollHeight + 'px';"
+          ></iframe>
+        `;
       } catch (error) {
         console.error('Error fetching streams:', error);
         let errorMessage = 'Failed to load streams. ';
