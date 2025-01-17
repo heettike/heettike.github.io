@@ -468,4 +468,3 @@ def generate_new_essays_html():
 
 if __name__ == '__main__':
     generate_new_essays_html() 
-    generate_new_essays_html() 
