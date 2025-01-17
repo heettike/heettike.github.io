@@ -573,8 +573,7 @@
     
     function renderContent(content) {
       const container = document.getElementById('combined-container');
-      container.innerHTML = content.map(item => item.html).join('
-');
+      container.innerHTML = content.map(item => item.html).join('\n');
     }
     
     // Call fetchStreams immediately and set up periodic refresh
