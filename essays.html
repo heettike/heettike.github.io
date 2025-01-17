@@ -51,7 +51,7 @@
     .essay-item, .stream-item {
       margin-bottom: 60px;
       padding-bottom: 40px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
     }
     
     .essay-date, .stream-date {
@@ -435,7 +435,7 @@
     async function fetchStreams() {
       try {
         console.log('Fetching streams for user:', USERNAME);
-        const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+        const CORS_PROXY = 'https://corsproxy.io/?';
         const STREAMS_URL = `https://streams.place/${USERNAME}/json`;
         const finalUrl = CORS_PROXY + encodeURIComponent(STREAMS_URL);
         console.log('Fetching from URL:', finalUrl);
@@ -455,7 +455,7 @@
         
         if (!streams || !Array.isArray(streams) || streams.length === 0) {
           console.log('No streams found or invalid response');
-          document.getElementById('stream-container').innerHTML = '';
+          document.getElementById('stream-container').innerHTML = '<p style="opacity: 0.5;">No streams found</p>';
           return;
         }
         
@@ -508,7 +508,7 @@
           message: error.message,
           stack: error.stack
         });
-        document.getElementById('stream-container').innerHTML = '';
+        document.getElementById('stream-container').innerHTML = '<p style="color: #ff6b6b;">Failed to load streams. Please check the console for details.</p>';
       }
     }
     
@@ -517,8 +517,8 @@
       console.error('Top level error:', err);
     });
     
-    // Refresh streams every 5 minutes
-    setInterval(fetchStreams, 5 * 60 * 1000);
+    // Refresh streams every 2 minutes
+    setInterval(fetchStreams, 2 * 60 * 1000);
   </script>
   
   <script type="text/javascript">const fs = 3.5;</script>
