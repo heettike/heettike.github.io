@@ -220,7 +220,7 @@ def generate_new_essays_html():
     .essay-item, .stream-item {
       margin-bottom: 60px;
       padding-bottom: 40px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 2px solid rgba(255,255,255,0.2);
     }
     
     .essay-date, .stream-date {
@@ -282,7 +282,7 @@ def generate_new_essays_html():
     
     <h1 class="title">essays</h1>
     
-    <div class="essay-container">
+    <div class="essay-container" id="combined-container">
 '''
     
     # Add essays
@@ -314,92 +314,147 @@ def generate_new_essays_html():
                     else:
                         template += f'          <p>{paragraph}</p>\n'
                 template += '        </div>\n'
+        template += '      </div>\n'
     
-    # Add streams container
+    # Add streams integration
     template += '''
-    </div>
-    
-    <div id="stream-container" class="essay-container">
-      <!-- Streams content will be loaded here -->
     </div>
   </div>
 
   <script>
     const USERNAME = 'heettike';
     
-    async function fetchStreams() {
-      try {
-        const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
-        const STREAMS_URL = `https://streams.place/${USERNAME}/json`;
-        const response = await fetch(CORS_PROXY + encodeURIComponent(STREAMS_URL), {
-          headers: {
-            'Accept': 'application/json'
-          }
+    // Store all essays from the page
+    const essays = [];
+    document.querySelectorAll('.essay-item').forEach(item => {
+      const dateElem = item.querySelector('.essay-date');
+      if (dateElem) {
+        essays.push({
+          type: 'essay',
+          date: dateElem.textContent,
+          html: item.outerHTML,
+          timestamp: new Date(dateElem.textContent).getTime()
         });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const streams = await response.json();
-        
-        if (!streams || !Array.isArray(streams) || streams.length === 0) {
-          document.getElementById('stream-container').innerHTML = '';
-          return;
-        }
-        
-        const container = document.getElementById('stream-container');
-        container.innerHTML = ''; // Clear container
-        
-        streams.forEach(stream => {
-          const date = new Date(parseInt(stream.timestamp));
-          const formattedDate = date.toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
+      }
+    });
+    
+    async function fetchStreams() {
+      const CORS_PROXIES = [
+        'https://api.allorigins.win/raw?url=',
+        'https://corsproxy.io/?',
+        'https://cors-anywhere.herokuapp.com/',
+        'https://proxy.cors.sh/'
+      ];
+      
+      let error;
+      for (const proxy of CORS_PROXIES) {
+        try {
+          console.log('Trying proxy:', proxy);
+          const STREAMS_URL = `https://streams.place/${USERNAME}/json`;
+          const finalUrl = proxy + encodeURIComponent(STREAMS_URL);
+          console.log('Fetching from URL:', finalUrl);
+          
+          const response = await fetch(finalUrl, {
+            headers: {
+              'Accept': 'application/json',
+              'x-requested-with': 'XMLHttpRequest',
+              'origin': 'https://heettike.github.io'
+            }
           });
           
-          let mediaHtml = '';
-          if (stream.media && stream.media.length > 0) {
-            stream.media.forEach(media => {
-              if (media.type === 'photo') {
-                mediaHtml += `<div class="stream-media">
-                  <img src="${media.urlToFile}" alt="Stream media" loading="lazy">
-                </div>`;
-              } else if (media.type === 'animation') {
-                mediaHtml += `<div class="stream-media">
-                  <img src="${media.urlToFile}" alt="Stream animation" loading="lazy">
-                </div>`;
-              } else if (media.type === 'audio') {
-                mediaHtml += `<div class="stream-media">
-                  <audio controls preload="none">
-                    <source src="${media.urlToFile}" type="audio/ogg">
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>`;
-              }
-            });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
           
-          const streamHtml = `
-            <div class="stream-item">
-              <div class="stream-date">${formattedDate}</div>
-              <div class="stream-content">${stream.html || stream.text}</div>
-              ${mediaHtml}
-            </div>
-          `;
+          const streams = await response.json();
+          console.log('Received streams:', streams);
           
-          container.innerHTML += streamHtml;
-        });
-      } catch (error) {
-        console.error('Error fetching streams:', error);
-        document.getElementById('stream-container').innerHTML = '';
+          if (!streams || !Array.isArray(streams) || streams.length === 0) {
+            console.log('No streams found or invalid response');
+            renderContent(essays);
+            return;
+          }
+          
+          // Convert streams to same format as essays
+          const formattedStreams = streams.map(stream => {
+            const date = new Date(parseInt(stream.timestamp));
+            const formattedDate = date.toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            });
+            
+            let mediaHtml = '';
+            if (stream.media && stream.media.length > 0) {
+              stream.media.forEach(media => {
+                if (media.type === 'photo') {
+                  mediaHtml += `<div class="stream-media">
+                    <img src="${media.urlToFile}" alt="Stream media" loading="lazy">
+                  </div>`;
+                } else if (media.type === 'animation') {
+                  mediaHtml += `<div class="stream-media">
+                    <img src="${media.urlToFile}" alt="Stream animation" loading="lazy">
+                  </div>`;
+                } else if (media.type === 'audio') {
+                  mediaHtml += `<div class="stream-media">
+                    <audio controls preload="none">
+                      <source src="${media.urlToFile}" type="audio/ogg">
+                      Your browser does not support the audio element.
+                    </audio>
+                  </div>`;
+                }
+              });
+            }
+            
+            const streamHtml = `
+              <div class="stream-item">
+                <div class="stream-date">${formattedDate}</div>
+                <div class="stream-content">${stream.html || stream.text}</div>
+                ${mediaHtml}
+              </div>
+            `;
+            
+            return {
+              type: 'stream',
+              date: formattedDate,
+              html: streamHtml,
+              timestamp: parseInt(stream.timestamp)
+            };
+          });
+          
+          // Combine and sort all content
+          const allContent = [...essays, ...formattedStreams].sort((a, b) => b.timestamp - a.timestamp);
+          renderContent(allContent);
+          return; // Success! Exit the function
+          
+        } catch (e) {
+          console.error(`Error with proxy ${proxy}:`, e);
+          error = e; // Store the last error
+          continue; // Try next proxy
+        }
       }
+      
+      // If we get here, all proxies failed
+      console.error('All proxies failed. Last error:', error);
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack
+      });
+      renderContent(essays);
     }
     
+    function renderContent(content) {
+      const container = document.getElementById('combined-container');
+      container.innerHTML = content.map(item => item.html).join('\n');
+    }
+    
+    // Call fetchStreams immediately and set up periodic refresh
     fetchStreams().catch(err => {
       console.error('Top level error:', err);
     });
+    
+    // Refresh streams every 2 minutes
+    setInterval(fetchStreams, 2 * 60 * 1000);
   </script>
   
   <script type="text/javascript">const fs = 3.5;</script>
@@ -412,4 +467,5 @@ def generate_new_essays_html():
         f.write(template)
 
 if __name__ == '__main__':
+    generate_new_essays_html() 
     generate_new_essays_html() 
