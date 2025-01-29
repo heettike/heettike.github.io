@@ -78,7 +78,7 @@ def parse_date(date_str):
         except ValueError:
             return datetime.min
 
-def generate_new_essays_html():
+def generate_new_words_html():
     essays_dir = 'essays'
     essays = []
     seen_titles = set()  # Track seen titles to avoid duplicates
@@ -166,13 +166,13 @@ def generate_new_essays_html():
     # Sort essays by date (newest first)
     essays.sort(key=lambda x: parse_date(x['date']), reverse=True)
     
-    # Generate the new essays.html content
+    # Generate the new words.html content
     template = '''<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>essays - heet tike</title>
+  <title>words - heet tike</title>
   
   <link class="googlefont" href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
   
@@ -280,7 +280,7 @@ def generate_new_essays_html():
       <a href="/" class="back-link">← back</a>
     </p>
     
-    <h1 class="title">essays</h1>
+    <h1 class="title">words</h1>
     
     <div class="essay-container" id="combined-container">
 '''
@@ -329,12 +329,19 @@ def generate_new_essays_html():
     document.querySelectorAll('.essay-item').forEach(item => {
       const dateElem = item.querySelector('.essay-date');
       if (dateElem) {
-        essays.push({
-          type: 'essay',
-          date: dateElem.textContent,
-          html: item.outerHTML,
-          timestamp: new Date(dateElem.textContent).getTime()
-        });
+        const dateText = dateElem.textContent.trim();
+        // Parse date in format "DD MMM, YYYY"
+        const dateParts = dateText.match(/(\d+)\s+(\w+),\s+(\d+)/);
+        if (dateParts) {
+          const [_, day, month, year] = dateParts;
+          const timestamp = new Date(`${month} ${day}, ${year}`).getTime();
+          essays.push({
+            type: 'essay',
+            date: dateText,
+            html: item.outerHTML,
+            timestamp: timestamp
+          });
+        }
       }
     });
     
@@ -377,7 +384,8 @@ def generate_new_essays_html():
           
           // Convert streams to same format as essays
           const formattedStreams = streams.map(stream => {
-            const date = new Date(parseInt(stream.timestamp));
+            const timestamp = parseInt(stream.timestamp);
+            const date = new Date(timestamp);
             const formattedDate = date.toLocaleDateString('en-US', {
               day: 'numeric',
               month: 'short',
@@ -418,7 +426,7 @@ def generate_new_essays_html():
               type: 'stream',
               date: formattedDate,
               html: streamHtml,
-              timestamp: parseInt(stream.timestamp)
+              timestamp: timestamp
             };
           });
           
@@ -462,9 +470,9 @@ def generate_new_essays_html():
 </body>
 </html>'''
 
-    # Write the new content to essays.html
-    with open('essays.html', 'w', encoding='utf-8') as f:
+    # Write the new content to words.html
+    with open('words.html', 'w', encoding='utf-8') as f:
         f.write(template)
 
 if __name__ == '__main__':
-    generate_new_essays_html() 
+    generate_new_words_html() 

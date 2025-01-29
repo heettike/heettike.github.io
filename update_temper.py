@@ -25,7 +25,7 @@ def update_temper_script(file_path):
 def process_essays_folder():
     essays_dir = 'essays'
     for filename in os.listdir(essays_dir):
-        if filename.endswith('.html') and filename != 'essays.html':
+        if filename.endswith('.html') and filename != 'words.html':
             file_path = os.path.join(essays_dir, filename)
             print(f"Processing {filename}...")
             update_temper_script(file_path)
