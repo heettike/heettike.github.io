@@ -1,242 +1,743 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>heet tike</title>
-  
-  <link class="googlefont" href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
-  
-  <style type="text/css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+
+  <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-size: 100%;
-      font-weight: inherit;
     }
-    
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background: #000000;
       color: #ffffff;
-      width: 100%;
+      font-family: 'Ovo', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-    
-    .text {
-      font-family:"Ovo", serif;
-      display: none;
-      opacity: 0;
-      font-size: 26px;
-      line-height: 30px;
-      font-variant-ligatures: normal;
-      visibility: hidden;
-    }
-    
-    .container {
+
+    /* Section structure */
+    section {
+      min-height: 100vh;
+      padding: 80px 20px;
       display: flex;
-      gap: 4vw;
-      padding: 3vw;
-      max-width: 1200px;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
       margin: 0 auto;
     }
-    
-    .photo-section {
+
+    /* Hero Section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      display: flex;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-video {
       flex-shrink: 0;
-      width: 300px;
+      width: 280px;
+      height: 280px;
     }
-    
-    .photo-placeholder {
+
+    .hero-video video {
       width: 100%;
-      aspect-ratio: 1;
-      background: #111111;
-      border-radius: 2px;
-      margin-bottom: 2vw;
-      animation: fadein .2s forwards ease-out;
-      opacity: 0;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
     }
-    
-    .content-section {
-      flex-grow: 1;
+
+    .hero-text h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      font-weight: 400;
     }
-    
-    .section {
-      margin-bottom: 3vw;
-      animation: fadein .2s forwards ease-out;
-      opacity: 0;
-    }
-    
-    .label {
+
+    .hero-text p {
       font-size: 20px;
-      opacity: 0.5;
-      margin-bottom: 1vw;
+      opacity: 0.7;
+      margin-bottom: 12px;
     }
-    
-    .text p {
-      margin: 20px 0;
-      opacity: 0;
-      display: none;
-      visibility: hidden;
-      animation: fadein .2s forwards ease-out;
+
+    .hero-text p:last-child {
+      margin-bottom: 0;
     }
-    
-    .text a {
+
+    /* Section headings */
+    h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    /* About Section */
+    #about .about-text {
+      font-size: 20px;
+      line-height: 1.8;
+      max-width: 800px;
+    }
+
+    #about a {
+      color: #ffffff;
       text-decoration: none;
-      color: inherit;
       opacity: 0.5;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.3s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
-    
-    .text a:hover {
+
+    #about a:hover {
+      opacity: 1;
+      border-bottom-color: rgba(255,255,255,0.6);
+    }
+
+    /* Work Section */
+    .work-item {
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .work-item:last-child {
+      border-bottom: none;
+    }
+
+    .work-item h3 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      font-weight: 400;
+    }
+
+    .work-meta {
+      font-size: 16px;
+      opacity: 0.5;
+      margin-bottom: 20px;
+    }
+
+    .work-description {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: 0.8;
+    }
+
+    .work-item a {
+      color: #ffffff;
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+
+    .work-item a:hover {
       opacity: 1;
     }
-    
-    @keyframes fadein {
-      0% {
-        opacity: 0;
-        transform: translateY(10px);
+
+    /* Writing Section */
+    #writing {
+      min-height: auto;
+      padding: 100px 20px;
+    }
+
+    .essay-list {
+      margin-top: 40px;
+    }
+
+    .essay-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .essay-header {
+      padding: 30px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      transition: opacity 0.3s ease;
+    }
+
+    .essay-header:hover {
+      opacity: 0.7;
+    }
+
+    .essay-title-area {
+      flex: 1;
+    }
+
+    .essay-title {
+      font-size: 22px;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .essay-date {
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .essay-preview {
+      font-size: 16px;
+      opacity: 0.6;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .essay-expand-icon {
+      font-size: 24px;
+      opacity: 0.5;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .essay-item.expanded .essay-expand-icon {
+      transform: rotate(45deg);
+    }
+
+    .essay-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      padding: 0 0 0 0;
+    }
+
+    .essay-item.expanded .essay-content {
+      max-height: 10000px;
+      padding: 0 0 40px 0;
+    }
+
+    .essay-full-text {
+      font-size: 18px;
+      line-height: 1.8;
+      opacity: 0.85;
+    }
+
+    .essay-full-text p {
+      margin-bottom: 20px;
+    }
+
+    .essay-full-text img {
+      max-width: 100%;
+      height: auto;
+      margin: 30px 0;
+      border-radius: 4px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .social-links a {
+      color: #ffffff;
+      text-decoration: none;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+      font-size: 18px;
+    }
+
+    .social-links a:hover {
+      opacity: 1;
+    }
+
+    .footer-note {
+      opacity: 0.4;
+      font-size: 14px;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .scroll-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .scroll-dot.active {
+      background: rgba(255,255,255,0.8);
+      transform: scale(1.3);
+    }
+
+    .scroll-dot:hover {
+      background: rgba(255,255,255,0.6);
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .scroll-top:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    .scroll-top::after {
+      content: '↑';
+      font-size: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
       }
-      100% {
+
+      .hero-video {
+        width: 220px;
+        height: 220px;
+      }
+
+      .hero-text h1 {
+        font-size: 36px;
+      }
+
+      .hero-text p {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      section {
+        padding: 60px 20px;
+        min-height: auto;
+      }
+
+      #hero {
+        min-height: 100vh;
+      }
+
+      .scroll-indicator {
+        display: none;
+      }
+
+      .essay-header {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .essay-expand-icon {
+        align-self: flex-start;
+      }
+    }
+
+    /* Loading animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      
-      .photo-section {
-        width: 200px;
-      }
-    }
-    
-    .view-more {
-      display: inline-block;
-      margin-top: 15px;
-      font-size: 20px;  /* reduced from 22px */
-      letter-spacing: 0.02em;
-    }
-    
-    .social-links, .social-rows {
-      margin-top: 15px;
-    }
-    
-    .social-links a, .social-rows a {
-      text-decoration: none;
-      color: #ffffff;
-      opacity: 0.5;
-      transition: opacity 0.2s ease;
-    }
-    
-    .social-links a:hover, .social-rows a:hover {
-      opacity: 1;
-    }
-    
-    /* Desktop styles */
-    @media screen and (min-width: 769px) {
-      .social-rows {
-        display: none;
-      }
-      .social-links {
-        display: block;
-        font-size: 22px;
-      }
-    }
-    
-    /* Mobile styles */
-    @media screen and (max-width: 768px) {
-      .social-links {
-        display: none;
-      }
-      .social-rows {
-        display: block;
-        font-size: 20px;
-      }
-      .social-row {
-        margin: 8px 0;
-      }
+
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
     }
   </style>
-  <script
-	src="https://script.refix.ai/script.min.js"
-	type="text/javascript"
-	data-refix-token="e6f132ed-ff3a-4215-accf-f68a1430b42d"
-	defer
-></script>
 </head>
-<body style="display:none;">
-  <div class="text">
+<body>
+  <!-- Hero Section -->
+  <section id="hero">
     <div class="container">
-      <div class="photo-section">
-        <div class="photo-placeholder" style="animation-delay: 0.1s;">
-          <video 
-            autoplay 
-            loop 
-            muted 
-            playsinline 
-            preload="auto"
-            style="width: 100%; height: 100%; object-fit: cover; border-radius: 2px;">
-            <!-- WebM format (better web support) -->
+      <div class="hero-content">
+        <div class="hero-video">
+          <video autoplay loop muted playsinline preload="auto">
             <source src="profile-video.webm" type="video/webm">
-            <!-- MP4 format (wide compatibility) -->
             <source src="assets/videos/profile-video.mp4" type="video/mp4">
-            <!-- MOV as last resort -->
             <source src="assets/videos/profile-video.MOV" type="video/quicktime">
-            Your browser does not support the video tag.
           </video>
         </div>
-        
-        <!-- Desktop social links -->
-        <div class="social-links" style="animation-delay: 0.2s;">
-          <a href="https://x.com/HeetTike">x</a> • 
-          <a href="https://open.spotify.com/user/heettike">tunes</a> • 
-          <a href="https://www.instagram.com/heetike/">ig</a> • 
-          <a href="https://www.linkedin.com/in/heettike">in</a> • 
-          <a href="https://github.com/heettike">gh</a>
+        <div class="hero-text">
+          <h1>heet tike</h1>
+          <p>founder/ceo @ noice.so</p>
+          <p>network school fellow</p>
+          <p>24. ahmedabad/blr.</p>
         </div>
-
-        <!-- Mobile social links -->
-        <div class="social-rows" style="animation-delay: 0.2s;">
-          <div class="social-row line1">
-            <a href="https://x.com/HeetTike">x</a> • 
-            <a href="https://www.instagram.com/heetike/">ig</a> • 
-            <a href="https://open.spotify.com/user/heettike">tunes</a>
-          </div>
-          <div class="social-row line2">
-            <a href="https://www.linkedin.com/in/heettike">in</a> • 
-            <a href="https://github.com/heettike">gh</a> • 
-            <a href="mailto:tike@ripen.in">mail</a>
-          </div>
-        </div>
-      </div>
-      <div class="content-section">
-        <div class="section" style="animation-delay: 0.3s;">
-
-          <p> awake after a long nap. 23. <br> <br>
-            <span style="font-size: 75%"> 
-              cooking @ <a href="https://app.castmoney.xyz/">castmoney.</a>
-              learning to become a better human. a house full of love, 
-              a calm mind & a fit body trump my priority list. 
-              ex-founder of <a href="https://ripen.in">ripen</a> & 
-              <a href="https://imaginedhq.com">imagined studios</a>. 
-              majored in econ from <a href="https://www.srcc.edu/">srcc</a>. 
-              ahmedabad/blr. time outside work: poker, meditation, reading & trading free markets. 
-              <br>
-              <a href="https://docs.google.com/document/d/16lVIw-kakzVQ2IgJ3Nx4Eo-M2nQ_or08T9_4jicvvl4/edit?tab=t.0">past work</a>,  
-              <a href="/words.html">written words,</a>
-              <a href="https://chat.whatsapp.com/GWWGkclNUyF3iwb0i3up2l">tk's museum,</a>
-              <a href="https://www.youtube.com/@heettike">better beliefs</a>
-            </span>
-          </p>
-        </div>
-    
-
       </div>
     </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2>about</h2>
+      <div class="about-text">
+        <p>
+          learning to become a better human. a house full of love, a calm mind & a fit body trump my priority list.
+          time outside work: poker, meditation, reading & trading free markets.
+        </p>
+        <p style="margin-top: 30px;">
+          majored in econ from <a href="https://www.srcc.edu/" target="_blank">srcc</a>.
+          <a href="https://docs.google.com/document/d/16lVIw-kakzVQ2IgJ3Nx4Eo-M2nQ_or08T9_4jicvvl4/edit?tab=t.0" target="_blank">past work</a>,
+          <a href="https://chat.whatsapp.com/GWWGkclNUyF3iwb0i3up2l" target="_blank">tk's museum</a>,
+          <a href="https://www.youtube.com/@heettike" target="_blank">better beliefs</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Section -->
+  <section id="work">
+    <div class="container">
+      <h2>work</h2>
+
+      <div class="work-item">
+        <h3><a href="https://noice.so" target="_blank">noice</a></h3>
+        <div class="work-meta">founder/ceo • 2024 - present</div>
+        <div class="work-description">
+          <p>building something special. more soon.</p>
+        </div>
+      </div>
+
+      <div class="work-item">
+        <h3><a href="https://ripen.in" target="_blank">ripen</a></h3>
+        <div class="work-meta">founder • 2023 - 2024</div>
+        <div class="work-description">
+          <p>helped people find their next opportunity. connected talent with companies that actually gave a damn. built a community of people who believed in showing up and doing the work.</p>
+        </div>
+      </div>
+
+      <div class="work-item">
+        <h3><a href="https://imaginedhq.com" target="_blank">imagined studios</a></h3>
+        <div class="work-meta">founder • 2022 - 2023</div>
+        <div class="work-description">
+          <p>created content that didn't suck. worked with brands and individuals to tell stories that mattered. learned that good work speaks louder than any pitch deck.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Writing Section -->
+  <section id="writing">
+    <div class="container">
+      <h2>writing</h2>
+      <div class="essay-list" id="essay-list">
+        <!-- Essays will be loaded here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="https://x.com/HeetTike" target="_blank">x</a>
+      <span style="opacity: 0.3;">•</span>
+      <a href="https://www.instagram.com/heetike/" target="_blank">instagram</a>
+      <span style="opacity: 0.3;">•</span>
+      <a href="https://open.spotify.com/user/heettike" target="_blank">spotify</a>
+      <span style="opacity: 0.3;">•</span>
+      <a href="https://www.linkedin.com/in/heettike" target="_blank">linkedin</a>
+      <span style="opacity: 0.3;">•</span>
+      <a href="https://github.com/heettike" target="_blank">github</a>
+      <span style="opacity: 0.3;">•</span>
+      <a href="mailto:tike@ripen.in">email</a>
+    </div>
+    <div class="footer-note">© 2025 heet tike</div>
+  </footer>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-dot" data-section="hero"></div>
+    <div class="scroll-dot" data-section="about"></div>
+    <div class="scroll-dot" data-section="work"></div>
+    <div class="scroll-dot" data-section="writing"></div>
   </div>
-  
-  <script type="text/javascript">const fs = 3.5;</script>
-  <script type="text/javascript" src="https://temper.one/temper.js"></script>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-top"></div>
+
+  <script>
+    // Essays data
+    const essays = [
+      {
+        title: "nice vs good",
+        date: "18 Jan, 2025",
+        preview: "for the longest time, i've had this theory brewing in my head about nice vs good. they aren't the same thing when you're labelling a person...",
+        content: `<p>for the longest time, i've had this theory brewing in my head about nice vs good. they aren't the same thing when you're labelling a person, but instead, we use them as synonyms</p>
+<p>nice people are imprisoned by perception. they're slaves to others' opinions > their own reality. bound by society's definition of what's right. grew up being told what they should do. lack agency, so depend on others. they need constant validation & direction bcs they can't shape their own path, let alone shaping the world. these are the ones who keep asking for accountability partners, because they're weak & don't want it badly enough. you'll see nice people everywhere in every industry. shut your eyes & you'll get a face in your mind for sure.</p>
+<p>nice people are scared af of hurting others. but then there's the backwards law: the more u try to not hurt people, the more people u end up hurting. they will leave a trail of hurt behind bcs they never understood this simple truth.</p>
+<p>good people tho? they've figured their shit out.<br>
+• they can say no (& sleep peacefully after)<br>
+• they have agency (don't need validation to breathe)<br>
+• they serve themselves first (sounds selfish? good.)<br>
+• they're secure in who they are (no fake personalities)<br>
+• they know their priorities (& stick to them)</p>
+<p>when good people help others, it comes from a real place. not from some desperate need to be perceived well. they do it bcs they want to, not bcs they have to.</p>
+<p>i used to be nice. they has been me. it's a by-product of conditioning, childhood & fight/flight decisions you make everyday. things changed when i went into an exile for 2 weeks. i death-stared my fear, conditioning & violence inside. i started serving myself first. i & i alone, am responsible for how i think & feel. no matter how betrayed, guilty, or heartbroken i feel - it's on me. you'll see the difference when you either observe closely, or leave the nice-land.</p>
+<p>being nice is a curse. being good is freedom. pick your poison.</p>`
+      },
+      {
+        title: "will i amount to anything?",
+        date: "17 Jan, 2025",
+        preview: "my quest to sanity had an insane tussle b/w finding semblance between our insignificance with knowledge that i'm 1/8,00,00,000 humans...",
+        content: `<p>my quest to sanity had an insane tussle b/w finding semblance between our insignificance with knowledge that i'm 1/8,00,00,000 humans vs the belief that I'm different. the isolation of self from all humans makes us believe we're different (function of a strong ego). in this tussle, it soon turned out, that it's because my consciousness was the only one i knew, so isolating myself from the world was a by-product of the conditioning society grows u up in. and that there was nothing wrong with it. holons; a whole and a part of a collective consciousness. that's what we all are.</p>
+<p>after a while of taking myself far too seriously, i answered: yes. i'm insignificant and will continue to be. i won't amount to much. no matter how hard i try. everybody forgets. everybody comes alone & dies alone. naked. comes with no possession & goes with none. legacy of 'self' is again, an illusion. you won't have as big an impact on humanity as you grew up thinking. and that's the honest reality. solopreneurship is a cope for easy wi-fi money and a mid life. even if there's money and supposed "freedom".</p>
+<p>but, your work can. if you surrender to the act of it, and not what it can get you. it's naturally quite hard, because we grew up exclusively chasing outcomes (marks, a college / branch, a placement et al). but that killed me. freedom was in the act, not the reward.</p>
+<p>sanity was found when i realised that you've to take your work seriously & not yourself! it's a common advice that takes far too long to get a grip around. that my work can amount to a lot. that your work will last far, far longer than you. contributing to a mission that's larger than feeding goals of self (which are mostly materialistic: social relevance, wealth, security, identity) is far more fulfilling to any human being alive (certain about this)</p>
+<p>kill out ambition. ambition is the first curse: the great tempter of the man who is rising above his fellows. it is the simplest form of 'looking' for a reward. to work for self is to work for disappointment. work as those work who are ambitious. seek in the heart the source of evil and expunge it. only the strong can kill it out. the weak must wait for its growth, its fruition, its death. but by then, the coffee gets cold.</p>
+<p>note to reader: read karma yoga & light on the path.</p>`
+      },
+      {
+        title: "illusions that hurt your agency",
+        date: "16 Jan, 2025",
+        preview: "half a decade into surfing & studying from the internet, i've now learnt that curiosity is about depth, not breadth...",
+        content: `<p>half a decade into surfing & studying from the internet, i've now learnt that curiosity is about depth, not breadth. breadth is shallow (in 99% of cases, barring outliers). curiosity is also an illusion. much like agency, smartness, and intelligence. most of us started associating with these words bcs our 9th grade teacher told us so, or our friends who'd call us these to make us feel better when we're down.</p>
+<p>we took their presence rather seriously in us without ever questioning what it truly means to have it. u could live in this illusion all your life and die a happy man. ignorance is indeed, bliss. if you are so smart, why aren't you so rich? if you're so curious, why don't you write deep dives & papers? if you're so intelligent, why don't you have ONE innovative project to show for your 'intelligence'?</p>
+<p>just bcs u read a cool paper/report that landed on your feed and has a shmexy headline doesn't make u curious. neither is having a smart yt feed. these are all games of cheap dopamine; to make you believe you are something that you aren't (hi Duolingo).</p>
+<p>it's about the hours you've willingly put in diving deep to understand that word or concept you read in that shmexy-sounding article / yt video. and how well u truly understood it. whether you can eli5 it. question your depth, anon. you'll realise not only you, but most of the world around you is shallow. it's a world of pretence.</p>
+<p>oh and yeah, my writing this is also pretentious. i'm neither curious nor smart or intelligent. i dropped believing that a year ago. when i truly understood their functions (and how they affect outcomes).</p>`
+      },
+      {
+        title: "when fishermen cannot go to sea, they repair nets.",
+        date: "04 Jan, 2025",
+        preview: "when the sea is too rough to sail, the smart ones don't wait— they get to work...",
+        content: `<img src="/assets/images/IMG_2827.jpg" alt="Fisherman repairing nets illustration" style="width: 100%; height: auto; margin-bottom: 30px;">
+<p>when the sea is too rough to sail, the smart ones don't wait— they get to work. they mend their nets, sharpen their tools, and prepare for the moment the storm breaks. because even in stillness, there's progress. it's not about sitting idle; it's about building what's next.</p>`
+      },
+      {
+        title: "rejection",
+        date: "28 Nov, 2024",
+        preview: "functioning from a constant state of rejection is the only way to find what's best for you and what truly serves you...",
+        content: `<p>functioning from a constant state of rejection is the only way to find what's best for you and what truly serves you. it could be beliefs, habits, values, friends, cities, jobs, experiences, goals, ideas, or even love. this intuitive, universal process is one we all go through, yet we have such hard feelings towards the word "rejection." the quicker you start seeking comfort (vs avoidant) in the idea of rejection, the happier you will get.</p>
+<p>you have to keep a constant eye out for those red flags that are non-negotiable for you. you build a better lens for this as you start knowing yourself; who or what serves you & what doesn't. you can only reject actively if you're aware at all times & know yourself btw. 'if you don't know what you want,' you're sleep walking.</p>
+<p>there's a reason why there are 8b people but dunbar said you can only have a maximum of 150 friends & like 5 people you truly love.</p>
+<p>the faster you can iterate through rejection, the better you'll be able to find what gives you continous joy. and then you hold on it.</p>
+<p>keep rejecting. keep getting rejected. faster iterations of rejection differentiates success from failure. although, it's a lesson i learnt only after burning my hands.</p>`
+      },
+      {
+        title: "create art ffs",
+        date: "25 Jun, 2024",
+        preview: "95% of the reels suck. most of the creators out there are ass. to me, they are spineless...",
+        content: `<p>95% of the reels suck. most of the creators out there are ass. to me, they are spineless. standard fu*kin templates to get views, likes and vanity. doing it for all the wrong reasons known to mankind.</p>
+<p>literature, text, videos, music, paintings, sculptures were mediums created to express, while the mediums have evolved over time, the critical mass of content today is created for the wrong reasons. i despise the 'optimising my content' fodder people feed to themselves & others. man, just express. that's the muscle you want to actually exercise for the next few decades. a raw, natural, and a real way of being.</p>
+<p>create art, not 'content'. stop that consistency bs & add character to your expression. make your art, a reflection of who you are, painting a floozy picture of yourself to get fame & $$'s is a1, but you lose out on character & individuality. not sitting behind a mic yapping with 11 infographics running just like 23421 creators out there. stop trying to game the algorithm in entirety & create to express.</p>`
+      },
+      {
+        title: "couch surfing",
+        date: "27 Mar, 2024",
+        preview: "the past quarter has been chaotic; we had been house hunting for 4 months to no avail...",
+        content: `<p>hi. the past quarter has been chaotic; we had been house hunting for 4 months to no avail, partly bcs we were going through a company shut-down - confusion - trying 4 things - new company begins & although revenue started on day 1, we couldn't access monies till day. also, we were caught in this trap of finding the 'ticks all items' house. a small revelation has been that almost nothing ever ticks all items.</p>
+<p>you do the best you can with what you have.</p>
+<p>i've surfed couches every now & then, but never for like 4 months straight; this time i went from being an amateur to a full-fledged professional. i occupied 8 unique beds (for a week min) in 5 diff. houses across 2 cities.</p>
+<p>i've either forgotten, or purposely left something in each of these houses for one reason or the other –. i've ordered a shower gel 6 times in 4 months & a towel thrice. i've likely had 3 swiggy/instamart orders a day on average; made peace w/ living out of a suitcase</p>
+<p>you will have no personal space.<br>
+your clothes will be mostly dirty/crumpled.<br>
+you'll be wondering where some of your things are.<br>
+you will get hit by your friends' elbow while you're 😴💤😴.<br>
+your 'food choices' will go for a toss.<br>
+you will have to express gratitude, irrespective of how you must feel.<br>
+your select few possessions will either rot in a storage room somewhere, or will have to fit in that 26x18 suitcase of yours.<br>
+you will feel you don't belong anywhere.<br>
+you will need to put up w/ a smile anyway.</p>
+<p>if push comes to shove & you find yourself in the same spot as yours truly, here's..how you could be a better couch surfer</p>
+<p>there's a thrill to doing all this – but wouldn't be possible w/o my friends who put up w/ me all through. ya'll know who you are - i'm incredibly grateful.</p>`
+      },
+      {
+        title: "perception",
+        date: "10 Jun, 2024",
+        preview: "fondly remember the first line of life of a monk which went like 'i am not what i think i am...'",
+        content: `<p>fondly remember the first line of life of a monk which went like "i am not what i think i am. i am not what you think i am. i am what i think you think i am." this built my preliminary understanding of perception & how it will always be driven by subjectivity while there's barely anything you can, or rather, should do to change it</p>
+<p>in the end of it all, we're only humans, we care about what people would think of us, we're all driven by the fundamental desire to be appreciated; we put our best foot forward to be perceived well, while it's impossible (read: futile) to explain yourself to all, to impress all, to even try giving them all context of the why/what, which essentially = be ok being disliked</p>
+<p>you can't expect them to get it because you don't get it either. we reduce people to one mistake, one action of their lives. we stereotype all the time. rightly or wrongly — we take mental shortcuts to conserve energy. use pattern interrupts when we're being negatively stereotyped. life is short. not fair.</p>
+<p>all one-time criminals rot in jail for an act they committed once; a criminal could've been a philanthropist, good samaritan, a great husband or a great leader. the criminal knows it too, but he will be reduced to it for the rest of his life. replace criminal with any tag, and we realise that we've all done it to hundreds of people through our life - we've reduced them. how do we expect them to not do it to us, then? we judge, we label, we categorise because we can't think, and again, that's okay. the point is that we can't expect the world to get us. it's futile. all your efforts for the world to get who you are in vain.</p>
+<p>all we need to know is that we can't make their perception, into our identity. the second you believe them, you lose.</p>`
+      }
+    ];
+
+    // Load essays
+    function loadEssays() {
+      const essayList = document.getElementById('essay-list');
+      essays.forEach((essay, index) => {
+        const essayItem = document.createElement('div');
+        essayItem.className = 'essay-item';
+        essayItem.innerHTML = `
+          <div class="essay-header">
+            <div class="essay-title-area">
+              <div class="essay-title">${essay.title}</div>
+              <div class="essay-date">${essay.date}</div>
+              <div class="essay-preview">${essay.preview}</div>
+            </div>
+            <div class="essay-expand-icon">+</div>
+          </div>
+          <div class="essay-content">
+            <div class="essay-full-text">${essay.content}</div>
+          </div>
+        `;
+        essayList.appendChild(essayItem);
+
+        // Add click handler
+        const header = essayItem.querySelector('.essay-header');
+        header.addEventListener('click', () => {
+          const wasExpanded = essayItem.classList.contains('expanded');
+
+          // Close all essays
+          document.querySelectorAll('.essay-item').forEach(item => {
+            item.classList.remove('expanded');
+          });
+
+          // Toggle current essay
+          if (!wasExpanded) {
+            essayItem.classList.add('expanded');
+          }
+        });
+      });
+    }
+
+    // Intersection Observer for fade-in effect
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Scroll indicator
+    const scrollDots = document.querySelectorAll('.scroll-dot');
+    const sections = ['hero', 'about', 'work', 'writing'];
+
+    scrollDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        document.getElementById(sections[index]).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Update active dot on scroll
+    function updateScrollIndicator() {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      sections.forEach((sectionId, index) => {
+        const section = document.getElementById(sectionId);
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+          scrollDots.forEach(dot => dot.classList.remove('active'));
+          scrollDots[index].classList.add('active');
+        }
+      });
+    }
+
+    // Scroll to top button
+    const scrollTopBtn = document.querySelector('.scroll-top');
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    function updateScrollTopButton() {
+      if (window.scrollY > window.innerHeight) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    }
+
+    // Scroll event listener
+    window.addEventListener('scroll', () => {
+      updateScrollIndicator();
+      updateScrollTopButton();
+    });
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      loadEssays();
+      updateScrollIndicator();
+      // Make hero visible immediately
+      document.getElementById('hero').classList.add('visible');
+    });
+  </script>
+
+  <script src="https://script.refix.ai/script.min.js" type="text/javascript" data-refix-token="e6f132ed-ff3a-4215-accf-f68a1430b42d" defer></script>
 </body>
 </html>
