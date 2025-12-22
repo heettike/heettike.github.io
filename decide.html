@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>decide | noice</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    .hero-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 span {
+      opacity: 0.4;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.3);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* Context Section */
+    .context {
+      padding: 120px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 40px;
+    }
+
+    .context-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .pain-point {
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .pain-point:last-child {
+      border-bottom: none;
+    }
+
+    .pain-icon {
+      width: 6px;
+      height: 6px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    .pain-text {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+
+    /* Summary Box */
+    .summary-box {
+      margin-top: 60px;
+      padding: 32px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+
+    .summary-box p {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.7;
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 300;
+      color: #fff;
+    }
+
+    .stat-value.negative {
+      color: #ef4444;
+    }
+
+    .stat-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+
+    /* Chart Embed */
+    .chart-container {
+      margin-top: 48px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .chart-container iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+
+    .chart-link {
+      display: block;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .chart-link:hover {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* What We Have Section */
+    .what-we-have {
+      padding: 120px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .product-card:hover {
+      border-color: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .product-url {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+
+    .product-url a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .product-url a:hover {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .product-title {
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .product-features {
+      list-style: none;
+    }
+
+    .product-features li {
+      padding: 12px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+
+    .product-features li:first-child {
+      border-top: none;
+    }
+
+    @media (max-width: 768px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Options Section */
+    .options {
+      padding: 120px 0;
+    }
+
+    .options-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .options-header h2 {
+      font-size: 42px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .options-header p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Option Cards */
+    .option-card {
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .option-card:hover {
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .option-card.active {
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .option-header {
+      padding: 28px 32px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    .option-header:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .option-number {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .option-title {
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .option-tldr {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
+      font-weight: 300;
+    }
+
+    .option-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .option-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: rgba(255,255,255,0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .option-card.active .option-toggle {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .option-card.active .option-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .option-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .option-card.active .option-content {
+      max-height: 2000px;
+    }
+
+    .option-body {
+      padding: 0 32px 40px;
+    }
+
+    /* Content Sections */
+    .content-section {
+      margin-bottom: 36px;
+    }
+
+    .content-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .content-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .content-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+    }
+
+    .content-text strong {
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* Mechanics List */
+    .mechanics-list {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .mechanics-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      gap: 12px;
+    }
+
+    .mechanics-list li:last-child {
+      border-bottom: none;
+    }
+
+    .mechanics-list li::before {
+      content: "→";
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: rgba(255,255,255,0.04);
+      border-left: 2px solid rgba(255,255,255,0.2);
+      padding: 20px 24px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .highlight-box p {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-subtitle {
+        font-size: 17px;
+      }
+
+      .option-header {
+        padding: 24px 20px;
+      }
+
+      .option-title {
+        font-size: 20px;
+      }
+
+      .option-body {
+        padding: 0 20px 32px;
+      }
+
+      .summary-box {
+        padding: 24px;
+      }
+
+      .scroll-hint {
+        display: none;
+      }
+    }
+
+    /* Animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .fade-up-delay-1 { animation-delay: 0.1s; }
+    .fade-up-delay-2 { animation-delay: 0.2s; }
+    .fade-up-delay-3 { animation-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-label fade-up">December 2025</div>
+      <h1 class="fade-up fade-up-delay-1">
+        5 paths forward.<br>
+        <span>1 decision to make.</span>
+      </h1>
+      <p class="hero-subtitle fade-up fade-up-delay-2">
+        Noice started with magic—tipping hardwired into every social action.
+        Then we tried to be everything. Now we need to pick one thing and go all in.
+      </p>
+    </div>
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Context -->
+  <section class="context">
+    <div class="container">
+      <div class="section-label">The Current State</div>
+
+      <div class="context-grid">
+        <div class="pain-point">
+          <div class="pain-icon"></div>
+          <p class="pain-text">We took a sharp, simple product with strong focus (tipping) and went straight to a broad, bloated problem statement.</p>
+        </div>
+        <div class="pain-point">
+          <div class="pain-icon"></div>
+          <p class="pain-text">Narrative shifted midway from ICM to ownership. We didn't adapt—we diluted.</p>
+        </div>
+        <div class="pain-point">
+          <div class="pain-icon"></div>
+          <p class="pain-text">We're now a little bit Believe, a little bit MetaDAO, a little bit Virtuals. A whole lot of nothing.</p>
+        </div>
+        <div class="pain-point">
+          <div class="pain-icon"></div>
+          <p class="pain-text">Called "low IQ launchpad for low IQ people." It hurts, but it's true.</p>
+        </div>
+        <div class="pain-point">
+          <div class="pain-icon"></div>
+          <p class="pain-text">Smart capital has low conviction. Deployers are low quality. Written off by CT.</p>
+        </div>
+        <div class="pain-point">
+          <div class="pain-icon"></div>
+          <p class="pain-text">No money. Possibly in debt. This is a hail mary.</p>
+        </div>
+      </div>
+
+      <div class="summary-box">
+        <p>We need one winning narrative. Something people understand at first glance. Something novel. Something we can triple down on.</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">$NOICE Price</div>
+          <div class="stat-value">$0.0001057</div>
+          <div class="stat-sub">Down from ATH</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Treasury</div>
+          <div class="stat-value">$14,374</div>
+          <div class="stat-sub">What we have left</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Runway</div>
+          <div class="stat-value negative">~0</div>
+          <div class="stat-sub">Hail mary territory</div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-container">
+        <iframe
+          src="https://dexscreener.com/base/0xeff7f8fe083d7a446717b992bf84391253e54789?embed=1&theme=dark&info=0"
+          loading="lazy"
+        ></iframe>
+        <a href="https://dexscreener.com/base/0xeff7f8fe083d7a446717b992bf84391253e54789" target="_blank" class="chart-link">
+          View on DexScreener →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Have -->
+  <section class="what-we-have">
+    <div class="container">
+      <div class="section-label">What We Have Currently</div>
+
+      <div class="products-grid">
+        <!-- noice.so/launch -->
+        <div class="product-card">
+          <div class="product-url"><a href="https://noice.so/launch" target="_blank">noice.so/launch</a></div>
+          <div class="product-title">Token Launchpad</div>
+          <div class="product-desc">The current product. Launch tokens for startups.</div>
+          <ul class="product-features">
+            <li>[Add feature 1]</li>
+            <li>[Add feature 2]</li>
+            <li>[Add feature 3]</li>
+            <li>[Add feature 4]</li>
+            <li>[Add feature 5]</li>
+            <li>[Add feature 6]</li>
+          </ul>
+        </div>
+
+        <!-- oracle.noice.so -->
+        <div class="product-card">
+          <div class="product-url"><a href="https://oracle.noice.so" target="_blank">oracle.noice.so</a></div>
+          <div class="product-title">Oracle / Like-to-Buy</div>
+          <div class="product-desc">Like a tweet, buy a token. Already built.</div>
+          <ul class="product-features">
+            <li>[Add feature 1]</li>
+            <li>[Add feature 2]</li>
+            <li>[Add feature 3]</li>
+            <li>[Add feature 4]</li>
+            <li>[Add feature 5]</li>
+            <li>[Add feature 6]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Options -->
+  <section class="options">
+    <div class="container">
+      <div class="options-header">
+        <div class="section-label">The Options</div>
+        <h2>5 All-In Theses</h2>
+        <p>Each is a complete pivot. Pick one.</p>
+      </div>
+
+      <!-- Option 1: PMF or Die -->
+      <div class="option-card" data-option="1">
+        <div class="option-header">
+          <div>
+            <div class="option-number">01</div>
+            <div class="option-title">PMF or Die</div>
+            <div class="option-tldr">95% of tokens die anyway. Make it a 7-day ceremony.</div>
+          </div>
+          <div class="option-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="option-content">
+          <div class="option-body">
+            <div class="content-section">
+              <div class="content-label">Insight</div>
+              <p class="content-text">All tokens die anyway. We bridge the ceremony to the 7th day itself. If you can't be alive by then, end it. Don't continue. The launch is well weighted in crypto—a bad launch is hard to resurrect from. <strong>Only tokens that find market fit should become ownership.</strong></p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">The Pitch</div>
+              <div class="highlight-box">
+                <p>"7 days. $5M. Graduate or die."</p>
+              </div>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">How It Works</div>
+              <ul class="mechanics-list">
+                <li>5-7 launches every Monday at 8pm, starting at $125K</li>
+                <li>7 day window: hit $5M mcap by day 7 or you're dead</li>
+                <li>Graduate = token converts to equity-grade (25% of C Corp goes to Street SPV)</li>
+                <li>Die = token delisted, fees go to $NOICE buyback/burn</li>
+                <li>Fees in escrow until day 7. Win = founder keeps all. Lose = holders get airdrop</li>
+                <li>Post-graduation: 1.6% to founder, 0.4% to Noice + Solana pool seeded</li>
+                <li>No presales. Only fair launches. Teams hold 0 coins at start</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Upside</div>
+              <p class="content-text">Clear narrative CT can rally behind. Creates drama and event energy. Separates signal from noise. The "PMF or Die" show could be massive content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 2: Attention Marketplace -->
+      <div class="option-card" data-option="2">
+        <div class="option-header">
+          <div>
+            <div class="option-number">02</div>
+            <div class="option-title">Attention Marketplace</div>
+            <div class="option-tldr">All coins are priced on attention anyway. Index on it.</div>
+          </div>
+          <div class="option-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="option-content">
+          <div class="option-body">
+            <div class="content-section">
+              <div class="content-label">Insight</div>
+              <p class="content-text">All coins are a proxy for mindshare. Bitcoin = digital gold. Pump = memes. Hyperliquid = perps. No matter the fundamentals—stocks, crypto, commodities—they're all priced beyond utility. The "beyond" is attention, urgency, and narrative. <strong>If all coins are priced on attention, why not embrace that and make it a strength?</strong></p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">The Pitch</div>
+              <div class="highlight-box">
+                <p>"Distribution is the only moat. Speculation hijacks attention. We index on it."</p>
+              </div>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">How It Works</div>
+              <ul class="mechanics-list">
+                <li>Launch coins at $125K mcap</li>
+                <li>Teams and investors hold 0 coins at launch</li>
+                <li>The fundamental reasoning: bring attention to the product & business</li>
+                <li>All fees flow to a marketplace of creators, devs, designers, clippers</li>
+                <li>Not about capital formation—about virality and distribution</li>
+                <li>Supply side is easy: every service person wants contracts</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Upside</div>
+              <p class="content-text">Reframes the narrative from "raise money" to "get distribution." Aligns incentives with what actually matters for early startups. Creates a marketplace flywheel.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 3: PM for Startups -->
+      <div class="option-card" data-option="3">
+        <div class="option-header">
+          <div>
+            <div class="option-number">03</div>
+            <div class="option-title">Prediction Markets for Startups</div>
+            <div class="option-tldr">Speculation is net positive for businesses. Make it focused.</div>
+          </div>
+          <div class="option-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="option-content">
+          <div class="option-body">
+            <div class="content-section">
+              <div class="content-label">Insight</div>
+              <p class="content-text">Tokens have caveats: if they fall 80%, your odds of raising are hurt. A perpetual token sounds good—you IPO, people speculate—but 90% of the time it's a liability. Founders have to pump the chart instead of building product. <strong>But prediction markets? They're limited-time, focused, and don't peg your company's valuation.</strong></p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">The Pitch</div>
+              <div class="highlight-box">
+                <p>"Monthly markets on company milestones. Simple yes/no. Will they hit it?"</p>
+              </div>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">How It Works</div>
+              <ul class="mechanics-list">
+                <li>Founders set monthly targets: increase MRR by 40%, hire 3 engineers, launch product X</li>
+                <li>Any KPI is fair game—as long as you show current status + goal</li>
+                <li>Simple yes/no market on each milestone</li>
+                <li>Limited-time speculation that doesn't peg your mcap</li>
+                <li>Still gives distribution if done well (noisy founders win)</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Target Users</div>
+              <p class="content-text">YC or a16z batches. Solo app devs popular on Twitter (Blake with Cal.ai, Jack Friks). New-age startups that need to bootstrap distribution, get quality eyeballs, and go viral. <strong>You just need 1-2 prediction markets to go off.</strong></p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Concern</div>
+              <p class="content-text">Will it get enough liquidity? Will it actually become a distribution cheat code for startups? Unknown until proven.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 4: Oracle -->
+      <div class="option-card" data-option="4">
+        <div class="option-header">
+          <div>
+            <div class="option-number">04</div>
+            <div class="option-title">Oracle (Like-to-Buy)</div>
+            <div class="option-tldr">Put your money where your like is.</div>
+          </div>
+          <div class="option-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="option-content">
+          <div class="option-body">
+            <div class="content-section">
+              <div class="content-label">Insight</div>
+              <p class="content-text">Trillions of likes on the internet. What if you could buy tokens when you pay attention (i.e., like) to takes around them? <strong>The slickest UX way to buy crypto.</strong> If we take this to 100K+ followers, we can control some mindshare for tokens—and all tokens are a proxy for mindshare anyway.</p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">The Pitch</div>
+              <div class="highlight-box">
+                <p>"Like a tweet. Buy the coin. That simple."</p>
+              </div>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">How It Works</div>
+              <ul class="mechanics-list">
+                <li>Oracle is a Twitter page—like or comment on its tweet to buy the coin</li>
+                <li>Already built: agent.noice.so / user logs in on X → gets $1 on Base and Solana → sets up like-to-buy amounts → connects Telegram for notifs</li>
+                <li>Can create 9 accounts, each representing a category of assets</li>
+                <li>Works for anything onchain with a contract address</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Asset Categories</div>
+              <ul class="mechanics-list">
+                <li><strong>Immediate:</strong> Pump, Clanker, Virtuals new coins (tweet metadata on launch)</li>
+                <li><strong>Polymarket:</strong> "Trump wins? Like to buy YES." Elections, sports, culture</li>
+                <li><strong>Onchain stocks:</strong> NVDA, TSLA, AMZN, GOOGL, PLNTR, HOOD, MSTR</li>
+                <li><strong>ICMs:</strong> AIXBT, automated tweeting, LLMs on top</li>
+                <li><strong>Later:</strong> RWAs, tokenized treasuries, gold, real estate, index tokens</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Blockers</div>
+              <p class="content-text">Twitter Enterprise access—currently only interacting with one account at a time is limiting. Ideally like-to-buy works across anyone's tweets, not just our accounts. Price updates also need solving (constant comment updates?).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 5: Futarchy -->
+      <div class="option-card" data-option="5">
+        <div class="option-header">
+          <div>
+            <div class="option-number">05</div>
+            <div class="option-title">Futarchy</div>
+            <div class="option-tldr">Copy MetaDAO. Put it on Base/Ethereum.</div>
+          </div>
+          <div class="option-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="option-content">
+          <div class="option-body">
+            <div class="content-section">
+              <div class="content-label">Insight</div>
+              <p class="content-text">MetaDAO built something real: market-driven governance where token holders actually own the business. They have smart talent and sophisticated capital rallying behind them. <strong>Steal like an artist. Copy the model, bring it multi-chain.</strong></p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">The Pitch</div>
+              <div class="highlight-box">
+                <p>"MetaDAO governance on Base and Ethereum. True ownership tokens."</p>
+              </div>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">How It Works</div>
+              <ul class="mechanics-list">
+                <li>DAO LLC construct: owns 100% IP</li>
+                <li>Market-driven governance: liquidation, raising, contract audits—all decided by markets</li>
+                <li>Monthly allowance model continues to make sense</li>
+                <li>Allow multi-chain deployment (Base, Ethereum, not just Solana)</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Upside</div>
+              <p class="content-text">Proven model with real traction. Smart capital already understands and respects this. Less educational overhead—just execute better and be multi-chain.</p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Risk</div>
+              <p class="content-text">Pure copy with less differentiation. MetaDAO has first-mover advantage and community. Would need to find an angle beyond "same thing, different chain."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>
+        <a href="https://noice.so" target="_blank">noice.so</a> ·
+        <a href="https://x.com/HeetTike" target="_blank">@HeetTike</a> ·
+        December 2025
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Accordion functionality
+    document.querySelectorAll('.option-card').forEach(card => {
+      const header = card.querySelector('.option-header');
+
+      header.addEventListener('click', () => {
+        const wasActive = card.classList.contains('active');
+
+        // Close all cards
+        document.querySelectorAll('.option-card').forEach(c => {
+          c.classList.remove('active');
+        });
+
+        // Toggle clicked card
+        if (!wasActive) {
+          card.classList.add('active');
+
+          // Scroll into view smoothly
+          setTimeout(() => {
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      });
+    });
+
+    // Open first card by default
+    document.querySelector('.option-card').classList.add('active');
+  </script>
+
+</body>
+</html>
