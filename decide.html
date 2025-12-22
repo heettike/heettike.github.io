@@ -1176,11 +1176,7 @@
 
       <!-- Chart -->
       <div class="chart-container">
-        <iframe
-          src="https://noice.so/noice"
-          loading="lazy"
-          id="noiceChart"
-        ></iframe>
+        <canvas id="noiceChart" style="width: 100%; height: 400px;"></canvas>
         <a href="https://noice.so/noice" target="_blank" class="chart-link">
           View on noice.so →
         </a>
@@ -1331,32 +1327,28 @@
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text" contenteditable="false" data-key="opt-1-insight">All tokens die anyway. We bridge the ceremony to the 7th day itself. If you can't be alive by then, end it. Don't continue. The launch is well weighted in crypto—a bad launch is hard to resurrect from. <strong>Only tokens that find market fit should become ownership.</strong></p>
-            </div>
-
-            <div class="content-section">
-              <div class="content-label">The Pitch</div>
-              <div class="highlight-box">
-                <p contenteditable="false" data-key="opt-1-pitch">"7 days. $5M. Graduate or die."</p>
-              </div>
+              <p class="content-text" contenteditable="false" data-key="opt-1-insight">all tokens die anyway. we bridge the ceremony to the 7th day itself. if you can't be alive by then, end it. don't continue. relaunch later. the launch is well weighted in crypto. a bad launch is hard to resurrect from (but not impossible). all coins shouldn't be ownership — only those that find token market fit should be ownership driven.</p>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li contenteditable="false" data-key="opt-1-m1">5-7 launches every Monday at 8pm, starting at $125K</li>
-                <li contenteditable="false" data-key="opt-1-m2">7 day window: hit $5M mcap by day 7 or you're dead</li>
-                <li contenteditable="false" data-key="opt-1-m3">Graduate = token converts to equity-grade (25% of C Corp goes to Street SPV)</li>
-                <li contenteditable="false" data-key="opt-1-m4">Die = token delisted, fees go to $NOICE buyback/burn</li>
-                <li contenteditable="false" data-key="opt-1-m5">Fees in escrow until day 7. Win = founder keeps all. Lose = holders get airdrop</li>
-                <li contenteditable="false" data-key="opt-1-m6">Post-graduation: 1.6% to founder, 0.4% to Noice + Solana pool seeded</li>
-                <li contenteditable="false" data-key="opt-1-m7">No presales. Only fair launches. Teams hold 0 coins at start</li>
+                <li contenteditable="false" data-key="opt-1-m1">5 (or) 7 launches every monday, 8pm</li>
+                <li contenteditable="false" data-key="opt-1-m2">7 day window: if you're above $5M at the end of 7th day - you graduate to equity grade token (25% of C Corp goes to street)</li>
+                <li contenteditable="false" data-key="opt-1-m3">commit 10, 25 or 50% to street SPV</li>
+                <li contenteditable="false" data-key="opt-1-m4">token fees is in an 'escrow' till day7. if graduate, get all as founder. if fail, all fees goes to buying/burning noice (or airdrop to $noice holders)</li>
+                <li contenteditable="false" data-key="opt-1-m5">the pmfordie.com show could slap. but can do in month2 if this takes off</li>
+                <li contenteditable="false" data-key="opt-1-m6">validate demand for your project. all good if you fail, there is some reputation risk, though</li>
+                <li contenteditable="false" data-key="opt-1-m7">no presales, only fair launches at $125K</li>
+                <li contenteditable="false" data-key="opt-1-m8">1-1% split fees for first 7 days, if graduated, you get 1.6 we get 0.4</li>
+                <li contenteditable="false" data-key="opt-1-m9">if graduated, we also seed a solana pool for u (i talked to jon wang and pedro a lot about this recently)</li>
+                <li contenteditable="false" data-key="opt-1-m10">95% of tokens die anyway. we're just speedrunning it into a ceremony</li>
               </ul>
             </div>
 
             <div class="content-section">
-              <div class="content-label">Upside</div>
-              <p class="content-text" contenteditable="false" data-key="opt-1-upside">Clear narrative CT can rally behind. Creates drama and event energy. Separates signal from noise. The "PMF or Die" show could be massive content.</p>
+              <div class="content-label">V2 (not necessary for v1)</div>
+              <p class="content-text" contenteditable="false" data-key="opt-1-v2">there could be a prediction market 48 hours before tge 'will this token graduate?'. if you hold yes till end of 48th hour, your 'yes' amount is bundled into a devbuy (but have to hold all through the 7 days. if token fails, you lose money). if you buy no & win, you get 30% of the trading fees that's supposed to go for buyback and burn on day7 death ceremony.</p>
             </div>
           </div>
         </div>
@@ -1392,31 +1384,21 @@
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text" contenteditable="false" data-key="opt-2-insight">All coins are a proxy for mindshare. Bitcoin = digital gold. Pump = memes. Hyperliquid = perps. No matter the fundamentals—stocks, crypto, commodities—they're all priced beyond utility. The "beyond" is attention, urgency, and narrative. <strong>If all coins are priced on attention, why not embrace that and make it a strength?</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-2-insight">if all tokens are priced on attention in some sense, why not embrace that weakness and make it a strength? all coins are a proxy of mindshare. bitcoin, digital gold. pump, memes. hyperliquid, perps. and so on. no matter what the fundamentals to weigh stock, crypto, commodities or memes are — they're all priced beyond fundamentals (and) utility. the "beyond" is usually attention / urgency and narrative.</p>
             </div>
 
             <div class="content-section">
-              <div class="content-label">The Pitch</div>
-              <div class="highlight-box">
-                <p contenteditable="false" data-key="opt-2-pitch">"Distribution is the only moat. Speculation hijacks attention. We index on it."</p>
-              </div>
+              <div class="content-label">Why This</div>
+              <p class="content-text" contenteditable="false" data-key="opt-2-why">distribution is the only moat and software increases by an order of magnitude. this is a line you've read in a million tweets. and that's true. 11 products will look the same, and the one with highest distribution/virality will likely win. and speculation can hijack attention. if all coins are priced on attention anyway, why not index on it?</p>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li contenteditable="false" data-key="opt-2-m1">Launch coins at $125K mcap</li>
-                <li contenteditable="false" data-key="opt-2-m2">Teams and investors hold 0 coins at launch</li>
-                <li contenteditable="false" data-key="opt-2-m3">The fundamental reasoning: bring attention to the product & business</li>
-                <li contenteditable="false" data-key="opt-2-m4">All fees flow to a marketplace of creators, devs, designers, clippers</li>
-                <li contenteditable="false" data-key="opt-2-m5">Not about capital formation—about virality and distribution</li>
-                <li contenteditable="false" data-key="opt-2-m6">Supply side is easy: every service person wants contracts</li>
+                <li contenteditable="false" data-key="opt-2-m1">launch coins at $125K mcap</li>
+                <li contenteditable="false" data-key="opt-2-m2">teams hold 0 coins (so do investors)</li>
+                <li contenteditable="false" data-key="opt-2-m3">the fundamental reasoning of the coin: bring attention to the product & business</li>
               </ul>
-            </div>
-
-            <div class="content-section">
-              <div class="content-label">Upside</div>
-              <p class="content-text" contenteditable="false" data-key="opt-2-upside">Reframes the narrative from "raise money" to "get distribution." Aligns incentives with what actually matters for early startups. Creates a marketplace flywheel.</p>
             </div>
           </div>
         </div>
@@ -1452,35 +1434,30 @@
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text" contenteditable="false" data-key="opt-3-insight">Tokens have caveats: if they fall 80%, your odds of raising are hurt. A perpetual token sounds good—you IPO, people speculate—but 90% of the time it's a liability. Founders have to pump the chart instead of building product. <strong>But prediction markets? They're limited-time, focused, and don't peg your company's valuation.</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-3-insight">speculation is net +ve for businesses. there's a multi-billion opportunity there. think acquired, angelist, polymarket and so on. but speculation comes in many forms.</p>
             </div>
 
             <div class="content-section">
-              <div class="content-label">The Pitch</div>
-              <div class="highlight-box">
-                <p contenteditable="false" data-key="opt-3-pitch">"Monthly markets on company milestones. Simple yes/no. Will they hit it?"</p>
-              </div>
-            </div>
-
-            <div class="content-section">
-              <div class="content-label">How It Works</div>
+              <div class="content-label">Tokens and their caveats</div>
               <ul class="mechanics-list">
-                <li contenteditable="false" data-key="opt-3-m1">Founders set monthly targets: increase MRR by 40%, hire 3 engineers, launch product X</li>
-                <li contenteditable="false" data-key="opt-3-m2">Any KPI is fair game—as long as you show current status + goal</li>
-                <li contenteditable="false" data-key="opt-3-m3">Simple yes/no market on each milestone</li>
-                <li contenteditable="false" data-key="opt-3-m4">Limited-time speculation that doesn't peg your mcap</li>
-                <li contenteditable="false" data-key="opt-3-m5">Still gives distribution if done well (noisy founders win)</li>
+                <li contenteditable="false" data-key="opt-3-c1">if they fall 80%, your odds of raising are hurt. and it will fall 80% because: capital allocation is important, narratives (and liquidity) shifts. macro tailwinds affect things</li>
+                <li contenteditable="false" data-key="opt-3-c2">a perpetual token is good; you IPO / people can speculate. but 90% of the times it's a liability. "pump the chart" is the request, founders have to do things to increase price (instead of focusing on the product)</li>
               </ul>
             </div>
 
             <div class="content-section">
+              <div class="content-label">Prediction Markets</div>
+              <p class="content-text" contenteditable="false" data-key="opt-3-pm">monthly markets on companies. they decide targets: increase MRR by 40%. hire 3 employees. launch XYZ product. scale XYZ to 10,000 users. any KPI is fair game. any. as long as you tell the current status (and) the goal. limited time speculation, doesn't peg your company's mcap but STILL, gives distribution enough (if done well, if you're a noisy founder it would work).</p>
+            </div>
+
+            <div class="content-section">
               <div class="content-label">Target Users</div>
-              <p class="content-text" contenteditable="false" data-key="opt-3-target">YC or a16z batches. Solo app devs popular on Twitter (Blake with Cal.ai, Jack Friks). New-age startups that need to bootstrap distribution, get quality eyeballs, and go viral. <strong>You just need 1-2 prediction markets to go off.</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-3-target">this could 100% convince a YC or a16z batch or solo-app-devs-that-are-popular on twitter (blake w cal ai, or jack friks) to invite speculation on their short-term, focused progress. it's a simple yes/no market.</p>
             </div>
 
             <div class="content-section">
               <div class="content-label">Concern</div>
-              <p class="content-text" contenteditable="false" data-key="opt-3-concern">Will it get enough liquidity? Will it actually become a distribution cheat code for startups? Unknown until proven.</p>
+              <p class="content-text" contenteditable="false" data-key="opt-3-concern">will it get enough liquidity? will it *actually* become a distribution cheat code for startups? imo you just need 1-2 prediction markets to go off. new age startups are a new asset class which haven't found a way to a) bootstrap distribution b) get quality eyeballs c) go viral (speculation can 10x the quickness)</p>
             </div>
           </div>
         </div>
@@ -1516,40 +1493,64 @@
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text" contenteditable="false" data-key="opt-4-insight">Trillions of likes on the internet. What if you could buy tokens when you pay attention (i.e., like) to takes around them? <strong>The slickest UX way to buy crypto.</strong> If we take this to 100K+ followers, we can control some mindshare for tokens—and all tokens are a proxy for mindshare anyway.</p>
+              <p class="content-text" contenteditable="false" data-key="opt-4-insight">put your money where your like is. trillions of likes on the internet, buy tokens when you pay attention (ie, like) to takes around it.</p>
             </div>
 
             <div class="content-section">
-              <div class="content-label">The Pitch</div>
-              <div class="highlight-box">
-                <p contenteditable="false" data-key="opt-4-pitch">"Like a tweet. Buy the coin. That simple."</p>
+              <div class="content-label">Opportunity</div>
+              <p class="content-text" contenteditable="false" data-key="opt-4-opp">the slickest UX way to buy crypto. if we take this to 100K+ followers, we can control some mindshare for tokens — and all tokens are a proxy for mindshare anyway.</p>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Traction</div>
+              <p class="content-text" contenteditable="false" data-key="opt-4-traction"><strong>5,862 users have spent $472K total in the last month, across 20 tweets.</strong> we know this like-to-buy can be fkn cool for newly launched tokens (and) buying coins when given a thesis.</p>
+              <div class="tweet-embeds" style="margin-top: 24px;">
+                <div class="tweet-embed">
+                  <blockquote class="twitter-tweet" data-theme="dark" data-conversation="none">
+                    <a href="https://twitter.com/jessepollak/status/1991554915370713088"></a>
+                  </blockquote>
+                </div>
+                <div class="tweet-embed">
+                  <blockquote class="twitter-tweet" data-theme="dark" data-conversation="none">
+                    <a href="https://twitter.com/noiceagent/status/1988292480123691498"></a>
+                  </blockquote>
+                </div>
               </div>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
-              <ul class="mechanics-list">
-                <li contenteditable="false" data-key="opt-4-m1">Oracle is a Twitter page—like or comment on its tweet to buy the coin</li>
-                <li contenteditable="false" data-key="opt-4-m2">Already built: agent.noice.so / user logs in on X → gets $1 on Base and Solana → sets up like-to-buy amounts → connects Telegram for notifs</li>
-                <li contenteditable="false" data-key="opt-4-m3">Can create 9 accounts, each representing a category of assets</li>
-                <li contenteditable="false" data-key="opt-4-m4">Works for anything onchain with a contract address</li>
-              </ul>
+              <p class="content-text" contenteditable="false" data-key="opt-4-how">oracle is a twitter page where everytime you like or comment on its tweet, you can buy the coin. we already have the terminal: agent.noice.so / user logs in on X -> they get $1 on base and solana -> they are prompted to setup their amounts for like to buy -> connect telegram -> get notifs when u do smth.</p>
+              <p class="content-text" style="margin-top: 16px;" contenteditable="false" data-key="opt-4-how2">right now it's just x.com/noiceagent — where we manually tweet stuff about some coins (hence the cadence is off). but here is a universe of possibilities: we can create 9 accounts, each representing something that *actually* has a ticker. we won't launch all 9 at once. it only makes sense if it's working on 1. we can basically do this like-to-buy thing for *any* category of asset that is 1) onchain 2) has a contract address tied to it.</p>
             </div>
 
             <div class="content-section">
               <div class="content-label">Asset Categories</div>
               <ul class="mechanics-list">
-                <li contenteditable="false" data-key="opt-4-a1"><strong>Immediate:</strong> Pump, Clanker, Virtuals new coins (tweet metadata on launch)</li>
-                <li contenteditable="false" data-key="opt-4-a2"><strong>Polymarket:</strong> "Trump wins? Like to buy YES." Elections, sports, culture</li>
-                <li contenteditable="false" data-key="opt-4-a3"><strong>Onchain stocks:</strong> NVDA, TSLA, AMZN, GOOGL, PLNTR, HOOD, MSTR</li>
-                <li contenteditable="false" data-key="opt-4-a4"><strong>ICMs:</strong> AIXBT, automated tweeting, LLMs on top</li>
-                <li contenteditable="false" data-key="opt-4-a5"><strong>Later:</strong> RWAs, tokenized treasuries, gold, real estate, index tokens</li>
+                <li contenteditable="false" data-key="opt-4-a1">crypto tokens about startups and icms - aixbt, automate it, tweet more, run more manual LLMs on top</li>
+                <li contenteditable="false" data-key="opt-4-a2">onchain stocks (nvda, tsla, amzn, googl, plntr, hood, mstr) - summarize bloomberg terminal summaries</li>
+                <li contenteditable="false" data-key="opt-4-a3">(immediate opportunity) pump, clanker or virtuals new coins - tweet standard metadata: "$noice launched on @clankeronbase. website: noice.so. mcap: $43K. launch tweet: (undefined)."</li>
+                <li contenteditable="false" data-key="opt-4-a4">polymarket - Polymarket outcomes (elections, sports, crypto events, culture). each market has a contract, clear binary outcomes, and high engagement hooks. ("Trump wins? Like to buy YES"). Like and Unlike to buy No.</li>
+                <li contenteditable="false" data-key="opt-4-a5">(perhaps later) RWAs - Tokenized treasuries (Ondo USDY, Mountain USDM, Backed bIB01), Tokenized gold (PAXG, XAUT), Tokenized real estate (RealT, Tangible)</li>
+                <li contenteditable="false" data-key="opt-4-a6">index Tokens / ETFs - DeFi indices (DPI, MVI), AI agent baskets, Memecoin indices. Like to buy the sector, not pick the winner</li>
+                <li contenteditable="false" data-key="opt-4-a7">tweet comments from fomo / clicker / interface about all the tokens they serve - standard format: "@heettike on interface "$abcd to the moon its so fkn good" at $4.77M mcap"</li>
               </ul>
             </div>
 
             <div class="content-section">
-              <div class="content-label">Blockers</div>
-              <p class="content-text" contenteditable="false" data-key="opt-4-blockers">Twitter Enterprise access—currently only interacting with one account at a time is limiting. Ideally like-to-buy works across anyone's tweets, not just our accounts. Price updates also need solving (constant comment updates?).</p>
+              <div class="content-label">Issues</div>
+              <ul class="mechanics-list">
+                <li contenteditable="false" data-key="opt-4-i1">current prices: users need to know the current prices. what's the best way out here? one is to constantly keep commenting under the tweet every minute with a new price update (while deleting the last comment)</li>
+                <li contenteditable="false" data-key="opt-4-i2">streaming content: imo there are APIs for every market here. could solve for all issues (according to me)</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <div class="content-label">Content Strategy/Style</div>
+              <ul class="mechanics-list">
+                <li contenteditable="false" data-key="opt-4-s1">APIs and LLMs and AI yapping for each market: give a character to each agent</li>
+                <li contenteditable="false" data-key="opt-4-s2">quote tweet the top 3-4 comments for a list of ~100 tickers (imagine QT'ing mert each time he talks on zcash. it would look like "@0xMert on $ZEC"). we would need to listen to all tweets on twitter, and then filter them basis the cashtag (eg, $ZEC)</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1585,34 +1586,16 @@
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text" contenteditable="false" data-key="opt-5-insight">MetaDAO built something real: market-driven governance where token holders actually own the business. They have smart talent and sophisticated capital rallying behind them. <strong>Steal like an artist. Copy the model, bring it multi-chain.</strong></p>
-            </div>
-
-            <div class="content-section">
-              <div class="content-label">The Pitch</div>
-              <div class="highlight-box">
-                <p contenteditable="false" data-key="opt-5-pitch">"MetaDAO governance on Base and Ethereum. True ownership tokens."</p>
-              </div>
+              <p class="content-text" contenteditable="false" data-key="opt-5-insight">just copy metadao but on base/ethereum. allow multi-chain deployment.</p>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li contenteditable="false" data-key="opt-5-m1">DAO LLC construct: owns 100% IP</li>
-                <li contenteditable="false" data-key="opt-5-m2">Market-driven governance: liquidation, raising, contract audits—all decided by markets</li>
-                <li contenteditable="false" data-key="opt-5-m3">Monthly allowance model continues to make sense</li>
-                <li contenteditable="false" data-key="opt-5-m4">Allow multi-chain deployment (Base, Ethereum, not just Solana)</li>
+                <li contenteditable="false" data-key="opt-5-m1">dao LLC construct: owns 100% IP</li>
+                <li contenteditable="false" data-key="opt-5-m2">market driven governance: liquidation, raising, contract audit etc</li>
+                <li contenteditable="false" data-key="opt-5-m3">monthly allowance continues to make sense</li>
               </ul>
-            </div>
-
-            <div class="content-section">
-              <div class="content-label">Upside</div>
-              <p class="content-text" contenteditable="false" data-key="opt-5-upside">Proven model with real traction. Smart capital already understands and respects this. Less educational overhead—just execute better and be multi-chain.</p>
-            </div>
-
-            <div class="content-section">
-              <div class="content-label">Risk</div>
-              <p class="content-text" contenteditable="false" data-key="opt-5-risk">Pure copy with less differentiation. MetaDAO has first-mover advantage and community. Would need to find an angle beyond "same thing, different chain."</p>
             </div>
           </div>
         </div>
@@ -1899,6 +1882,77 @@
 
   <!-- Twitter Widget Script -->
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Fetch and render NOICE chart
+    async function renderNoiceChart() {
+      try {
+        const response = await fetch('https://noice.so/api/tokenChartData?address=0x9Cb41FD9dC6891BAe8187029461bfAADF6CC0C69&chain=eip155:8453&period=7D');
+        const data = await response.json();
+
+        const ctx = document.getElementById('noiceChart').getContext('2d');
+
+        // Extract timestamps and prices
+        const labels = data.map(d => {
+          const date = new Date(d.timestamp || d.time || d.t);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        });
+        const prices = data.map(d => d.price || d.close || d.c || d.value);
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: '$NOICE',
+              data: prices,
+              borderColor: '#ef4444',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              borderWidth: 2,
+              fill: true,
+              tension: 0.4,
+              pointRadius: 0,
+              pointHoverRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              x: {
+                grid: { color: 'rgba(255,255,255,0.05)' },
+                ticks: { color: 'rgba(255,255,255,0.4)', maxTicksLimit: 7 }
+              },
+              y: {
+                grid: { color: 'rgba(255,255,255,0.05)' },
+                ticks: {
+                  color: 'rgba(255,255,255,0.4)',
+                  callback: function(value) {
+                    return '$' + value.toFixed(6);
+                  }
+                }
+              }
+            },
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            }
+          }
+        });
+      } catch (error) {
+        console.log('Chart API error:', error);
+        document.getElementById('noiceChart').parentElement.innerHTML = '<div style="padding: 40px; text-align: center; color: rgba(255,255,255,0.4);">Chart loading...</div>';
+      }
+    }
+
+    // Load chart on DOM ready
+    document.addEventListener('DOMContentLoaded', renderNoiceChart);
+  </script>
 
 </body>
 </html>
