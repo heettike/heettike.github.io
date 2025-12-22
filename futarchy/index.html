@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>futarchy | noice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Manrope', sans-serif;
+      min-height: 100vh;
+      text-transform: lowercase;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 48px;
+    }
+
+    /* Market Card */
+    .market-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .market-question {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    /* Pool Display */
+    .pool-bar {
+      display: flex;
+      height: 48px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .pool-yes {
+      background: #22c55e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #000;
+      transition: width 0.3s ease;
+    }
+    .pool-no {
+      background: #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #000;
+      transition: width 0.3s ease;
+    }
+    .pool-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .pool-stat {
+      text-align: center;
+    }
+    .pool-stat-value {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .pool-stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+    .pool-stat.yes .pool-stat-value { color: #22c55e; }
+    .pool-stat.no .pool-stat-value { color: #ef4444; }
+
+    /* Betting */
+    .bet-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .bet-btn {
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      text-transform: lowercase;
+    }
+    .bet-btn.yes {
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+    .bet-btn.yes:hover, .bet-btn.yes.active {
+      background: rgba(34, 197, 94, 0.25);
+      border-color: #22c55e;
+    }
+    .bet-btn.no {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .bet-btn.no:hover, .bet-btn.no.active {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: #ef4444;
+    }
+
+    /* Amount Input */
+    .amount-section {
+      margin-bottom: 24px;
+    }
+    .amount-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+    .amount-input-wrapper {
+      display: flex;
+      gap: 8px;
+    }
+    .amount-input {
+      flex: 1;
+      padding: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: inherit;
+    }
+    .amount-input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.3);
+    }
+    .amount-suffix {
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+    }
+    .quick-amounts {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .quick-amount {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+      text-transform: lowercase;
+    }
+    .quick-amount:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    /* Submit */
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-transform: lowercase;
+      transition: all 0.2s ease;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+    }
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Status */
+    .market-status {
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .market-status.open {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+    .market-status.closed {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    .market-status.resolved {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      color: #8b5cf6;
+    }
+
+    /* Timer */
+    .timer {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .timer-value {
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* Your Position */
+    .your-position {
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .your-position h4 {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+      letter-spacing: 0.1em;
+    }
+    .position-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+    .position-row span:first-child {
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Connect Wallet */
+    .connect-section {
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .connect-btn {
+      padding: 16px 32px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-transform: lowercase;
+    }
+
+    /* Info */
+    .info-section {
+      margin-top: 48px;
+      padding: 24px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+    }
+    .info-section h3 {
+      font-size: 14px;
+      margin-bottom: 16px;
+      color: rgba(255,255,255,0.6);
+    }
+    .info-section p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    /* Wallet Status */
+    .wallet-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .wallet-address {
+      font-family: monospace;
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+    }
+    .wallet-balance {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>futarchy</h1>
+    <p class="subtitle">bet on outcomes. let the market decide.</p>
+
+    <div id="app">
+      <!-- Connect State -->
+      <div id="connect-view" class="connect-section">
+        <p style="margin-bottom: 24px; color: rgba(255,255,255,0.5);">connect wallet to view market and place bets</p>
+        <button class="connect-btn" onclick="connectWallet()">connect wallet</button>
+      </div>
+
+      <!-- Market View (hidden by default) -->
+      <div id="market-view" style="display: none;">
+        <div class="wallet-status">
+          <span class="wallet-address" id="wallet-address">0x...</span>
+          <span class="wallet-balance" id="wallet-balance">0 ETH</span>
+        </div>
+
+        <div class="market-card">
+          <div class="market-question" id="market-question">
+            will $noice price be higher in 7 days?
+          </div>
+
+          <div class="market-status open" id="market-status">
+            market open
+          </div>
+
+          <div class="timer">
+            ends in
+            <span class="timer-value" id="timer">--:--:--</span>
+          </div>
+
+          <div class="pool-bar">
+            <div class="pool-yes" id="pool-yes-bar" style="width: 50%;">50%</div>
+            <div class="pool-no" id="pool-no-bar" style="width: 50%;">50%</div>
+          </div>
+
+          <div class="pool-stats">
+            <div class="pool-stat yes">
+              <div class="pool-stat-value" id="total-yes">0 ETH</div>
+              <div class="pool-stat-label">yes pool</div>
+            </div>
+            <div class="pool-stat no">
+              <div class="pool-stat-value" id="total-no">0 ETH</div>
+              <div class="pool-stat-label">no pool</div>
+            </div>
+          </div>
+
+          <div class="bet-buttons">
+            <button class="bet-btn yes" id="btn-yes" onclick="selectSide('yes')">
+              yes
+            </button>
+            <button class="bet-btn no" id="btn-no" onclick="selectSide('no')">
+              no
+            </button>
+          </div>
+
+          <div class="amount-section">
+            <div class="amount-label">amount</div>
+            <div class="amount-input-wrapper">
+              <input type="number" class="amount-input" id="bet-amount" placeholder="0.01" step="0.001" min="0.001">
+              <span class="amount-suffix">eth</span>
+            </div>
+            <div class="quick-amounts">
+              <button class="quick-amount" onclick="setAmount(0.001)">0.001</button>
+              <button class="quick-amount" onclick="setAmount(0.005)">0.005</button>
+              <button class="quick-amount" onclick="setAmount(0.01)">0.01</button>
+              <button class="quick-amount" onclick="setAmount(0.05)">0.05</button>
+            </div>
+          </div>
+
+          <button class="submit-btn" id="submit-btn" onclick="placeBet()" disabled>
+            select yes or no
+          </button>
+        </div>
+
+        <div class="your-position" id="your-position" style="display: none;">
+          <h4>your position</h4>
+          <div class="position-row">
+            <span>yes bet</span>
+            <span id="user-yes">0 ETH</span>
+          </div>
+          <div class="position-row">
+            <span>no bet</span>
+            <span id="user-no">0 ETH</span>
+          </div>
+          <div class="position-row">
+            <span>potential payout</span>
+            <span id="potential-payout">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>how it works</h3>
+      <p>1. connect your wallet (base network)</p>
+      <p>2. choose yes (price goes up) or no (price goes down)</p>
+      <p>3. enter ETH amount and place your bet</p>
+      <p>4. after the deadline, the market resolves based on actual price</p>
+      <p>5. winners split the pool proportionally</p>
+      <p style="margin-top: 16px; color: rgba(255,255,255,0.6);">
+        <strong>note:</strong> this is an MVP. the contract needs to be deployed first.
+        see /futarchy/README.md for deployment instructions.
+      </p>
+    </div>
+  </div>
+
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+  <script>
+    // Contract ABI (simplified)
+    const ABI = [
+      "function betYes() external payable",
+      "function betNo() external payable",
+      "function resolve(bool _outcome) external",
+      "function claim() external",
+      "function getPoolState() external view returns (uint256, uint256, uint256, bool, bool)",
+      "function getUserBets(address user) external view returns (uint256, uint256, bool)",
+      "function getImpliedProbability() external view returns (uint256, uint256)",
+      "function question() external view returns (string)",
+      "function endTime() external view returns (uint256)",
+      "function resolved() external view returns (bool)",
+      "function outcome() external view returns (bool)"
+    ];
+
+    // TODO: Replace with your deployed contract address
+    const CONTRACT_ADDRESS = "0x0000000000000000000000000000000000000000";
+    const BASE_CHAIN_ID = 8453;
+
+    let provider, signer, contract;
+    let selectedSide = null;
+    let userAddress = null;
+
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert("Please install MetaMask or another wallet");
+        return;
+      }
+
+      try {
+        // Request account access
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        userAddress = accounts[0];
+
+        // Check network
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        if (parseInt(chainId, 16) !== BASE_CHAIN_ID) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x2105' }]
+            });
+          } catch (switchError) {
+            // Chain not added, add it
+            if (switchError.code === 4902) {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: '0x2105',
+                  chainName: 'Base',
+                  nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+                  rpcUrls: ['https://mainnet.base.org'],
+                  blockExplorerUrls: ['https://basescan.org']
+                }]
+              });
+            }
+          }
+        }
+
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        signer = provider.getSigner();
+
+        // Show market view
+        document.getElementById('connect-view').style.display = 'none';
+        document.getElementById('market-view').style.display = 'block';
+
+        // Update UI
+        const shortAddr = userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
+        document.getElementById('wallet-address').textContent = shortAddr;
+
+        const balance = await provider.getBalance(userAddress);
+        document.getElementById('wallet-balance').textContent =
+          parseFloat(ethers.utils.formatEther(balance)).toFixed(4) + ' ETH';
+
+        // If contract is deployed, load market data
+        if (CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
+          contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+          await loadMarketData();
+        } else {
+          document.getElementById('market-status').textContent = 'contract not deployed yet';
+          document.getElementById('market-status').className = 'market-status closed';
+        }
+
+      } catch (error) {
+        console.error(error);
+        alert("Error connecting wallet: " + error.message);
+      }
+    }
+
+    async function loadMarketData() {
+      try {
+        const [totalYes, totalNo, endTime, resolved, outcome] = await contract.getPoolState();
+        const [userYes, userNo, claimed] = await contract.getUserBets(userAddress);
+        const question = await contract.question();
+
+        document.getElementById('market-question').textContent = question;
+
+        const totalYesEth = parseFloat(ethers.utils.formatEther(totalYes));
+        const totalNoEth = parseFloat(ethers.utils.formatEther(totalNo));
+        const total = totalYesEth + totalNoEth || 1;
+
+        const yesPct = Math.round((totalYesEth / total) * 100);
+        const noPct = 100 - yesPct;
+
+        document.getElementById('pool-yes-bar').style.width = yesPct + '%';
+        document.getElementById('pool-yes-bar').textContent = yesPct + '%';
+        document.getElementById('pool-no-bar').style.width = noPct + '%';
+        document.getElementById('pool-no-bar').textContent = noPct + '%';
+
+        document.getElementById('total-yes').textContent = totalYesEth.toFixed(4) + ' ETH';
+        document.getElementById('total-no').textContent = totalNoEth.toFixed(4) + ' ETH';
+
+        // Update timer
+        updateTimer(endTime.toNumber());
+
+        // User position
+        const userYesEth = parseFloat(ethers.utils.formatEther(userYes));
+        const userNoEth = parseFloat(ethers.utils.formatEther(userNo));
+
+        if (userYesEth > 0 || userNoEth > 0) {
+          document.getElementById('your-position').style.display = 'block';
+          document.getElementById('user-yes').textContent = userYesEth.toFixed(4) + ' ETH';
+          document.getElementById('user-no').textContent = userNoEth.toFixed(4) + ' ETH';
+        }
+
+        // Status
+        const now = Math.floor(Date.now() / 1000);
+        if (resolved) {
+          document.getElementById('market-status').textContent =
+            outcome ? 'resolved: YES won' : 'resolved: NO won';
+          document.getElementById('market-status').className = 'market-status resolved';
+        } else if (now >= endTime.toNumber()) {
+          document.getElementById('market-status').textContent = 'betting closed - awaiting resolution';
+          document.getElementById('market-status').className = 'market-status closed';
+        } else {
+          document.getElementById('market-status').textContent = 'market open';
+          document.getElementById('market-status').className = 'market-status open';
+        }
+
+      } catch (error) {
+        console.error("Error loading market:", error);
+      }
+    }
+
+    function updateTimer(endTime) {
+      const update = () => {
+        const now = Math.floor(Date.now() / 1000);
+        const diff = endTime - now;
+
+        if (diff <= 0) {
+          document.getElementById('timer').textContent = 'ended';
+          return;
+        }
+
+        const days = Math.floor(diff / 86400);
+        const hours = Math.floor((diff % 86400) / 3600);
+        const mins = Math.floor((diff % 3600) / 60);
+        const secs = diff % 60;
+
+        let str = '';
+        if (days > 0) str += days + 'd ';
+        str += hours.toString().padStart(2, '0') + ':';
+        str += mins.toString().padStart(2, '0') + ':';
+        str += secs.toString().padStart(2, '0');
+
+        document.getElementById('timer').textContent = str;
+      };
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    function selectSide(side) {
+      selectedSide = side;
+      document.getElementById('btn-yes').classList.toggle('active', side === 'yes');
+      document.getElementById('btn-no').classList.toggle('active', side === 'no');
+      updateSubmitButton();
+    }
+
+    function setAmount(amount) {
+      document.getElementById('bet-amount').value = amount;
+      updateSubmitButton();
+    }
+
+    function updateSubmitButton() {
+      const amount = parseFloat(document.getElementById('bet-amount').value) || 0;
+      const btn = document.getElementById('submit-btn');
+
+      if (!selectedSide) {
+        btn.textContent = 'select yes or no';
+        btn.disabled = true;
+      } else if (amount <= 0) {
+        btn.textContent = 'enter amount';
+        btn.disabled = true;
+      } else {
+        btn.textContent = `bet ${amount} eth on ${selectedSide}`;
+        btn.disabled = false;
+      }
+    }
+
+    document.getElementById('bet-amount').addEventListener('input', updateSubmitButton);
+
+    async function placeBet() {
+      if (!contract || !selectedSide) return;
+
+      const amount = document.getElementById('bet-amount').value;
+      if (!amount || parseFloat(amount) <= 0) return;
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'confirming...';
+
+      try {
+        const value = ethers.utils.parseEther(amount);
+        const tx = selectedSide === 'yes'
+          ? await contract.betYes({ value })
+          : await contract.betNo({ value });
+
+        btn.textContent = 'waiting for confirmation...';
+        await tx.wait();
+
+        btn.textContent = 'bet placed!';
+        await loadMarketData();
+
+        setTimeout(() => {
+          selectedSide = null;
+          document.getElementById('bet-amount').value = '';
+          document.getElementById('btn-yes').classList.remove('active');
+          document.getElementById('btn-no').classList.remove('active');
+          updateSubmitButton();
+        }, 2000);
+
+      } catch (error) {
+        console.error(error);
+        alert("Error: " + (error.reason || error.message));
+        updateSubmitButton();
+      }
+    }
+
+    // Listen for account changes
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', () => location.reload());
+      window.ethereum.on('chainChanged', () => location.reload());
+    }
+  </script>
+</body>
+</html>
