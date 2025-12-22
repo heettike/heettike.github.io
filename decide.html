@@ -662,6 +662,31 @@
       color: rgba(255,255,255,0.4);
     }
 
+    /* Tweet Embeds */
+    .tweet-embeds {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .tweet-embed {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: 300px;
+    }
+
+    .tweet-embed twitter-widget,
+    .tweet-embed .twitter-tweet {
+      margin: 0 !important;
+    }
+
+    .tweet-embed iframe {
+      border-radius: 12px;
+    }
+
     /* Options Section */
     .options {
       padding: 120px 0;
@@ -741,46 +766,54 @@
       gap: 16px;
     }
 
-    /* Bet Counter */
-    .bet-counter {
+    /* Vote Buttons */
+    .vote-container {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
+      align-items: center;
+      gap: 12px;
     }
 
-    .bet-amount {
-      font-size: 18px;
-      font-weight: 500;
-      color: #22c55e;
-    }
-
-    .bet-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-    }
-
-    .bet-btn {
-      padding: 10px 20px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      border-radius: 8px;
-      color: #22c55e;
-      font-size: 13px;
+    .vote-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       font-family: inherit;
-      white-space: nowrap;
     }
 
-    .bet-btn:hover {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.2));
-      border-color: rgba(34, 197, 94, 0.5);
-      transform: scale(1.02);
+    .vote-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .vote-btn.upvote:hover,
+    .vote-btn.upvote.voted {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+
+    .vote-btn.downvote:hover,
+    .vote-btn.downvote.voted {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    .vote-btn .vote-icon {
+      font-size: 16px;
+    }
+
+    .vote-btn .vote-count {
+      font-variant-numeric: tabular-nums;
     }
 
     .option-toggle {
@@ -1233,28 +1266,28 @@
         </div>
       </div>
 
-      <!-- Milestones -->
-      <div class="milestones">
-        <a href="https://x.com/HeetTike/status/1978110975317332268" target="_blank" class="milestone">
-          <div class="milestone-icon">💰</div>
-          <div class="milestone-title">Raised from CBV & Balaji</div>
-          <div class="milestone-sub">View announcement →</div>
-        </a>
-        <a href="https://x.com/base/status/1947378855372853451" target="_blank" class="milestone">
-          <div class="milestone-icon">🏆</div>
-          <div class="milestone-title">Base Batches 001 Winners</div>
-          <div class="milestone-sub">View announcement →</div>
-        </a>
-        <a href="https://x.com/heettike/status/1946437385505349664" target="_blank" class="milestone">
-          <div class="milestone-icon">🎙️</div>
-          <div class="milestone-title">Speaking on TBA</div>
-          <div class="milestone-sub">View announcement →</div>
-        </a>
-        <a href="https://x.com/CoinbaseMarkets/status/1975957703441653787" target="_blank" class="milestone">
-          <div class="milestone-icon">📈</div>
-          <div class="milestone-title">Listed on Coinbase</div>
-          <div class="milestone-sub">View announcement →</div>
-        </a>
+      <!-- Tweet Embeds -->
+      <div class="tweet-embeds">
+        <div class="tweet-embed">
+          <blockquote class="twitter-tweet" data-theme="dark" data-conversation="none">
+            <a href="https://twitter.com/HeetTike/status/1978110975317332268"></a>
+          </blockquote>
+        </div>
+        <div class="tweet-embed">
+          <blockquote class="twitter-tweet" data-theme="dark" data-conversation="none">
+            <a href="https://twitter.com/base/status/1947378855372853451"></a>
+          </blockquote>
+        </div>
+        <div class="tweet-embed">
+          <blockquote class="twitter-tweet" data-theme="dark" data-conversation="none">
+            <a href="https://twitter.com/heettike/status/1946437385505349664"></a>
+          </blockquote>
+        </div>
+        <div class="tweet-embed">
+          <blockquote class="twitter-tweet" data-theme="dark" data-conversation="none">
+            <a href="https://twitter.com/CoinbaseMarkets/status/1975957703441653787"></a>
+          </blockquote>
+        </div>
       </div>
     </div>
   </section>
@@ -1277,11 +1310,16 @@
             <div class="option-tldr" contenteditable="false" data-key="opt-1-tldr">95% of tokens die anyway. Make it a 7-day ceremony.</div>
           </div>
           <div class="option-header-right">
-            <div class="bet-counter">
-              <div class="bet-amount" data-bet="1">0 $NOICE</div>
-              <div class="bet-label">Staked on this</div>
+            <div class="vote-container">
+              <button class="vote-btn upvote" data-option="1" data-vote="up" onclick="vote(1, 'up', event)">
+                <span class="vote-icon">👍</span>
+                <span class="vote-count" id="vote-1-up">0</span>
+              </button>
+              <button class="vote-btn downvote" data-option="1" data-vote="down" onclick="vote(1, 'down', event)">
+                <span class="vote-icon">👎</span>
+                <span class="vote-count" id="vote-1-down">0</span>
+              </button>
             </div>
-            <button class="bet-btn" onclick="betOnOption(1, event)">Bet $NOICE</button>
             <div class="option-toggle">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 9l6 6 6-6"/>
@@ -1333,11 +1371,16 @@
             <div class="option-tldr" contenteditable="false" data-key="opt-2-tldr">All coins are priced on attention anyway. Index on it.</div>
           </div>
           <div class="option-header-right">
-            <div class="bet-counter">
-              <div class="bet-amount" data-bet="2">0 $NOICE</div>
-              <div class="bet-label">Staked on this</div>
+            <div class="vote-container">
+              <button class="vote-btn upvote" data-option="2" data-vote="up" onclick="vote(2, 'up', event)">
+                <span class="vote-icon">👍</span>
+                <span class="vote-count" id="vote-2-up">0</span>
+              </button>
+              <button class="vote-btn downvote" data-option="2" data-vote="down" onclick="vote(2, 'down', event)">
+                <span class="vote-icon">👎</span>
+                <span class="vote-count" id="vote-2-down">0</span>
+              </button>
             </div>
-            <button class="bet-btn" onclick="betOnOption(2, event)">Bet $NOICE</button>
             <div class="option-toggle">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 9l6 6 6-6"/>
@@ -1388,11 +1431,16 @@
             <div class="option-tldr" contenteditable="false" data-key="opt-3-tldr">Speculation is net positive for businesses. Make it focused.</div>
           </div>
           <div class="option-header-right">
-            <div class="bet-counter">
-              <div class="bet-amount" data-bet="3">0 $NOICE</div>
-              <div class="bet-label">Staked on this</div>
+            <div class="vote-container">
+              <button class="vote-btn upvote" data-option="3" data-vote="up" onclick="vote(3, 'up', event)">
+                <span class="vote-icon">👍</span>
+                <span class="vote-count" id="vote-3-up">0</span>
+              </button>
+              <button class="vote-btn downvote" data-option="3" data-vote="down" onclick="vote(3, 'down', event)">
+                <span class="vote-icon">👎</span>
+                <span class="vote-count" id="vote-3-down">0</span>
+              </button>
             </div>
-            <button class="bet-btn" onclick="betOnOption(3, event)">Bet $NOICE</button>
             <div class="option-toggle">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 9l6 6 6-6"/>
@@ -1447,11 +1495,16 @@
             <div class="option-tldr" contenteditable="false" data-key="opt-4-tldr">Put your money where your like is.</div>
           </div>
           <div class="option-header-right">
-            <div class="bet-counter">
-              <div class="bet-amount" data-bet="4">0 $NOICE</div>
-              <div class="bet-label">Staked on this</div>
+            <div class="vote-container">
+              <button class="vote-btn upvote" data-option="4" data-vote="up" onclick="vote(4, 'up', event)">
+                <span class="vote-icon">👍</span>
+                <span class="vote-count" id="vote-4-up">0</span>
+              </button>
+              <button class="vote-btn downvote" data-option="4" data-vote="down" onclick="vote(4, 'down', event)">
+                <span class="vote-icon">👎</span>
+                <span class="vote-count" id="vote-4-down">0</span>
+              </button>
             </div>
-            <button class="bet-btn" onclick="betOnOption(4, event)">Bet $NOICE</button>
             <div class="option-toggle">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 9l6 6 6-6"/>
@@ -1511,11 +1564,16 @@
             <div class="option-tldr" contenteditable="false" data-key="opt-5-tldr">Copy MetaDAO. Put it on Base/Ethereum.</div>
           </div>
           <div class="option-header-right">
-            <div class="bet-counter">
-              <div class="bet-amount" data-bet="5">0 $NOICE</div>
-              <div class="bet-label">Staked on this</div>
+            <div class="vote-container">
+              <button class="vote-btn upvote" data-option="5" data-vote="up" onclick="vote(5, 'up', event)">
+                <span class="vote-icon">👍</span>
+                <span class="vote-count" id="vote-5-up">0</span>
+              </button>
+              <button class="vote-btn downvote" data-option="5" data-vote="down" onclick="vote(5, 'down', event)">
+                <span class="vote-icon">👎</span>
+                <span class="vote-count" id="vote-5-down">0</span>
+              </button>
             </div>
-            <button class="bet-btn" onclick="betOnOption(5, event)">Bet $NOICE</button>
             <div class="option-toggle">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M6 9l6 6 6-6"/>
@@ -1666,35 +1724,105 @@
       closeLinkPopup();
     }
 
-    // ===== BET FUNCTIONALITY =====
-    const bets = JSON.parse(localStorage.getItem('decide-bets') || '{"1":0,"2":0,"3":0,"4":0,"5":0}');
+    // ===== VOTING WITH FIREBASE =====
+    // Firebase configuration - using Realtime Database
+    const FIREBASE_URL = 'https://noice-decide-default-rtdb.firebaseio.com';
 
-    function updateBetDisplays() {
-      Object.keys(bets).forEach(key => {
-        const el = document.querySelector(`[data-bet="${key}"]`);
-        if (el) el.textContent = `${bets[key].toLocaleString()} $NOICE`;
-      });
-    }
+    // Initialize votes object
+    let votes = {
+      1: { up: 0, down: 0 },
+      2: { up: 0, down: 0 },
+      3: { up: 0, down: 0 },
+      4: { up: 0, down: 0 },
+      5: { up: 0, down: 0 }
+    };
 
-    function betOnOption(option, event) {
-      event.stopPropagation();
-      // Placeholder - will be replaced with wallet SDK
-      const amount = prompt('Enter $NOICE amount to stake on this option:\n\n(This is a demo - connect wallet coming soon)', '1000');
-      if (amount && !isNaN(amount)) {
-        bets[option] += parseInt(amount);
-        localStorage.setItem('decide-bets', JSON.stringify(bets));
-        updateBetDisplays();
-        showToast(`Staked ${parseInt(amount).toLocaleString()} $NOICE on Option ${option}`);
+    // Track user's votes (stored in localStorage to prevent spam)
+    let userVotes = JSON.parse(localStorage.getItem('decide-user-votes') || '{}');
+
+    // Fetch current votes from Firebase
+    async function fetchVotes() {
+      try {
+        const response = await fetch(`${FIREBASE_URL}/votes.json`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data) {
+            votes = data;
+            updateVoteDisplays();
+          }
+        }
+      } catch (error) {
+        console.log('Using local votes (Firebase not configured)');
       }
     }
+
+    // Update vote displays
+    function updateVoteDisplays() {
+      for (let i = 1; i <= 5; i++) {
+        const upEl = document.getElementById(`vote-${i}-up`);
+        const downEl = document.getElementById(`vote-${i}-down`);
+        if (upEl) upEl.textContent = (votes[i]?.up || 0).toLocaleString();
+        if (downEl) downEl.textContent = (votes[i]?.down || 0).toLocaleString();
+
+        // Update voted state
+        const upBtn = document.querySelector(`.vote-btn.upvote[data-option="${i}"]`);
+        const downBtn = document.querySelector(`.vote-btn.downvote[data-option="${i}"]`);
+        if (upBtn) upBtn.classList.toggle('voted', userVotes[i] === 'up');
+        if (downBtn) downBtn.classList.toggle('voted', userVotes[i] === 'down');
+      }
+    }
+
+    // Vote function
+    async function vote(option, type, event) {
+      event.stopPropagation();
+
+      // Check if user already voted on this option
+      const previousVote = userVotes[option];
+
+      // If clicking same vote, remove it
+      if (previousVote === type) {
+        delete userVotes[option];
+        votes[option][type] = Math.max(0, (votes[option][type] || 0) - 1);
+      } else {
+        // If changing vote, remove previous
+        if (previousVote) {
+          votes[option][previousVote] = Math.max(0, (votes[option][previousVote] || 0) - 1);
+        }
+        // Add new vote
+        userVotes[option] = type;
+        votes[option][type] = (votes[option][type] || 0) + 1;
+      }
+
+      // Save to localStorage
+      localStorage.setItem('decide-user-votes', JSON.stringify(userVotes));
+
+      // Update displays immediately
+      updateVoteDisplays();
+
+      // Try to save to Firebase
+      try {
+        await fetch(`${FIREBASE_URL}/votes.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(votes)
+        });
+      } catch (error) {
+        console.log('Vote saved locally (Firebase not configured)');
+      }
+
+      showToast(previousVote === type ? 'Vote removed' : `Voted ${type === 'up' ? '👍' : '👎'} on Option ${option}`);
+    }
+
+    // Poll for updates every 10 seconds
+    setInterval(fetchVotes, 10000);
 
     // ===== ACCORDION =====
     document.querySelectorAll('.option-card').forEach(card => {
       const header = card.querySelector('.option-header');
 
       header.addEventListener('click', (e) => {
-        // Don't toggle if clicking bet button
-        if (e.target.closest('.bet-btn')) return;
+        // Don't toggle if clicking vote buttons
+        if (e.target.closest('.vote-btn')) return;
 
         const wasActive = card.classList.contains('active');
 
@@ -1760,13 +1888,17 @@
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
       loadEdits();
-      updateBetDisplays();
+      fetchVotes();
+      updateVoteDisplays();
       updateLiveCounters();
 
       // Open first card by default
       document.querySelector('.option-card').classList.add('active');
     });
   </script>
+
+  <!-- Twitter Widget Script -->
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 </body>
 </html>
