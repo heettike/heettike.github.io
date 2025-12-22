@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>idk | noice</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-transform: lowercase;
+    }
+
+    a { text-transform: none; }
+    .tweet-embed, .twitter-tweet { text-transform: none; }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    .hero-tag {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 .highlight {
+      color: #22c55e;
+    }
+
+    .hero-sub {
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* Video */
+    .hero-video {
+      max-width: 600px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-video video {
+      width: 100%;
+      display: block;
+    }
+
+    /* Section */
+    section {
+      padding: 120px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .lead {
+      font-size: 20px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    /* Proof Stats */
+    .proof-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin: 48px 0;
+    }
+
+    .proof-stat {
+      background: rgba(34, 197, 94, 0.05);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .proof-stat-value {
+      font-size: 42px;
+      font-weight: 700;
+      color: #22c55e;
+      margin-bottom: 8px;
+    }
+
+    .proof-stat-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Tweet */
+    .tweet-embed {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 550px;
+      margin: 32px 0;
+    }
+
+    /* The Model */
+    .model-grid {
+      display: grid;
+      gap: 2px;
+      margin: 48px 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .model-step {
+      background: #0a0a0a;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .step-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.15);
+      line-height: 1;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    .step-highlight {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .step-dim {
+      display: inline-block;
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* Scenarios */
+    .scenarios {
+      display: grid;
+      gap: 24px;
+      margin: 48px 0;
+    }
+
+    .scenario {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .scenario:hover {
+      border-color: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .scenario-persona {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    .scenario h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .scenario-story {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+    }
+
+    .scenario-story strong {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .scenario-outcome {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .outcome {
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .outcome.win {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .outcome.lose {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .outcome-label {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .outcome.win .outcome-label { color: #22c55e; }
+    .outcome.lose .outcome-label { color: #ef4444; }
+
+    .outcome p {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+    }
+
+    /* Oracle Section */
+    .oracle-demo {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(0,0,0,0) 50%);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+      border-radius: 20px;
+      padding: 48px;
+      margin: 48px 0;
+    }
+
+    .oracle-demo h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .oracle-demo p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    .oracle-flow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .oracle-step {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .oracle-arrow {
+      color: rgba(255,255,255,0.3);
+      font-size: 20px;
+    }
+
+    /* One-liner */
+    .one-liner {
+      background: linear-gradient(135deg, #111 0%, #000 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 64px 48px;
+      text-align: center;
+      margin: 48px 0;
+    }
+
+    .one-liner p {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.5;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .one-liner .dim {
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 120px 0;
+    }
+
+    .cta-section h2 {
+      font-size: 42px;
+      margin-bottom: 24px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 40px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      padding: 16px 48px;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(255,255,255,0.2);
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    /* Considered Section */
+    .considered {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .considered-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .considered-item {
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+
+    .considered-item h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .considered-item p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .model-step {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .step-number {
+        font-size: 32px;
+      }
+
+      .scenario-outcome {
+        grid-template-columns: 1fr;
+      }
+
+      .oracle-demo {
+        padding: 32px 24px;
+      }
+
+      .one-liner {
+        padding: 48px 24px;
+      }
+
+      .one-liner p {
+        font-size: 22px;
+      }
+    }
+
+    /* Animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .fade-up-delay-1 { animation-delay: 0.1s; }
+    .fade-up-delay-2 { animation-delay: 0.2s; }
+    .fade-up-delay-3 { animation-delay: 0.3s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-tag fade-up">december 2025</div>
+      <h1 class="fade-up fade-up-delay-1">
+        95% of tokens die.<br>
+        <span class="highlight">we made it a ceremony.</span>
+      </h1>
+      <p class="hero-sub fade-up fade-up-delay-2">
+        launch at $125k. hit $5m in 7 days or die. no exceptions. the market decides who deserves to live.
+      </p>
+
+      <div class="hero-video fade-up fade-up-delay-3">
+        <video autoplay muted loop playsinline>
+          <source src="assets/skeleton.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section>
+    <div class="container">
+      <div class="section-label">this is already working</div>
+      <h2>like a tweet. buy the token.</h2>
+      <p class="lead">
+        oracle is live. 5,862 users have spent $472k in the last month just by liking tweets. that's the distribution engine.
+      </p>
+
+      <div class="proof-stats">
+        <div class="proof-stat">
+          <div class="proof-stat-value">$472k</div>
+          <div class="proof-stat-label">spent in 30 days</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-stat-value">5,862</div>
+          <div class="proof-stat-label">active users</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-stat-value">20</div>
+          <div class="proof-stat-label">tweets enabled</div>
+        </div>
+      </div>
+
+      <div class="tweet-embed">
+        <blockquote class="twitter-tweet" data-theme="dark" data-conversation="none">
+          <a href="https://twitter.com/jessepollak/status/1991554915370713088"></a>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Model -->
+  <section>
+    <div class="container">
+      <div class="section-label">how it works</div>
+      <h2>7 days. $5m. graduate or die.</h2>
+      <p class="lead">
+        every monday, 7 tokens enter the cage. 168 hours later, we see who's still standing.
+      </p>
+
+      <div class="model-grid">
+        <div class="model-step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>launch at $125k</h3>
+            <p>fair launch. no presales. no insider allocations. everyone starts at the same price. the yc standard check as your starting line.</p>
+          </div>
+        </div>
+        <div class="model-step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>7 days to prove it</h3>
+            <p>168 hours. that's all you get. oracle drives attention—every like on your token's tweet is a buy. the market decides if you deserve to exist.</p>
+          </div>
+        </div>
+        <div class="model-step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>hour 168: judgement</h3>
+            <p>
+              <span class="step-highlight">above $5m?</span> you graduate. solana pool seeded. verified badge. featured forever. you proved demand exists.<br><br>
+              <span class="step-dim">below $5m?</span> token dies. fees burn $noice. experiment concluded. try again in 14 days.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="one-liner">
+        <p>
+          "in traditional startups, you guess at demand. <span class="dim">here, you measure it.</span> $5m mcap = $5m of believers."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scenarios -->
+  <section>
+    <div class="container">
+      <div class="section-label">imagine this</div>
+      <h2>who is this for?</h2>
+
+      <div class="scenarios">
+        <!-- Scenario 1 -->
+        <div class="scenario">
+          <div class="scenario-persona">yc founder</div>
+          <h3>you raised $500k. you have credibility. you have no users.</h3>
+          <p class="scenario-story">
+            you're 3 months post-demo day. investors are asking about traction. you have a product but no signal.
+            <strong>launch a token on noice.</strong> $125k starting line. if the market wants what you're building, you'll know in 7 days.
+            if they don't, you learned for free. no runway burned on months of guessing.
+          </p>
+          <div class="scenario-outcome">
+            <div class="outcome win">
+              <div class="outcome-label">if you graduate</div>
+              <p>$5m+ of conviction. solana liquidity. proof your market exists. leverage for your next raise.</p>
+            </div>
+            <div class="outcome lose">
+              <div class="outcome-label">if you die</div>
+              <p>you learned the market doesn't want this yet. pivot. relaunch in 14 days with something new.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="scenario">
+          <div class="scenario-persona">ai app builder</div>
+          <h3>you built something cool. you want distribution, not just users.</h3>
+          <p class="scenario-story">
+            your app works. it's good. but you're drowning in a sea of ai wrappers.
+            <strong>speculation is the fastest distribution hack.</strong> launch a token.
+            every oracle tweet about your token puts you in front of traders who become users.
+            the chart is your marketing budget.
+          </p>
+          <div class="scenario-outcome">
+            <div class="outcome win">
+              <div class="outcome-label">if you graduate</div>
+              <p>you have an army of holders who want you to win. they'll shill you for free. forever.</p>
+            </div>
+            <div class="outcome lose">
+              <div class="outcome-label">if you die</div>
+              <p>the market spoke. maybe your app isn't as differentiated as you thought. back to building.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 3 -->
+        <div class="scenario">
+          <div class="scenario-persona">creator with an audience</div>
+          <h3>you have 50k followers. you want to turn attention into ownership.</h3>
+          <p class="scenario-story">
+            you've built distribution. now you want to monetize it without selling courses or brand deals.
+            <strong>launch a token for your next project.</strong> your audience becomes your investors.
+            oracle turns every like into a buy. your fans have skin in the game.
+          </p>
+          <div class="scenario-outcome">
+            <div class="outcome win">
+              <div class="outcome-label">if you graduate</div>
+              <p>you've converted followers into stakeholders. aligned incentives. everyone wins when you win.</p>
+            </div>
+            <div class="outcome lose">
+              <div class="outcome-label">if you die</div>
+              <p>maybe your audience doesn't buy—they just watch. good to know before you build something bigger.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Oracle -->
+  <section>
+    <div class="container">
+      <div class="section-label">the distribution engine</div>
+      <h2>oracle powers the 7 days</h2>
+      <p class="lead">
+        every token in the cage gets oracle tweets. like the tweet, buy the token. it's that simple.
+        attention becomes capital. capital becomes survival.
+      </p>
+
+      <div class="oracle-demo">
+        <h3>how oracle works</h3>
+        <p>
+          you set up once. link your wallet. choose your buy amount.
+          then every like you give on an oracle tweet automatically buys that token for you.
+          no friction. no extra clicks. attention = investment.
+        </p>
+        <div class="oracle-flow">
+          <div class="oracle-step">like tweet</div>
+          <div class="oracle-arrow">→</div>
+          <div class="oracle-step">auto-buy triggers</div>
+          <div class="oracle-arrow">→</div>
+          <div class="oracle-step">token in your wallet</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>ready to test your market?</h2>
+      <p>7 days. $5m. the market will tell you the truth.</p>
+      <a href="https://noice.so" target="_blank" class="cta-btn">apply to launch</a>
+    </div>
+  </section>
+
+  <!-- What We Considered -->
+  <section class="considered">
+    <div class="container">
+      <div class="section-label">what we also considered</div>
+      <h2>the roads not taken (yet)</h2>
+      <p class="lead" style="margin-bottom: 16px;">
+        we seriously thought about these. they might come later. for now, we're going all in on pmf or die.
+      </p>
+
+      <div class="considered-grid">
+        <div class="considered-item">
+          <h4>attention marketplace</h4>
+          <p>all coins are priced on attention anyway. index on it. treasury can only be spent in the marketplace.</p>
+        </div>
+        <div class="considered-item">
+          <h4>prediction markets for startups</h4>
+          <p>monthly yes/no markets on company kpis. "will they hit 10k users?" limited-time speculation.</p>
+        </div>
+        <div class="considered-item">
+          <h4>futarchy on base</h4>
+          <p>copy metadao. dao llc owns 100% ip. market-driven governance for everything.</p>
+        </div>
+        <div class="considered-item">
+          <h4>oracle for everything</h4>
+          <p>like-to-buy for stocks, polymarket, rwa, etfs. every asset class with a ticker.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>
+        <a href="https://noice.so" target="_blank">noice.so</a> ·
+        <a href="https://x.com/HeetTike" target="_blank">@heettike</a> ·
+        december 2025
+      </p>
+    </div>
+  </footer>
+
+  <!-- Twitter Widget -->
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</body>
+</html>
