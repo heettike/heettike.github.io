@@ -29,6 +29,118 @@
       overflow-x: hidden;
     }
 
+    /* Editable styles */
+    [contenteditable="true"] {
+      outline: none;
+      border-radius: 4px;
+      transition: background 0.2s ease;
+    }
+
+    [contenteditable="true"]:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    [contenteditable="true"]:focus {
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.1);
+    }
+
+    /* Edit toolbar */
+    .edit-toolbar {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 1000;
+    }
+
+    .edit-btn {
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .edit-btn:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .edit-btn.active {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    .edit-btn.save {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: rgba(34, 197, 94, 0.4);
+    }
+
+    .edit-btn.save:hover {
+      background: rgba(34, 197, 94, 0.3);
+    }
+
+    /* Link popup */
+    .link-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 24px;
+      z-index: 1001;
+      display: none;
+      min-width: 320px;
+    }
+
+    .link-popup.visible {
+      display: block;
+    }
+
+    .link-popup input {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+
+    .link-popup input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .link-popup-btns {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      display: none;
+    }
+
+    .overlay.visible {
+      display: block;
+    }
+
     /* Container */
     .container {
       max-width: 900px;
@@ -43,6 +155,7 @@
       flex-direction: column;
       justify-content: center;
       padding: 80px 0;
+      position: relative;
     }
 
     .hero-label {
@@ -55,10 +168,10 @@
     }
 
     .hero h1 {
-      font-size: clamp(42px, 8vw, 72px);
+      font-size: clamp(36px, 7vw, 64px);
       font-weight: 300;
       letter-spacing: -0.03em;
-      line-height: 1.1;
+      line-height: 1.15;
       margin-bottom: 32px;
     }
 
@@ -72,6 +185,95 @@
       color: rgba(255,255,255,0.6);
       max-width: 600px;
       line-height: 1.7;
+    }
+
+    /* Video container */
+    .hero-video-container {
+      margin-top: 48px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      aspect-ratio: 16/9;
+      max-width: 700px;
+      position: relative;
+    }
+
+    .hero-video-container iframe,
+    .hero-video-container video {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 14px;
+      gap: 12px;
+    }
+
+    .video-placeholder svg {
+      width: 48px;
+      height: 48px;
+      opacity: 0.3;
+    }
+
+    /* PIP Video */
+    .pip-video {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 320px;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .pip-video.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .pip-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .pip-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      background: rgba(0,0,0,0.6);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background 0.2s ease;
+    }
+
+    .pip-close:hover {
+      background: rgba(0,0,0,0.8);
     }
 
     .scroll-hint {
@@ -294,21 +496,42 @@
       border-top: 1px solid rgba(255,255,255,0.06);
       font-size: 14px;
       color: rgba(255,255,255,0.5);
-      font-style: italic;
     }
 
     .product-features li:first-child {
       border-top: none;
     }
 
-    @media (max-width: 768px) {
-      .products-grid {
-        grid-template-columns: 1fr;
-      }
+    /* Product Screenshots */
+    .product-screenshots {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
 
-      .stats-row {
-        grid-template-columns: 1fr;
-      }
+    .product-screenshot {
+      aspect-ratio: 4/3;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .product-screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .screenshot-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.2);
+      font-size: 11px;
     }
 
     /* Options Section */
@@ -384,6 +607,54 @@
       font-weight: 300;
     }
 
+    .option-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Bet Counter */
+    .bet-counter {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .bet-amount {
+      font-size: 18px;
+      font-weight: 500;
+      color: #22c55e;
+    }
+
+    .bet-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .bet-btn {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 8px;
+      color: #22c55e;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .bet-btn:hover {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.2));
+      border-color: rgba(34, 197, 94, 0.5);
+      transform: scale(1.02);
+    }
+
     .option-toggle {
       width: 40px;
       height: 40px;
@@ -419,7 +690,7 @@
     }
 
     .option-card.active .option-content {
-      max-height: 2000px;
+      max-height: 3000px;
     }
 
     .option-body {
@@ -456,6 +727,12 @@
     .content-text strong {
       font-weight: 500;
       color: rgba(255,255,255,0.9);
+    }
+
+    .content-text a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     /* Mechanics List */
@@ -524,7 +801,7 @@
     /* Responsive */
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 36px;
+        font-size: 32px;
       }
 
       .hero-subtitle {
@@ -533,6 +810,8 @@
 
       .option-header {
         padding: 24px 20px;
+        flex-wrap: wrap;
+        gap: 16px;
       }
 
       .option-title {
@@ -549,6 +828,29 @@
 
       .scroll-hint {
         display: none;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+
+      .edit-toolbar {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .pip-video {
+        width: 200px;
+        bottom: 80px;
+      }
+
+      .option-header-right {
+        flex-wrap: wrap;
       }
     }
 
@@ -569,22 +871,78 @@
         transform: translateY(0);
       }
     }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #fff;
+      z-index: 1001;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Edit Toolbar -->
+  <div class="edit-toolbar">
+    <button class="edit-btn" id="editToggle" onclick="toggleEdit()">Edit</button>
+    <button class="edit-btn" id="linkBtn" onclick="addLink()" style="display: none;">Add Link</button>
+    <button class="edit-btn save" id="saveBtn" onclick="saveEdits()" style="display: none;">Save</button>
+    <button class="edit-btn" id="resetBtn" onclick="resetEdits()" style="display: none;">Reset</button>
+  </div>
+
+  <!-- Link Popup -->
+  <div class="overlay" id="overlay" onclick="closeLinkPopup()"></div>
+  <div class="link-popup" id="linkPopup">
+    <input type="text" id="linkUrl" placeholder="Enter URL (https://...)" />
+    <div class="link-popup-btns">
+      <button class="edit-btn" onclick="closeLinkPopup()">Cancel</button>
+      <button class="edit-btn save" onclick="insertLink()">Insert</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">Changes saved!</div>
+
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <div class="hero-label fade-up">December 2025</div>
-      <h1 class="fade-up fade-up-delay-1">
-        5 paths forward.<br>
-        <span>1 decision to make.</span>
+      <div class="hero-label fade-up" contenteditable="false" data-key="hero-label">December 2025</div>
+      <h1 class="fade-up fade-up-delay-1" contenteditable="false" data-key="hero-title">
+        The road forks here.<br>
+        <span>We can only walk one.</span>
       </h1>
-      <p class="hero-subtitle fade-up fade-up-delay-2">
-        Noice started with magic—tipping hardwired into every social action.
-        Then we tried to be everything. Now we need to pick one thing and go all in.
+      <p class="hero-subtitle fade-up fade-up-delay-2" contenteditable="false" data-key="hero-subtitle">
+        Noice started with magic—tipping hardwired into every social action. Then we tried to be everything. Now we choose what to become, or fade into nothing.
       </p>
+
+      <!-- Video Container -->
+      <div class="hero-video-container fade-up fade-up-delay-3" id="heroVideoContainer">
+        <div class="video-placeholder" id="videoPlaceholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M10 9l5 3-5 3V9z"/>
+          </svg>
+          <span>Video will appear here</span>
+          <span style="font-size: 11px; opacity: 0.5;">Replace VIDEO_ID in code with your YouTube video ID</span>
+        </div>
+        <!-- Uncomment and replace VIDEO_ID with your unlisted YouTube video ID -->
+        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0" allowfullscreen></iframe> -->
+      </div>
     </div>
     <div class="scroll-hint">
       <span>scroll</span>
@@ -594,6 +952,12 @@
     </div>
   </section>
 
+  <!-- PIP Video (shows when scrolled past hero) -->
+  <div class="pip-video" id="pipVideo">
+    <button class="pip-close" onclick="closePip()">×</button>
+    <!-- Will be populated by JS when video is added -->
+  </div>
+
   <!-- Context -->
   <section class="context">
     <div class="container">
@@ -602,40 +966,40 @@
       <div class="context-grid">
         <div class="pain-point">
           <div class="pain-icon"></div>
-          <p class="pain-text">We took a sharp, simple product with strong focus (tipping) and went straight to a broad, bloated problem statement.</p>
+          <p class="pain-text" contenteditable="false" data-key="pain-1">We took a sharp, simple product with strong focus (tipping) and went straight to a broad, bloated problem statement.</p>
         </div>
         <div class="pain-point">
           <div class="pain-icon"></div>
-          <p class="pain-text">Narrative shifted midway from ICM to ownership. We didn't adapt—we diluted.</p>
+          <p class="pain-text" contenteditable="false" data-key="pain-2">Narrative shifted midway from ICM to ownership. We didn't adapt—we diluted.</p>
         </div>
         <div class="pain-point">
           <div class="pain-icon"></div>
-          <p class="pain-text">We're now a little bit Believe, a little bit MetaDAO, a little bit Virtuals. A whole lot of nothing.</p>
+          <p class="pain-text" contenteditable="false" data-key="pain-3">We're now a little bit Believe, a little bit MetaDAO, a little bit Virtuals. A whole lot of nothing.</p>
         </div>
         <div class="pain-point">
           <div class="pain-icon"></div>
-          <p class="pain-text">Called "low IQ launchpad for low IQ people." It hurts, but it's true.</p>
+          <p class="pain-text" contenteditable="false" data-key="pain-4">Called "low IQ launchpad for low IQ people." It hurts, but it's true.</p>
         </div>
         <div class="pain-point">
           <div class="pain-icon"></div>
-          <p class="pain-text">Smart capital has low conviction. Deployers are low quality. Written off by CT.</p>
+          <p class="pain-text" contenteditable="false" data-key="pain-5">Smart capital has low conviction. Deployers are low quality. Written off by CT.</p>
         </div>
         <div class="pain-point">
           <div class="pain-icon"></div>
-          <p class="pain-text">No money. Possibly in debt. This is a hail mary.</p>
+          <p class="pain-text" contenteditable="false" data-key="pain-6">No money. Possibly in debt. This is a hail mary.</p>
         </div>
       </div>
 
       <div class="summary-box">
-        <p>We need one winning narrative. Something people understand at first glance. Something novel. Something we can triple down on.</p>
+        <p contenteditable="false" data-key="summary">We need one winning narrative. Something people understand at first glance. Something novel. Something we can triple down on.</p>
       </div>
 
       <!-- Stats -->
       <div class="stats-row">
         <div class="stat-card">
-          <div class="stat-label">$NOICE Price</div>
-          <div class="stat-value">$0.0001057</div>
-          <div class="stat-sub">Down from ATH</div>
+          <div class="stat-label">From ATH</div>
+          <div class="stat-value negative">-85%</div>
+          <div class="stat-sub">$NOICE token price</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Treasury</div>
@@ -652,11 +1016,12 @@
       <!-- Chart -->
       <div class="chart-container">
         <iframe
-          src="https://dexscreener.com/base/0xeff7f8fe083d7a446717b992bf84391253e54789?embed=1&theme=dark&info=0"
+          src="https://noice.so/noice"
           loading="lazy"
+          id="noiceChart"
         ></iframe>
-        <a href="https://dexscreener.com/base/0xeff7f8fe083d7a446717b992bf84391253e54789" target="_blank" class="chart-link">
-          View on DexScreener →
+        <a href="https://noice.so/noice" target="_blank" class="chart-link">
+          View on noice.so →
         </a>
       </div>
     </div>
@@ -671,31 +1036,42 @@
         <!-- noice.so/launch -->
         <div class="product-card">
           <div class="product-url"><a href="https://noice.so/launch" target="_blank">noice.so/launch</a></div>
-          <div class="product-title">Token Launchpad</div>
-          <div class="product-desc">The current product. Launch tokens for startups.</div>
+          <div class="product-title" contenteditable="false" data-key="product-1-title">Token Launchpad</div>
+          <div class="product-desc" contenteditable="false" data-key="product-1-desc">The current product. Launch tokens for startups.</div>
           <ul class="product-features">
-            <li>[Add feature 1]</li>
-            <li>[Add feature 2]</li>
-            <li>[Add feature 3]</li>
-            <li>[Add feature 4]</li>
-            <li>[Add feature 5]</li>
-            <li>[Add feature 6]</li>
+            <li contenteditable="false" data-key="product-1-f1">[Add feature 1]</li>
+            <li contenteditable="false" data-key="product-1-f2">[Add feature 2]</li>
+            <li contenteditable="false" data-key="product-1-f3">[Add feature 3]</li>
+            <li contenteditable="false" data-key="product-1-f4">[Add feature 4]</li>
+            <li contenteditable="false" data-key="product-1-f5">[Add feature 5]</li>
+            <li contenteditable="false" data-key="product-1-f6">[Add feature 6]</li>
           </ul>
         </div>
 
         <!-- oracle.noice.so -->
         <div class="product-card">
           <div class="product-url"><a href="https://oracle.noice.so" target="_blank">oracle.noice.so</a></div>
-          <div class="product-title">Oracle / Like-to-Buy</div>
-          <div class="product-desc">Like a tweet, buy a token. Already built.</div>
+          <div class="product-title" contenteditable="false" data-key="product-2-title">Oracle / Like-to-Buy</div>
+          <div class="product-desc" contenteditable="false" data-key="product-2-desc">Like a tweet, buy a token. Already built.</div>
           <ul class="product-features">
-            <li>[Add feature 1]</li>
-            <li>[Add feature 2]</li>
-            <li>[Add feature 3]</li>
-            <li>[Add feature 4]</li>
-            <li>[Add feature 5]</li>
-            <li>[Add feature 6]</li>
+            <li contenteditable="false" data-key="product-2-f1">[Add feature 1]</li>
+            <li contenteditable="false" data-key="product-2-f2">[Add feature 2]</li>
+            <li contenteditable="false" data-key="product-2-f3">[Add feature 3]</li>
+            <li contenteditable="false" data-key="product-2-f4">[Add feature 4]</li>
+            <li contenteditable="false" data-key="product-2-f5">[Add feature 5]</li>
+            <li contenteditable="false" data-key="product-2-f6">[Add feature 6]</li>
           </ul>
+          <!-- Oracle Screenshots -->
+          <div class="product-screenshots">
+            <div class="product-screenshot">
+              <div class="screenshot-placeholder">Screenshot 1</div>
+              <!-- <img src="assets/oracle-1.png" alt="Oracle screenshot"> -->
+            </div>
+            <div class="product-screenshot">
+              <div class="screenshot-placeholder">Screenshot 2</div>
+              <!-- <img src="assets/oracle-2.png" alt="Oracle screenshot"> -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -706,8 +1082,8 @@
     <div class="container">
       <div class="options-header">
         <div class="section-label">The Options</div>
-        <h2>5 All-In Theses</h2>
-        <p>Each is a complete pivot. Pick one.</p>
+        <h2 contenteditable="false" data-key="options-title">5 All-In Theses</h2>
+        <p contenteditable="false" data-key="options-subtitle">Each is a complete pivot. Pick one.</p>
       </div>
 
       <!-- Option 1: PMF or Die -->
@@ -715,45 +1091,52 @@
         <div class="option-header">
           <div>
             <div class="option-number">01</div>
-            <div class="option-title">PMF or Die</div>
-            <div class="option-tldr">95% of tokens die anyway. Make it a 7-day ceremony.</div>
+            <div class="option-title" contenteditable="false" data-key="opt-1-title">PMF or Die</div>
+            <div class="option-tldr" contenteditable="false" data-key="opt-1-tldr">95% of tokens die anyway. Make it a 7-day ceremony.</div>
           </div>
-          <div class="option-toggle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+          <div class="option-header-right">
+            <div class="bet-counter">
+              <div class="bet-amount" data-bet="1">0 $NOICE</div>
+              <div class="bet-label">Staked on this</div>
+            </div>
+            <button class="bet-btn" onclick="betOnOption(1, event)">Bet $NOICE</button>
+            <div class="option-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="option-content">
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text">All tokens die anyway. We bridge the ceremony to the 7th day itself. If you can't be alive by then, end it. Don't continue. The launch is well weighted in crypto—a bad launch is hard to resurrect from. <strong>Only tokens that find market fit should become ownership.</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-1-insight">All tokens die anyway. We bridge the ceremony to the 7th day itself. If you can't be alive by then, end it. Don't continue. The launch is well weighted in crypto—a bad launch is hard to resurrect from. <strong>Only tokens that find market fit should become ownership.</strong></p>
             </div>
 
             <div class="content-section">
               <div class="content-label">The Pitch</div>
               <div class="highlight-box">
-                <p>"7 days. $5M. Graduate or die."</p>
+                <p contenteditable="false" data-key="opt-1-pitch">"7 days. $5M. Graduate or die."</p>
               </div>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li>5-7 launches every Monday at 8pm, starting at $125K</li>
-                <li>7 day window: hit $5M mcap by day 7 or you're dead</li>
-                <li>Graduate = token converts to equity-grade (25% of C Corp goes to Street SPV)</li>
-                <li>Die = token delisted, fees go to $NOICE buyback/burn</li>
-                <li>Fees in escrow until day 7. Win = founder keeps all. Lose = holders get airdrop</li>
-                <li>Post-graduation: 1.6% to founder, 0.4% to Noice + Solana pool seeded</li>
-                <li>No presales. Only fair launches. Teams hold 0 coins at start</li>
+                <li contenteditable="false" data-key="opt-1-m1">5-7 launches every Monday at 8pm, starting at $125K</li>
+                <li contenteditable="false" data-key="opt-1-m2">7 day window: hit $5M mcap by day 7 or you're dead</li>
+                <li contenteditable="false" data-key="opt-1-m3">Graduate = token converts to equity-grade (25% of C Corp goes to Street SPV)</li>
+                <li contenteditable="false" data-key="opt-1-m4">Die = token delisted, fees go to $NOICE buyback/burn</li>
+                <li contenteditable="false" data-key="opt-1-m5">Fees in escrow until day 7. Win = founder keeps all. Lose = holders get airdrop</li>
+                <li contenteditable="false" data-key="opt-1-m6">Post-graduation: 1.6% to founder, 0.4% to Noice + Solana pool seeded</li>
+                <li contenteditable="false" data-key="opt-1-m7">No presales. Only fair launches. Teams hold 0 coins at start</li>
               </ul>
             </div>
 
             <div class="content-section">
               <div class="content-label">Upside</div>
-              <p class="content-text">Clear narrative CT can rally behind. Creates drama and event energy. Separates signal from noise. The "PMF or Die" show could be massive content.</p>
+              <p class="content-text" contenteditable="false" data-key="opt-1-upside">Clear narrative CT can rally behind. Creates drama and event energy. Separates signal from noise. The "PMF or Die" show could be massive content.</p>
             </div>
           </div>
         </div>
@@ -764,44 +1147,51 @@
         <div class="option-header">
           <div>
             <div class="option-number">02</div>
-            <div class="option-title">Attention Marketplace</div>
-            <div class="option-tldr">All coins are priced on attention anyway. Index on it.</div>
+            <div class="option-title" contenteditable="false" data-key="opt-2-title">Attention Marketplace</div>
+            <div class="option-tldr" contenteditable="false" data-key="opt-2-tldr">All coins are priced on attention anyway. Index on it.</div>
           </div>
-          <div class="option-toggle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+          <div class="option-header-right">
+            <div class="bet-counter">
+              <div class="bet-amount" data-bet="2">0 $NOICE</div>
+              <div class="bet-label">Staked on this</div>
+            </div>
+            <button class="bet-btn" onclick="betOnOption(2, event)">Bet $NOICE</button>
+            <div class="option-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="option-content">
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text">All coins are a proxy for mindshare. Bitcoin = digital gold. Pump = memes. Hyperliquid = perps. No matter the fundamentals—stocks, crypto, commodities—they're all priced beyond utility. The "beyond" is attention, urgency, and narrative. <strong>If all coins are priced on attention, why not embrace that and make it a strength?</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-2-insight">All coins are a proxy for mindshare. Bitcoin = digital gold. Pump = memes. Hyperliquid = perps. No matter the fundamentals—stocks, crypto, commodities—they're all priced beyond utility. The "beyond" is attention, urgency, and narrative. <strong>If all coins are priced on attention, why not embrace that and make it a strength?</strong></p>
             </div>
 
             <div class="content-section">
               <div class="content-label">The Pitch</div>
               <div class="highlight-box">
-                <p>"Distribution is the only moat. Speculation hijacks attention. We index on it."</p>
+                <p contenteditable="false" data-key="opt-2-pitch">"Distribution is the only moat. Speculation hijacks attention. We index on it."</p>
               </div>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li>Launch coins at $125K mcap</li>
-                <li>Teams and investors hold 0 coins at launch</li>
-                <li>The fundamental reasoning: bring attention to the product & business</li>
-                <li>All fees flow to a marketplace of creators, devs, designers, clippers</li>
-                <li>Not about capital formation—about virality and distribution</li>
-                <li>Supply side is easy: every service person wants contracts</li>
+                <li contenteditable="false" data-key="opt-2-m1">Launch coins at $125K mcap</li>
+                <li contenteditable="false" data-key="opt-2-m2">Teams and investors hold 0 coins at launch</li>
+                <li contenteditable="false" data-key="opt-2-m3">The fundamental reasoning: bring attention to the product & business</li>
+                <li contenteditable="false" data-key="opt-2-m4">All fees flow to a marketplace of creators, devs, designers, clippers</li>
+                <li contenteditable="false" data-key="opt-2-m5">Not about capital formation—about virality and distribution</li>
+                <li contenteditable="false" data-key="opt-2-m6">Supply side is easy: every service person wants contracts</li>
               </ul>
             </div>
 
             <div class="content-section">
               <div class="content-label">Upside</div>
-              <p class="content-text">Reframes the narrative from "raise money" to "get distribution." Aligns incentives with what actually matters for early startups. Creates a marketplace flywheel.</p>
+              <p class="content-text" contenteditable="false" data-key="opt-2-upside">Reframes the narrative from "raise money" to "get distribution." Aligns incentives with what actually matters for early startups. Creates a marketplace flywheel.</p>
             </div>
           </div>
         </div>
@@ -812,48 +1202,55 @@
         <div class="option-header">
           <div>
             <div class="option-number">03</div>
-            <div class="option-title">Prediction Markets for Startups</div>
-            <div class="option-tldr">Speculation is net positive for businesses. Make it focused.</div>
+            <div class="option-title" contenteditable="false" data-key="opt-3-title">Prediction Markets for Startups</div>
+            <div class="option-tldr" contenteditable="false" data-key="opt-3-tldr">Speculation is net positive for businesses. Make it focused.</div>
           </div>
-          <div class="option-toggle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+          <div class="option-header-right">
+            <div class="bet-counter">
+              <div class="bet-amount" data-bet="3">0 $NOICE</div>
+              <div class="bet-label">Staked on this</div>
+            </div>
+            <button class="bet-btn" onclick="betOnOption(3, event)">Bet $NOICE</button>
+            <div class="option-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="option-content">
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text">Tokens have caveats: if they fall 80%, your odds of raising are hurt. A perpetual token sounds good—you IPO, people speculate—but 90% of the time it's a liability. Founders have to pump the chart instead of building product. <strong>But prediction markets? They're limited-time, focused, and don't peg your company's valuation.</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-3-insight">Tokens have caveats: if they fall 80%, your odds of raising are hurt. A perpetual token sounds good—you IPO, people speculate—but 90% of the time it's a liability. Founders have to pump the chart instead of building product. <strong>But prediction markets? They're limited-time, focused, and don't peg your company's valuation.</strong></p>
             </div>
 
             <div class="content-section">
               <div class="content-label">The Pitch</div>
               <div class="highlight-box">
-                <p>"Monthly markets on company milestones. Simple yes/no. Will they hit it?"</p>
+                <p contenteditable="false" data-key="opt-3-pitch">"Monthly markets on company milestones. Simple yes/no. Will they hit it?"</p>
               </div>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li>Founders set monthly targets: increase MRR by 40%, hire 3 engineers, launch product X</li>
-                <li>Any KPI is fair game—as long as you show current status + goal</li>
-                <li>Simple yes/no market on each milestone</li>
-                <li>Limited-time speculation that doesn't peg your mcap</li>
-                <li>Still gives distribution if done well (noisy founders win)</li>
+                <li contenteditable="false" data-key="opt-3-m1">Founders set monthly targets: increase MRR by 40%, hire 3 engineers, launch product X</li>
+                <li contenteditable="false" data-key="opt-3-m2">Any KPI is fair game—as long as you show current status + goal</li>
+                <li contenteditable="false" data-key="opt-3-m3">Simple yes/no market on each milestone</li>
+                <li contenteditable="false" data-key="opt-3-m4">Limited-time speculation that doesn't peg your mcap</li>
+                <li contenteditable="false" data-key="opt-3-m5">Still gives distribution if done well (noisy founders win)</li>
               </ul>
             </div>
 
             <div class="content-section">
               <div class="content-label">Target Users</div>
-              <p class="content-text">YC or a16z batches. Solo app devs popular on Twitter (Blake with Cal.ai, Jack Friks). New-age startups that need to bootstrap distribution, get quality eyeballs, and go viral. <strong>You just need 1-2 prediction markets to go off.</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-3-target">YC or a16z batches. Solo app devs popular on Twitter (Blake with Cal.ai, Jack Friks). New-age startups that need to bootstrap distribution, get quality eyeballs, and go viral. <strong>You just need 1-2 prediction markets to go off.</strong></p>
             </div>
 
             <div class="content-section">
               <div class="content-label">Concern</div>
-              <p class="content-text">Will it get enough liquidity? Will it actually become a distribution cheat code for startups? Unknown until proven.</p>
+              <p class="content-text" contenteditable="false" data-key="opt-3-concern">Will it get enough liquidity? Will it actually become a distribution cheat code for startups? Unknown until proven.</p>
             </div>
           </div>
         </div>
@@ -864,53 +1261,60 @@
         <div class="option-header">
           <div>
             <div class="option-number">04</div>
-            <div class="option-title">Oracle (Like-to-Buy)</div>
-            <div class="option-tldr">Put your money where your like is.</div>
+            <div class="option-title" contenteditable="false" data-key="opt-4-title">Oracle (Like-to-Buy)</div>
+            <div class="option-tldr" contenteditable="false" data-key="opt-4-tldr">Put your money where your like is.</div>
           </div>
-          <div class="option-toggle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+          <div class="option-header-right">
+            <div class="bet-counter">
+              <div class="bet-amount" data-bet="4">0 $NOICE</div>
+              <div class="bet-label">Staked on this</div>
+            </div>
+            <button class="bet-btn" onclick="betOnOption(4, event)">Bet $NOICE</button>
+            <div class="option-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="option-content">
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text">Trillions of likes on the internet. What if you could buy tokens when you pay attention (i.e., like) to takes around them? <strong>The slickest UX way to buy crypto.</strong> If we take this to 100K+ followers, we can control some mindshare for tokens—and all tokens are a proxy for mindshare anyway.</p>
+              <p class="content-text" contenteditable="false" data-key="opt-4-insight">Trillions of likes on the internet. What if you could buy tokens when you pay attention (i.e., like) to takes around them? <strong>The slickest UX way to buy crypto.</strong> If we take this to 100K+ followers, we can control some mindshare for tokens—and all tokens are a proxy for mindshare anyway.</p>
             </div>
 
             <div class="content-section">
               <div class="content-label">The Pitch</div>
               <div class="highlight-box">
-                <p>"Like a tweet. Buy the coin. That simple."</p>
+                <p contenteditable="false" data-key="opt-4-pitch">"Like a tweet. Buy the coin. That simple."</p>
               </div>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li>Oracle is a Twitter page—like or comment on its tweet to buy the coin</li>
-                <li>Already built: agent.noice.so / user logs in on X → gets $1 on Base and Solana → sets up like-to-buy amounts → connects Telegram for notifs</li>
-                <li>Can create 9 accounts, each representing a category of assets</li>
-                <li>Works for anything onchain with a contract address</li>
+                <li contenteditable="false" data-key="opt-4-m1">Oracle is a Twitter page—like or comment on its tweet to buy the coin</li>
+                <li contenteditable="false" data-key="opt-4-m2">Already built: agent.noice.so / user logs in on X → gets $1 on Base and Solana → sets up like-to-buy amounts → connects Telegram for notifs</li>
+                <li contenteditable="false" data-key="opt-4-m3">Can create 9 accounts, each representing a category of assets</li>
+                <li contenteditable="false" data-key="opt-4-m4">Works for anything onchain with a contract address</li>
               </ul>
             </div>
 
             <div class="content-section">
               <div class="content-label">Asset Categories</div>
               <ul class="mechanics-list">
-                <li><strong>Immediate:</strong> Pump, Clanker, Virtuals new coins (tweet metadata on launch)</li>
-                <li><strong>Polymarket:</strong> "Trump wins? Like to buy YES." Elections, sports, culture</li>
-                <li><strong>Onchain stocks:</strong> NVDA, TSLA, AMZN, GOOGL, PLNTR, HOOD, MSTR</li>
-                <li><strong>ICMs:</strong> AIXBT, automated tweeting, LLMs on top</li>
-                <li><strong>Later:</strong> RWAs, tokenized treasuries, gold, real estate, index tokens</li>
+                <li contenteditable="false" data-key="opt-4-a1"><strong>Immediate:</strong> Pump, Clanker, Virtuals new coins (tweet metadata on launch)</li>
+                <li contenteditable="false" data-key="opt-4-a2"><strong>Polymarket:</strong> "Trump wins? Like to buy YES." Elections, sports, culture</li>
+                <li contenteditable="false" data-key="opt-4-a3"><strong>Onchain stocks:</strong> NVDA, TSLA, AMZN, GOOGL, PLNTR, HOOD, MSTR</li>
+                <li contenteditable="false" data-key="opt-4-a4"><strong>ICMs:</strong> AIXBT, automated tweeting, LLMs on top</li>
+                <li contenteditable="false" data-key="opt-4-a5"><strong>Later:</strong> RWAs, tokenized treasuries, gold, real estate, index tokens</li>
               </ul>
             </div>
 
             <div class="content-section">
               <div class="content-label">Blockers</div>
-              <p class="content-text">Twitter Enterprise access—currently only interacting with one account at a time is limiting. Ideally like-to-buy works across anyone's tweets, not just our accounts. Price updates also need solving (constant comment updates?).</p>
+              <p class="content-text" contenteditable="false" data-key="opt-4-blockers">Twitter Enterprise access—currently only interacting with one account at a time is limiting. Ideally like-to-buy works across anyone's tweets, not just our accounts. Price updates also need solving (constant comment updates?).</p>
             </div>
           </div>
         </div>
@@ -921,47 +1325,54 @@
         <div class="option-header">
           <div>
             <div class="option-number">05</div>
-            <div class="option-title">Futarchy</div>
-            <div class="option-tldr">Copy MetaDAO. Put it on Base/Ethereum.</div>
+            <div class="option-title" contenteditable="false" data-key="opt-5-title">Futarchy</div>
+            <div class="option-tldr" contenteditable="false" data-key="opt-5-tldr">Copy MetaDAO. Put it on Base/Ethereum.</div>
           </div>
-          <div class="option-toggle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+          <div class="option-header-right">
+            <div class="bet-counter">
+              <div class="bet-amount" data-bet="5">0 $NOICE</div>
+              <div class="bet-label">Staked on this</div>
+            </div>
+            <button class="bet-btn" onclick="betOnOption(5, event)">Bet $NOICE</button>
+            <div class="option-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </div>
           </div>
         </div>
         <div class="option-content">
           <div class="option-body">
             <div class="content-section">
               <div class="content-label">Insight</div>
-              <p class="content-text">MetaDAO built something real: market-driven governance where token holders actually own the business. They have smart talent and sophisticated capital rallying behind them. <strong>Steal like an artist. Copy the model, bring it multi-chain.</strong></p>
+              <p class="content-text" contenteditable="false" data-key="opt-5-insight">MetaDAO built something real: market-driven governance where token holders actually own the business. They have smart talent and sophisticated capital rallying behind them. <strong>Steal like an artist. Copy the model, bring it multi-chain.</strong></p>
             </div>
 
             <div class="content-section">
               <div class="content-label">The Pitch</div>
               <div class="highlight-box">
-                <p>"MetaDAO governance on Base and Ethereum. True ownership tokens."</p>
+                <p contenteditable="false" data-key="opt-5-pitch">"MetaDAO governance on Base and Ethereum. True ownership tokens."</p>
               </div>
             </div>
 
             <div class="content-section">
               <div class="content-label">How It Works</div>
               <ul class="mechanics-list">
-                <li>DAO LLC construct: owns 100% IP</li>
-                <li>Market-driven governance: liquidation, raising, contract audits—all decided by markets</li>
-                <li>Monthly allowance model continues to make sense</li>
-                <li>Allow multi-chain deployment (Base, Ethereum, not just Solana)</li>
+                <li contenteditable="false" data-key="opt-5-m1">DAO LLC construct: owns 100% IP</li>
+                <li contenteditable="false" data-key="opt-5-m2">Market-driven governance: liquidation, raising, contract audits—all decided by markets</li>
+                <li contenteditable="false" data-key="opt-5-m3">Monthly allowance model continues to make sense</li>
+                <li contenteditable="false" data-key="opt-5-m4">Allow multi-chain deployment (Base, Ethereum, not just Solana)</li>
               </ul>
             </div>
 
             <div class="content-section">
               <div class="content-label">Upside</div>
-              <p class="content-text">Proven model with real traction. Smart capital already understands and respects this. Less educational overhead—just execute better and be multi-chain.</p>
+              <p class="content-text" contenteditable="false" data-key="opt-5-upside">Proven model with real traction. Smart capital already understands and respects this. Less educational overhead—just execute better and be multi-chain.</p>
             </div>
 
             <div class="content-section">
               <div class="content-label">Risk</div>
-              <p class="content-text">Pure copy with less differentiation. MetaDAO has first-mover advantage and community. Would need to find an angle beyond "same thing, different chain."</p>
+              <p class="content-text" contenteditable="false" data-key="opt-5-risk">Pure copy with less differentiation. MetaDAO has first-mover advantage and community. Would need to find an angle beyond "same thing, different chain."</p>
             </div>
           </div>
         </div>
@@ -982,23 +1393,135 @@
   </footer>
 
   <script>
-    // Accordion functionality
+    // ===== EDIT MODE =====
+    let isEditMode = false;
+    let selectedText = null;
+
+    function toggleEdit() {
+      isEditMode = !isEditMode;
+      const editables = document.querySelectorAll('[contenteditable]');
+      const editBtn = document.getElementById('editToggle');
+      const linkBtn = document.getElementById('linkBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const resetBtn = document.getElementById('resetBtn');
+
+      editables.forEach(el => {
+        el.contentEditable = isEditMode;
+      });
+
+      editBtn.textContent = isEditMode ? 'Editing...' : 'Edit';
+      editBtn.classList.toggle('active', isEditMode);
+      linkBtn.style.display = isEditMode ? 'block' : 'none';
+      saveBtn.style.display = isEditMode ? 'block' : 'none';
+      resetBtn.style.display = isEditMode ? 'block' : 'none';
+    }
+
+    function saveEdits() {
+      const editables = document.querySelectorAll('[data-key]');
+      const data = {};
+
+      editables.forEach(el => {
+        data[el.dataset.key] = el.innerHTML;
+      });
+
+      localStorage.setItem('decide-edits', JSON.stringify(data));
+      showToast('Changes saved!');
+    }
+
+    function loadEdits() {
+      const saved = localStorage.getItem('decide-edits');
+      if (saved) {
+        const data = JSON.parse(saved);
+        Object.keys(data).forEach(key => {
+          const el = document.querySelector(`[data-key="${key}"]`);
+          if (el) el.innerHTML = data[key];
+        });
+      }
+    }
+
+    function resetEdits() {
+      if (confirm('Reset all edits to original? This cannot be undone.')) {
+        localStorage.removeItem('decide-edits');
+        location.reload();
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('visible');
+      setTimeout(() => toast.classList.remove('visible'), 2000);
+    }
+
+    // ===== LINK INSERTION =====
+    function addLink() {
+      const selection = window.getSelection();
+      if (selection.rangeCount > 0 && selection.toString().length > 0) {
+        selectedText = selection.getRangeAt(0);
+        document.getElementById('overlay').classList.add('visible');
+        document.getElementById('linkPopup').classList.add('visible');
+        document.getElementById('linkUrl').focus();
+      } else {
+        alert('Please select some text first');
+      }
+    }
+
+    function closeLinkPopup() {
+      document.getElementById('overlay').classList.remove('visible');
+      document.getElementById('linkPopup').classList.remove('visible');
+      document.getElementById('linkUrl').value = '';
+    }
+
+    function insertLink() {
+      const url = document.getElementById('linkUrl').value;
+      if (url && selectedText) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.appendChild(selectedText.extractContents());
+        selectedText.insertNode(link);
+      }
+      closeLinkPopup();
+    }
+
+    // ===== BET FUNCTIONALITY =====
+    const bets = JSON.parse(localStorage.getItem('decide-bets') || '{"1":0,"2":0,"3":0,"4":0,"5":0}');
+
+    function updateBetDisplays() {
+      Object.keys(bets).forEach(key => {
+        const el = document.querySelector(`[data-bet="${key}"]`);
+        if (el) el.textContent = `${bets[key].toLocaleString()} $NOICE`;
+      });
+    }
+
+    function betOnOption(option, event) {
+      event.stopPropagation();
+      // Placeholder - will be replaced with wallet SDK
+      const amount = prompt('Enter $NOICE amount to stake on this option:\n\n(This is a demo - connect wallet coming soon)', '1000');
+      if (amount && !isNaN(amount)) {
+        bets[option] += parseInt(amount);
+        localStorage.setItem('decide-bets', JSON.stringify(bets));
+        updateBetDisplays();
+        showToast(`Staked ${parseInt(amount).toLocaleString()} $NOICE on Option ${option}`);
+      }
+    }
+
+    // ===== ACCORDION =====
     document.querySelectorAll('.option-card').forEach(card => {
       const header = card.querySelector('.option-header');
 
-      header.addEventListener('click', () => {
+      header.addEventListener('click', (e) => {
+        // Don't toggle if clicking bet button
+        if (e.target.closest('.bet-btn')) return;
+
         const wasActive = card.classList.contains('active');
 
-        // Close all cards
         document.querySelectorAll('.option-card').forEach(c => {
           c.classList.remove('active');
         });
 
-        // Toggle clicked card
         if (!wasActive) {
           card.classList.add('active');
-
-          // Scroll into view smoothly
           setTimeout(() => {
             card.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }, 100);
@@ -1006,8 +1529,35 @@
       });
     });
 
-    // Open first card by default
-    document.querySelector('.option-card').classList.add('active');
+    // ===== PIP VIDEO =====
+    let pipClosed = false;
+    const heroVideoContainer = document.getElementById('heroVideoContainer');
+    const pipVideo = document.getElementById('pipVideo');
+
+    function checkPipVisibility() {
+      if (pipClosed) return;
+
+      const heroRect = heroVideoContainer.getBoundingClientRect();
+      const shouldShowPip = heroRect.bottom < 0;
+
+      pipVideo.classList.toggle('visible', shouldShowPip);
+    }
+
+    function closePip() {
+      pipClosed = true;
+      pipVideo.classList.remove('visible');
+    }
+
+    window.addEventListener('scroll', checkPipVisibility);
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', () => {
+      loadEdits();
+      updateBetDisplays();
+
+      // Open first card by default
+      document.querySelector('.option-card').classList.add('active');
+    });
   </script>
 
 </body>
