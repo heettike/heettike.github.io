@@ -362,6 +362,65 @@
       height: 18px;
     }
 
+    /* Mini Bet */
+    .mini-bet {
+      margin-top: 48px;
+      padding: 24px 32px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.02) 100%);
+      border: 1px solid rgba(34, 197, 94, 0.15);
+      border-radius: 16px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mini-bet-question {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .mini-bet-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mini-bet-odds {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .mini-bet-yes {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .mini-bet-no {
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    .mini-bet-btn {
+      padding: 10px 20px;
+      background: #22c55e;
+      color: #000;
+      border: none;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .mini-bet-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(34, 197, 94, 0.3);
+    }
+
     /* The Model */
     .model-grid {
       display: grid;
@@ -968,17 +1027,42 @@
 
     /* Chart */
     .futarchy-chart {
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.4);
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 16px;
       height: 160px;
+      position: relative;
     }
 
-    .futarchy-chart iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .futarchy-chart svg {
+      display: block;
+    }
+
+    .chart-price {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .chart-change {
+      position: absolute;
+      top: 14px;
+      right: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+
+    .chart-change.negative {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
     }
 
     /* Stats Row */
@@ -1301,9 +1385,24 @@
       </button>
     </div>
     <div class="futarchy-body">
-      <!-- DexScreener Chart -->
-      <div class="futarchy-chart">
-        <iframe src="https://dexscreener.com/base/0xeff7f8fe083d7a446717b992bf84391253e54789?embed=1&theme=dark&trades=0&info=0" loading="lazy"></iframe>
+      <!-- NOICE Price Chart -->
+      <div class="futarchy-chart" id="noice-chart-container">
+        <svg id="noice-chart" width="100%" height="100%" viewBox="0 0 308 160" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#22c55e;stop-opacity:0.3"/>
+              <stop offset="100%" style="stop-color:#22c55e;stop-opacity:0"/>
+            </linearGradient>
+            <linearGradient id="chartGradientRed" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3"/>
+              <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0"/>
+            </linearGradient>
+          </defs>
+          <path id="chart-fill" fill="url(#chartGradient)" opacity="0.5"/>
+          <path id="chart-line" fill="none" stroke="#22c55e" stroke-width="2"/>
+        </svg>
+        <div class="chart-price" id="chart-price">$0.000000</div>
+        <div class="chart-change" id="chart-change">+0%</div>
       </div>
 
       <!-- Stats -->
@@ -1610,6 +1709,20 @@
           follow @noiceagent
         </a>
       </div>
+
+      <!-- Mini Futarchy Bet -->
+      <div class="mini-bet">
+        <div class="mini-bet-question">will this strategy increase $noice price?</div>
+        <div class="mini-bet-row">
+          <div class="mini-bet-odds">
+            <span class="mini-bet-yes" id="mini-yes-pct">50%</span> yes ·
+            <span class="mini-bet-no" id="mini-no-pct">50%</span> no
+          </div>
+          <button class="mini-bet-btn" onclick="document.getElementById('futarchy-sidebar').scrollIntoView({behavior: 'smooth'})">
+            place bet →
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1682,179 +1795,6 @@
           "in traditional startups, you guess at demand. <span class="dim">here, you measure it.</span> $5m mcap = $5m of believers."
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Oracle Section -->
-  <section>
-    <div class="container">
-      <div class="section-label">the distribution engine</div>
-      <h2 contenteditable="false" data-key="oracle-title">oracle tweets relentlessly about you.</h2>
-      <p class="lead" contenteditable="false" data-key="oracle-lead">
-        for 7 days, oracle becomes your marketing team. it tweets about your token, your updates, your progress. every like on those tweets = someone buying your token. attention becomes capital.
-      </p>
-
-      <div class="oracle-features">
-        <div class="oracle-feature">
-          <div class="oracle-feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </div>
-          <div class="oracle-feature-content">
-            <h4>constant updates</h4>
-            <p contenteditable="false" data-key="oracle-f1">oracle tweets about noice ecosystem teams, their updates, milestones, and progress. your token stays in front of eyeballs.</p>
-          </div>
-        </div>
-        <div class="oracle-feature">
-          <div class="oracle-feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-          </div>
-          <div class="oracle-feature-content">
-            <h4>like = buy</h4>
-            <p contenteditable="false" data-key="oracle-f2">users set up once, then every like on an oracle tweet automatically buys that token. no friction. attention = investment.</p>
-          </div>
-        </div>
-        <div class="oracle-feature">
-          <div class="oracle-feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="8" x2="12" y2="12"/>
-              <line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-          </div>
-          <div class="oracle-feature-content">
-            <h4>real-time signal</h4>
-            <p contenteditable="false" data-key="oracle-f3">watch demand form in real-time. if people like the tweets but don't buy, that's signal. if they buy, that's stronger signal.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Who Is This For -->
-  <section class="for-section">
-    <div class="container">
-      <div class="section-label">who is this for</div>
-      <h2 contenteditable="false" data-key="for-title">founders who want truth, not guesses.</h2>
-
-      <div class="for-grid">
-        <div class="for-card">
-          <div class="for-card-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect width="48" height="48" rx="10" fill="#F59E0B" fill-opacity="0.15"/>
-              <path d="M24 14v10l6 4" stroke="#F59E0B" stroke-width="2" fill="none"/>
-              <circle cx="24" cy="24" r="10" stroke="#F59E0B" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <h3>indie hackers</h3>
-          <p contenteditable="false" data-key="for-indie">you're building solo or with a small team. you need to know if this is worth your next 6 months. get signal in 7 days, not 7 months.</p>
-        </div>
-        <div class="for-card">
-          <div class="for-card-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect width="48" height="48" rx="10" fill="#8B5CF6" fill-opacity="0.15"/>
-              <rect x="16" y="12" width="16" height="24" rx="2" stroke="#8B5CF6" stroke-width="2" fill="none"/>
-              <path d="M24 32h.01" stroke="#8B5CF6" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3>app store devs</h3>
-          <p contenteditable="false" data-key="for-appdev">the app store is a black hole. you ship, you pray. here you ship, you see demand in real-time. market feedback that ads can't buy.</p>
-        </div>
-        <div class="for-card">
-          <div class="for-card-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect width="48" height="48" rx="10" fill="#22c55e" fill-opacity="0.15"/>
-              <path d="M24 14l-10 5v10l10 5 10-5V19l-10-5z" stroke="#22c55e" stroke-width="2" fill="none"/>
-            </svg>
-          </div>
-          <h3>early startups</h3>
-          <p contenteditable="false" data-key="for-startup">finding your first 1000 true fans is hard. speculation is a distribution hack. your holders become your evangelists.</p>
-        </div>
-      </div>
-
-      <div class="for-grid" style="margin-top: 24px;">
-        <div class="for-card">
-          <div class="for-card-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect width="48" height="48" rx="10" fill="#FF6600" fill-opacity="0.15"/>
-              <text x="24" y="32" text-anchor="middle" fill="#FF6600" font-size="20" font-weight="bold">Y</text>
-            </svg>
-          </div>
-          <h3>yc startups</h3>
-          <p contenteditable="false" data-key="for-yc">you raised $500k. you have credibility. you don't have signal. launch a token, see if anyone actually cares.</p>
-        </div>
-        <div class="for-card">
-          <div class="for-card-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect width="48" height="48" rx="10" fill="#FF5733" fill-opacity="0.15"/>
-              <text x="24" y="32" text-anchor="middle" fill="#FF5733" font-size="14" font-weight="bold">a16z</text>
-            </svg>
-          </div>
-          <h3>a16z speedrun</h3>
-          <p contenteditable="false" data-key="for-a16z">you have capital and backing. you need community signal before you build more. $5m = demand exists.</p>
-        </div>
-        <div class="for-card">
-          <div class="for-card-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect width="48" height="48" rx="10" fill="#EC4899" fill-opacity="0.15"/>
-              <path d="M24 16v16M16 24h16" stroke="#EC4899" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3>fellowship founders</h3>
-          <p contenteditable="false" data-key="for-fellows">early. scrappy. need a distribution hack. this is your marketing budget with built-in feedback loop.</p>
-        </div>
-      </div>
-
-      <div class="fellowships">
-        <div class="fellowships-label">from the world's top entrepreneurial programs</div>
-        <div class="fellowship-logos">
-          <div class="fellowship-logo">
-            <span style="color: #FF6600; font-weight: 700;">Y</span>
-            y combinator
-          </div>
-          <div class="fellowship-logo">
-            <span style="color: #1DA1F2; font-weight: 700;">T</span>
-            thiel fellowship
-          </div>
-          <div class="fellowship-logo">
-            <span style="color: #8B5CF6; font-weight: 700;">O</span>
-            on deck
-          </div>
-          <div class="fellowship-logo">
-            <span style="color: #EC4899; font-weight: 700;">E</span>
-            entrepreneur first
-          </div>
-          <div class="fellowship-logo">
-            <span style="color: #F59E0B; font-weight: 700;">S</span>
-            south park commons
-          </div>
-          <div class="fellowship-logo">
-            <span style="color: #10B981; font-weight: 700;">P</span>
-            pioneer
-          </div>
-          <div class="fellowship-logo">
-            <span style="color: #3B82F6; font-weight: 700;">Z</span>
-            z fellows
-          </div>
-          <div class="fellowship-logo">
-            <span style="color: #6366F1; font-weight: 700;">N</span>
-            neo
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container">
-      <h2 contenteditable="false" data-key="cta-title">ready to test your market?</h2>
-      <p contenteditable="false" data-key="cta-sub">7 days. $5m. the market will tell you the truth.</p>
-      <a href="https://noice.so" target="_blank" class="cta-btn">apply to launch</a>
     </div>
   </section>
 
@@ -2124,10 +2064,10 @@
       document.getElementById('futarchy-sidebar').classList.toggle('collapsed');
     }
 
-    // Fetch ETH and NOICE prices from DexScreener
+    // Fetch ETH and NOICE prices from DexScreener + chart from noice.so
     async function fetchPrices() {
       try {
-        // Fetch NOICE data
+        // Fetch NOICE data from DexScreener
         const res = await fetch('https://api.dexscreener.com/latest/dex/tokens/0xeff7f8fe083d7a446717b992bf84391253e54789');
         const data = await res.json();
         if (data.pairs && data.pairs[0]) {
@@ -2136,16 +2076,105 @@
           if (mcap) {
             document.getElementById('noice-mcap').textContent = '$' + formatNumber(mcap);
           }
-          // Get ETH price from the pair (priceNative is token per ETH)
+          // Get ETH price from the pair
           if (pair.priceUsd && pair.priceNative) {
             ethPriceUsd = parseFloat(pair.priceUsd) / parseFloat(pair.priceNative) * 1e18;
           }
         }
       } catch (e) {
-        console.log('Could not fetch prices');
+        console.log('Could not fetch prices from DexScreener');
       }
       // Update pool USD display
       updatePoolVolumeUsd();
+    }
+
+    // Fetch and render NOICE chart
+    async function fetchNoiceChart() {
+      try {
+        const res = await fetch('https://noice.so/api/tokenChartData?address=0x9Cb41FD9dC6891BAe8187029461bfAADF6CC0C69&chain=eip155:8453&period=1D');
+        const data = await res.json();
+
+        if (data && data.length > 0) {
+          renderChart(data);
+        }
+      } catch (e) {
+        console.log('Could not fetch chart data');
+        // Fallback: generate sample data
+        renderSampleChart();
+      }
+    }
+
+    function renderChart(data) {
+      const chartWidth = 308;
+      const chartHeight = 160;
+      const padding = 0;
+
+      // Extract prices
+      const prices = data.map(d => parseFloat(d.close || d.price || d.value || d));
+      if (prices.length < 2) return renderSampleChart();
+
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+      const priceRange = maxPrice - minPrice || 1;
+
+      // Calculate change
+      const firstPrice = prices[0];
+      const lastPrice = prices[prices.length - 1];
+      const changePercent = ((lastPrice - firstPrice) / firstPrice * 100).toFixed(2);
+      const isPositive = changePercent >= 0;
+
+      // Update price display
+      document.getElementById('chart-price').textContent = '$' + lastPrice.toFixed(6);
+      const changeEl = document.getElementById('chart-change');
+      changeEl.textContent = (isPositive ? '+' : '') + changePercent + '%';
+      changeEl.classList.toggle('negative', !isPositive);
+
+      // Update chart colors
+      const line = document.getElementById('chart-line');
+      const fill = document.getElementById('chart-fill');
+      line.setAttribute('stroke', isPositive ? '#22c55e' : '#ef4444');
+      fill.setAttribute('fill', isPositive ? 'url(#chartGradient)' : 'url(#chartGradientRed)');
+
+      // Generate smooth path
+      const points = prices.map((price, i) => {
+        const x = (i / (prices.length - 1)) * chartWidth;
+        const y = chartHeight - padding - ((price - minPrice) / priceRange) * (chartHeight - padding * 2);
+        return { x, y };
+      });
+
+      // Create smooth bezier curve
+      const linePath = createSmoothPath(points);
+      const fillPath = linePath + ` L ${chartWidth} ${chartHeight} L 0 ${chartHeight} Z`;
+
+      line.setAttribute('d', linePath);
+      fill.setAttribute('d', fillPath);
+    }
+
+    function createSmoothPath(points) {
+      if (points.length < 2) return '';
+
+      let path = `M ${points[0].x} ${points[0].y}`;
+
+      for (let i = 1; i < points.length; i++) {
+        const prev = points[i - 1];
+        const curr = points[i];
+        const cpx = (prev.x + curr.x) / 2;
+        path += ` Q ${prev.x + (curr.x - prev.x) * 0.5} ${prev.y}, ${cpx} ${(prev.y + curr.y) / 2}`;
+        path += ` Q ${cpx + (curr.x - cpx) * 0.5} ${curr.y}, ${curr.x} ${curr.y}`;
+      }
+
+      return path;
+    }
+
+    function renderSampleChart() {
+      // Generate sample data that looks realistic
+      const points = [];
+      let price = 0.000008;
+      for (let i = 0; i < 48; i++) {
+        price = price * (1 + (Math.random() - 0.48) * 0.05);
+        points.push(price);
+      }
+      renderChart(points.map(p => ({ close: p })));
     }
 
     function formatNumber(num) {
@@ -2238,6 +2267,10 @@
         document.getElementById('pool-no-bar').style.width = noPct + '%';
         document.getElementById('pool-yes-pct').textContent = yesPct + '% yes';
         document.getElementById('pool-no-pct').textContent = noPct + '% no';
+
+        // Update mini-bet percentages
+        document.getElementById('mini-yes-pct').textContent = yesPct + '%';
+        document.getElementById('mini-no-pct').textContent = noPct + '%';
 
         // Update payout estimates on buttons
         updatePayoutEstimates();
@@ -2411,9 +2444,12 @@
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
       loadEdits();
-      // Fetch prices immediately and every 30 seconds
+      // Fetch prices and chart immediately
       fetchPrices();
+      fetchNoiceChart();
+      // Refresh every 30 seconds
       setInterval(fetchPrices, 30000);
+      setInterval(fetchNoiceChart, 60000);
     });
   </script>
 
