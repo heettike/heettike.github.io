@@ -2088,18 +2088,66 @@
       updatePoolVolumeUsd();
     }
 
-    // Fetch and render NOICE chart
+    // Fetch and render NOICE chart from Codex API
     async function fetchNoiceChart() {
-      try {
-        const res = await fetch('https://noice.so/api/tokenChartData?address=0x9Cb41FD9dC6891BAe8187029461bfAADF6CC0C69&chain=eip155:8453&period=1D');
-        const data = await res.json();
+      const CODEX_API_KEY = '92d01999db4eb630017e08f9aad67e65f2d41c6c';
+      const NOICE_TOKEN = '0x9Cb41FD9dC6891BAe8187029461bfAADF6CC0C69';
+      const BASE_NETWORK_ID = 8453;
 
-        if (data && data.length > 0) {
-          renderChart(data);
+      // Get timestamps for last 24 hours
+      const now = Math.floor(Date.now() / 1000);
+      const oneDayAgo = now - 86400;
+
+      const query = `
+        query {
+          getBars(
+            symbol: "${NOICE_TOKEN}:${BASE_NETWORK_ID}"
+            from: ${oneDayAgo}
+            to: ${now}
+            resolution: "15"
+            currencyCode: "USD"
+            removeLeadingNullValues: true
+            symbolType: TOKEN
+          ) {
+            t
+            o
+            h
+            l
+            c
+            v
+          }
         }
+      `;
+
+      try {
+        const res = await fetch('https://graph.codex.io/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': CODEX_API_KEY
+          },
+          body: JSON.stringify({ query })
+        });
+
+        const result = await res.json();
+
+        if (result.data && result.data.getBars) {
+          const bars = result.data.getBars;
+          // Convert to chart format using close prices
+          const chartData = bars.c.map((close, i) => ({
+            close: parseFloat(close),
+            timestamp: bars.t[i]
+          })).filter(d => d.close > 0);
+
+          if (chartData.length > 0) {
+            renderChart(chartData);
+            return;
+          }
+        }
+        console.log('No Codex data, using fallback');
+        renderSampleChart();
       } catch (e) {
-        console.log('Could not fetch chart data');
-        // Fallback: generate sample data
+        console.log('Could not fetch Codex chart data:', e);
         renderSampleChart();
       }
     }
