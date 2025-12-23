@@ -902,48 +902,40 @@
       }
     }
 
-    /* Futarchy Section */
-    .futarchy-section {
-      background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
-    }
-
-    .futarchy-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 48px;
-      max-width: 520px;
-      margin: 48px auto 0;
-      position: relative;
+    /* Fixed Futarchy Sidebar */
+    .futarchy-sidebar {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 340px;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      z-index: 100;
       overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
 
-    .futarchy-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    }
+    .futarchy-sidebar.collapsed .futarchy-body { display: none; }
+    .futarchy-sidebar.collapsed { width: auto; }
 
-    .futarchy-live {
-      display: inline-flex;
+    .futarchy-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #22c55e;
-      margin-bottom: 24px;
     }
 
-    .futarchy-live::before {
-      content: '';
+    .futarchy-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .futarchy-live-dot {
       width: 8px;
       height: 8px;
       background: #22c55e;
@@ -953,296 +945,325 @@
 
     @keyframes pulse {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+      50% { opacity: 0.4; }
     }
 
-    .futarchy-question {
-      font-size: 24px;
+    .futarchy-title span {
+      font-size: 13px;
       font-weight: 600;
-      line-height: 1.4;
-      margin-bottom: 32px;
       color: #fff;
     }
 
-    .futarchy-price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      margin-bottom: 24px;
+    .futarchy-toggle {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      padding: 4px;
     }
 
-    .futarchy-price-item {
+    .futarchy-body {
+      padding: 16px;
+    }
+
+    /* Chart */
+    .futarchy-chart {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      height: 160px;
+    }
+
+    .futarchy-chart iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Stats Row */
+    .futarchy-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .futarchy-stat {
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 12px;
       text-align: center;
     }
 
-    .futarchy-price-label {
-      font-size: 11px;
+    .futarchy-stat-label {
+      font-size: 10px;
       font-weight: 500;
       color: rgba(255,255,255,0.4);
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
     }
 
-    .futarchy-price-value {
-      font-size: 20px;
+    .futarchy-stat-value {
+      font-size: 16px;
       font-weight: 700;
       color: #fff;
     }
 
-    .futarchy-price-value.green { color: #22c55e; }
-    .futarchy-price-value.red { color: #ef4444; }
+    .futarchy-stat-value.green { color: #22c55e; }
 
+    /* Question */
+    .futarchy-question {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    /* Resolution */
+    .futarchy-resolves {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .futarchy-resolves strong {
+      color: #fff;
+    }
+
+    /* Pool Bar */
     .futarchy-pool {
-      margin-bottom: 24px;
+      margin-bottom: 12px;
     }
 
     .futarchy-pool-bar {
       display: flex;
-      height: 8px;
+      height: 6px;
       border-radius: 100px;
       overflow: hidden;
       background: rgba(255,255,255,0.05);
-      margin-bottom: 12px;
     }
 
     .futarchy-pool-yes {
       background: linear-gradient(90deg, #22c55e, #16a34a);
-      transition: width 0.5s ease;
+      transition: width 0.3s ease;
     }
 
     .futarchy-pool-no {
       background: linear-gradient(90deg, #dc2626, #ef4444);
-      transition: width 0.5s ease;
+      transition: width 0.3s ease;
     }
 
     .futarchy-pool-labels {
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
+      margin-top: 6px;
+      font-size: 11px;
+    }
+
+    .futarchy-pool-labels .yes { color: #22c55e; }
+    .futarchy-pool-labels .no { color: #ef4444; }
+
+    /* Bet Buttons */
+    .futarchy-bets {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .futarchy-bet-btn {
+      padding: 14px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .futarchy-bet-btn.yes {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+
+    .futarchy-bet-btn.yes:hover, .futarchy-bet-btn.yes.active {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #22c55e;
+    }
+
+    .futarchy-bet-btn.no {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+
+    .futarchy-bet-btn.no:hover, .futarchy-bet-btn.no.active {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+    }
+
+    .futarchy-bet-label {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .futarchy-bet-btn.yes .futarchy-bet-label { color: #22c55e; }
+    .futarchy-bet-btn.no .futarchy-bet-label { color: #ef4444; }
+
+    .futarchy-bet-payout {
+      font-size: 10px;
       color: rgba(255,255,255,0.5);
     }
 
-    .futarchy-pool-labels span:first-child { color: #22c55e; }
-    .futarchy-pool-labels span:last-child { color: #ef4444; }
-
-    .futarchy-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .futarchy-btn {
-      padding: 20px;
-      border-radius: 16px;
-      font-size: 18px;
-      font-weight: 600;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
-      font-family: inherit;
-      text-transform: lowercase;
-    }
-
-    .futarchy-btn.yes {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%);
-      color: #22c55e;
-      border-color: rgba(34, 197, 94, 0.3);
-    }
-
-    .futarchy-btn.yes:hover, .futarchy-btn.yes.active {
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.1) 100%);
-      border-color: #22c55e;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(34, 197, 94, 0.2);
-    }
-
-    .futarchy-btn.no {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
-      color: #ef4444;
-      border-color: rgba(239, 68, 68, 0.3);
-    }
-
-    .futarchy-btn.no:hover, .futarchy-btn.no.active {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.25) 0%, rgba(239, 68, 68, 0.1) 100%);
-      border-color: #ef4444;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(239, 68, 68, 0.2);
-    }
-
+    /* Amount Input */
     .futarchy-amount {
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+    }
+
+    .futarchy-amount-row {
+      display: flex;
+      gap: 6px;
     }
 
     .futarchy-amount-input {
-      width: 100%;
-      padding: 18px 20px;
+      flex: 1;
+      padding: 12px;
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
+      border-radius: 10px;
       color: #fff;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 500;
       font-family: inherit;
       text-align: center;
-      transition: all 0.2s ease;
     }
 
     .futarchy-amount-input:focus {
       outline: none;
       border-color: rgba(255,255,255,0.25);
-      background: rgba(255,255,255,0.05);
-    }
-
-    .futarchy-amount-input::placeholder {
-      color: rgba(255,255,255,0.3);
     }
 
     .futarchy-quick {
       display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-top: 12px;
+      gap: 4px;
+      margin-top: 8px;
     }
 
     .futarchy-quick button {
-      padding: 8px 16px;
+      flex: 1;
+      padding: 6px;
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
+      border-radius: 6px;
       color: rgba(255,255,255,0.5);
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 11px;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.2s ease;
     }
 
     .futarchy-quick button:hover {
       background: rgba(255,255,255,0.08);
       color: #fff;
-      border-color: rgba(255,255,255,0.15);
     }
 
+    /* Payout Preview */
+    .futarchy-payout-preview {
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .futarchy-payout-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+    }
+
+    .futarchy-payout-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .futarchy-payout-mult {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Submit */
     .futarchy-submit {
       width: 100%;
-      padding: 18px;
+      padding: 14px;
       background: #fff;
       color: #000;
       border: none;
-      border-radius: 14px;
-      font-size: 16px;
+      border-radius: 10px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
       text-transform: lowercase;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
     .futarchy-submit:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(255,255,255,0.15);
     }
 
     .futarchy-submit:disabled {
       opacity: 0.4;
       cursor: not-allowed;
-      transform: none;
     }
 
+    /* Connect State */
     .futarchy-connect {
       text-align: center;
-      padding: 32px;
+      padding: 20px 0;
     }
 
     .futarchy-connect p {
+      font-size: 12px;
       color: rgba(255,255,255,0.5);
-      margin-bottom: 20px;
-      font-size: 14px;
+      margin-bottom: 12px;
     }
 
     .futarchy-connect-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+      padding: 12px 24px;
+      background: #fff;
       color: #000;
       border: none;
       border-radius: 100px;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
-      transition: all 0.3s ease;
     }
 
-    .futarchy-connect-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(255,255,255,0.2);
-    }
-
-    .futarchy-wallet {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 18px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 12px;
-      margin-bottom: 24px;
-      font-size: 14px;
-    }
-
-    .futarchy-wallet-addr {
-      font-family: 'SF Mono', Monaco, monospace;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .futarchy-wallet-bal {
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .futarchy-timer {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .futarchy-timer-label {
-      font-size: 11px;
-      color: rgba(255,255,255,0.4);
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-    }
-
-    .futarchy-timer-value {
-      font-size: 28px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
+    /* Footer */
     .futarchy-footer {
-      text-align: center;
-      margin-top: 24px;
-      padding-top: 20px;
+      padding-top: 12px;
       border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
     }
 
     .futarchy-footer a {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
       text-decoration: none;
     }
 
-    .futarchy-footer a:hover {
-      color: rgba(255,255,255,0.6);
+    /* Mobile - hide sidebar */
+    @media (max-width: 1100px) {
+      .futarchy-sidebar {
+        display: none;
+      }
     }
 
     /* Animation */
@@ -1265,6 +1286,112 @@
   </style>
 </head>
 <body>
+
+  <!-- Fixed Futarchy Sidebar -->
+  <div class="futarchy-sidebar" id="futarchy-sidebar">
+    <div class="futarchy-header">
+      <div class="futarchy-title">
+        <div class="futarchy-live-dot"></div>
+        <span>live market</span>
+      </div>
+      <button class="futarchy-toggle" onclick="toggleFutarchySidebar()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="futarchy-body">
+      <!-- DexScreener Chart -->
+      <div class="futarchy-chart">
+        <iframe src="https://dexscreener.com/base/0xeff7f8fe083d7a446717b992bf84391253e54789?embed=1&theme=dark&trades=0&info=0" loading="lazy"></iframe>
+      </div>
+
+      <!-- Stats -->
+      <div class="futarchy-stats">
+        <div class="futarchy-stat">
+          <div class="futarchy-stat-label">$noice mcap</div>
+          <div class="futarchy-stat-value" id="noice-mcap">$--</div>
+        </div>
+        <div class="futarchy-stat">
+          <div class="futarchy-stat-label">pool volume</div>
+          <div class="futarchy-stat-value green" id="pool-volume-usd">$0</div>
+        </div>
+      </div>
+
+      <!-- Question -->
+      <div class="futarchy-question" id="futarchy-question">
+        will pmf or die strategy increase $noice price?
+      </div>
+
+      <!-- Resolution Date -->
+      <div class="futarchy-resolves">
+        resolves <strong id="futarchy-date">jan 30, 2025</strong> · <span id="futarchy-timer">--</span>
+      </div>
+
+      <!-- Connect State -->
+      <div id="futarchy-connect" class="futarchy-connect">
+        <p>connect wallet to place bets</p>
+        <button class="futarchy-connect-btn" onclick="futarchyConnect()">connect</button>
+      </div>
+
+      <!-- Betting Interface (hidden until connected) -->
+      <div id="futarchy-betting" style="display: none;">
+        <!-- Pool Bar -->
+        <div class="futarchy-pool">
+          <div class="futarchy-pool-bar">
+            <div class="futarchy-pool-yes" id="pool-yes-bar" style="width: 50%;"></div>
+            <div class="futarchy-pool-no" id="pool-no-bar" style="width: 50%;"></div>
+          </div>
+          <div class="futarchy-pool-labels">
+            <span class="yes" id="pool-yes-pct">50% yes</span>
+            <span class="no" id="pool-no-pct">50% no</span>
+          </div>
+        </div>
+
+        <!-- Bet Buttons -->
+        <div class="futarchy-bets">
+          <button class="futarchy-bet-btn yes" id="btn-fut-yes" onclick="futarchySelect('yes')">
+            <div class="futarchy-bet-label">yes</div>
+            <div class="futarchy-bet-payout" id="yes-payout">win ~$0</div>
+          </button>
+          <button class="futarchy-bet-btn no" id="btn-fut-no" onclick="futarchySelect('no')">
+            <div class="futarchy-bet-label">no</div>
+            <div class="futarchy-bet-payout" id="no-payout">win ~$0</div>
+          </button>
+        </div>
+
+        <!-- Amount -->
+        <div class="futarchy-amount">
+          <input type="number" class="futarchy-amount-input" id="futarchy-amount" placeholder="0.01 eth" step="0.001" min="0.001">
+          <div class="futarchy-quick">
+            <button onclick="futarchySetAmount(0.005)">0.005</button>
+            <button onclick="futarchySetAmount(0.01)">0.01</button>
+            <button onclick="futarchySetAmount(0.025)">0.025</button>
+            <button onclick="futarchySetAmount(0.05)">0.05</button>
+          </div>
+        </div>
+
+        <!-- Payout Preview -->
+        <div class="futarchy-payout-preview" id="payout-preview" style="display: none;">
+          <div class="futarchy-payout-label">potential payout if you win</div>
+          <div class="futarchy-payout-value" id="payout-value">$0</div>
+          <div class="futarchy-payout-mult" id="payout-mult">0x return</div>
+        </div>
+
+        <!-- Submit -->
+        <button class="futarchy-submit" id="futarchy-submit" onclick="futarchyBet()" disabled>
+          select yes or no
+        </button>
+      </div>
+
+      <!-- Footer -->
+      <div class="futarchy-footer">
+        <a href="https://basescan.org/address/0xdc33a487E9C33D8270162EdE5f2d5b748a83Bd26" target="_blank">
+          view contract →
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Edit Toolbar -->
   <div class="edit-toolbar">
@@ -1731,97 +1858,6 @@
     </div>
   </section>
 
-  <!-- Futarchy Betting -->
-  <section class="futarchy-section">
-    <div class="container">
-      <div class="section-label">market-driven governance</div>
-      <h2>bet on the future of noice.</h2>
-      <p class="lead">
-        will the pmf or die strategy increase $noice price? put your money where your conviction is.
-      </p>
-
-      <div class="futarchy-card">
-        <!-- Connect State -->
-        <div id="futarchy-connect" class="futarchy-connect">
-          <p>connect wallet to bet on this market</p>
-          <button class="futarchy-connect-btn" onclick="futarchyConnect()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="6" width="20" height="12" rx="2"/>
-              <circle cx="12" cy="12" r="2"/>
-            </svg>
-            connect wallet
-          </button>
-        </div>
-
-        <!-- Market View (hidden initially) -->
-        <div id="futarchy-market" style="display: none;">
-          <div class="futarchy-live">live market</div>
-
-          <div class="futarchy-question" id="futarchy-question">
-            will pmf or die strategy increase $noice price by end of january 2025?
-          </div>
-
-          <div class="futarchy-wallet">
-            <span class="futarchy-wallet-addr" id="futarchy-addr">0x...</span>
-            <span class="futarchy-wallet-bal" id="futarchy-bal">0 ETH</span>
-          </div>
-
-          <div class="futarchy-price-row">
-            <div class="futarchy-price-item">
-              <div class="futarchy-price-label">$noice price</div>
-              <div class="futarchy-price-value" id="noice-price">$0.000</div>
-            </div>
-            <div class="futarchy-price-item">
-              <div class="futarchy-price-label">pool volume</div>
-              <div class="futarchy-price-value" id="pool-volume">0 ETH</div>
-            </div>
-          </div>
-
-          <div class="futarchy-timer">
-            <div class="futarchy-timer-label">ends in</div>
-            <div class="futarchy-timer-value" id="futarchy-timer">--:--:--</div>
-          </div>
-
-          <div class="futarchy-pool">
-            <div class="futarchy-pool-bar">
-              <div class="futarchy-pool-yes" id="pool-yes-bar" style="width: 50%;"></div>
-              <div class="futarchy-pool-no" id="pool-no-bar" style="width: 50%;"></div>
-            </div>
-            <div class="futarchy-pool-labels">
-              <span id="pool-yes-pct">50% yes</span>
-              <span id="pool-no-pct">50% no</span>
-            </div>
-          </div>
-
-          <div class="futarchy-buttons">
-            <button class="futarchy-btn yes" id="btn-fut-yes" onclick="futarchySelect('yes')">yes</button>
-            <button class="futarchy-btn no" id="btn-fut-no" onclick="futarchySelect('no')">no</button>
-          </div>
-
-          <div class="futarchy-amount">
-            <input type="number" class="futarchy-amount-input" id="futarchy-amount" placeholder="0.01 eth" step="0.001" min="0.001">
-            <div class="futarchy-quick">
-              <button onclick="futarchySetAmount(0.005)">0.005</button>
-              <button onclick="futarchySetAmount(0.01)">0.01</button>
-              <button onclick="futarchySetAmount(0.025)">0.025</button>
-              <button onclick="futarchySetAmount(0.05)">0.05</button>
-            </div>
-          </div>
-
-          <button class="futarchy-submit" id="futarchy-submit" onclick="futarchyBet()" disabled>
-            select yes or no
-          </button>
-
-          <div class="futarchy-footer">
-            <a href="https://basescan.org/address/0xdc33a487E9C33D8270162EdE5f2d5b748a83Bd26" target="_blank">
-              view contract on basescan →
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- What We Considered -->
   <section class="considered">
     <div class="container">
@@ -2078,19 +2114,51 @@
     let futarchyProvider, futarchySigner, futarchyContract;
     let futarchySelectedSide = null;
     let futarchyUserAddress = null;
+    let ethPriceUsd = 3500; // Default, will be updated
+    let totalYesEth = 0;
+    let totalNoEth = 0;
+    let marketEndTime = 0;
 
-    // Fetch $NOICE price from DexScreener
-    async function fetchNoicePrice() {
+    // Toggle sidebar
+    function toggleFutarchySidebar() {
+      document.getElementById('futarchy-sidebar').classList.toggle('collapsed');
+    }
+
+    // Fetch ETH and NOICE prices from DexScreener
+    async function fetchPrices() {
       try {
+        // Fetch NOICE data
         const res = await fetch('https://api.dexscreener.com/latest/dex/tokens/0xeff7f8fe083d7a446717b992bf84391253e54789');
         const data = await res.json();
         if (data.pairs && data.pairs[0]) {
-          const price = parseFloat(data.pairs[0].priceUsd);
-          document.getElementById('noice-price').textContent = '$' + price.toFixed(6);
+          const pair = data.pairs[0];
+          const mcap = pair.fdv || pair.marketCap;
+          if (mcap) {
+            document.getElementById('noice-mcap').textContent = '$' + formatNumber(mcap);
+          }
+          // Get ETH price from the pair (priceNative is token per ETH)
+          if (pair.priceUsd && pair.priceNative) {
+            ethPriceUsd = parseFloat(pair.priceUsd) / parseFloat(pair.priceNative) * 1e18;
+          }
         }
       } catch (e) {
-        console.log('Could not fetch NOICE price');
+        console.log('Could not fetch prices');
       }
+      // Update pool USD display
+      updatePoolVolumeUsd();
+    }
+
+    function formatNumber(num) {
+      if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+      if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+      if (num >= 1e3) return (num / 1e3).toFixed(1) + 'K';
+      return num.toFixed(0);
+    }
+
+    function updatePoolVolumeUsd() {
+      const totalEth = totalYesEth + totalNoEth;
+      const totalUsd = totalEth * ethPriceUsd;
+      document.getElementById('pool-volume-usd').textContent = '$' + formatNumber(totalUsd);
     }
 
     async function futarchyConnect() {
@@ -2131,21 +2199,15 @@
         futarchySigner = futarchyProvider.getSigner();
         futarchyContract = new ethers.Contract(FUTARCHY_ADDRESS, FUTARCHY_ABI, futarchySigner);
 
-        // Show market view
+        // Show betting interface
         document.getElementById('futarchy-connect').style.display = 'none';
-        document.getElementById('futarchy-market').style.display = 'block';
-
-        // Update wallet display
-        const shortAddr = futarchyUserAddress.slice(0, 6) + '...' + futarchyUserAddress.slice(-4);
-        document.getElementById('futarchy-addr').textContent = shortAddr;
-
-        const balance = await futarchyProvider.getBalance(futarchyUserAddress);
-        document.getElementById('futarchy-bal').textContent =
-          parseFloat(ethers.utils.formatEther(balance)).toFixed(4) + ' ETH';
+        document.getElementById('futarchy-betting').style.display = 'block';
 
         // Load market data
         await loadFutarchyData();
-        fetchNoicePrice();
+
+        // Start real-time polling every 10 seconds
+        setInterval(loadFutarchyData, 10000);
 
       } catch (error) {
         console.error(error);
@@ -2160,12 +2222,13 @@
 
         document.getElementById('futarchy-question').textContent = question.toLowerCase();
 
-        const totalYesEth = parseFloat(ethers.utils.formatEther(totalYes));
-        const totalNoEth = parseFloat(ethers.utils.formatEther(totalNo));
+        totalYesEth = parseFloat(ethers.utils.formatEther(totalYes));
+        totalNoEth = parseFloat(ethers.utils.formatEther(totalNo));
         const total = totalYesEth + totalNoEth;
+        marketEndTime = endTime.toNumber();
 
-        // Pool volume
-        document.getElementById('pool-volume').textContent = total.toFixed(4) + ' ETH';
+        // Pool volume in USD
+        updatePoolVolumeUsd();
 
         // Pool percentages
         const yesPct = total > 0 ? Math.round((totalYesEth / total) * 100) : 50;
@@ -2176,40 +2239,64 @@
         document.getElementById('pool-yes-pct').textContent = yesPct + '% yes';
         document.getElementById('pool-no-pct').textContent = noPct + '% no';
 
+        // Update payout estimates on buttons
+        updatePayoutEstimates();
+
+        // Resolution date
+        const endDate = new Date(marketEndTime * 1000);
+        const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+        document.getElementById('futarchy-date').textContent =
+          months[endDate.getMonth()] + ' ' + endDate.getDate() + ', ' + endDate.getFullYear();
+
         // Timer
-        startFutarchyTimer(endTime.toNumber());
+        updateFutarchyTimer();
 
       } catch (error) {
         console.error("Error loading futarchy data:", error);
       }
     }
 
-    function startFutarchyTimer(endTime) {
-      const update = () => {
-        const now = Math.floor(Date.now() / 1000);
-        const diff = endTime - now;
+    function updateFutarchyTimer() {
+      const now = Math.floor(Date.now() / 1000);
+      const diff = marketEndTime - now;
 
-        if (diff <= 0) {
-          document.getElementById('futarchy-timer').textContent = 'ended';
-          return;
-        }
+      if (diff <= 0) {
+        document.getElementById('futarchy-timer').textContent = 'ended';
+        return;
+      }
 
-        const days = Math.floor(diff / 86400);
-        const hours = Math.floor((diff % 86400) / 3600);
-        const mins = Math.floor((diff % 3600) / 60);
-        const secs = diff % 60;
+      const days = Math.floor(diff / 86400);
+      const hours = Math.floor((diff % 86400) / 3600);
+      const mins = Math.floor((diff % 3600) / 60);
 
-        let str = '';
-        if (days > 0) str += days + 'd ';
-        str += hours.toString().padStart(2, '0') + ':';
-        str += mins.toString().padStart(2, '0') + ':';
-        str += secs.toString().padStart(2, '0');
+      let str = '';
+      if (days > 0) str += days + 'd ';
+      str += hours + 'h ' + mins + 'm left';
 
-        document.getElementById('futarchy-timer').textContent = str;
-      };
+      document.getElementById('futarchy-timer').textContent = str;
+    }
 
-      update();
-      setInterval(update, 1000);
+    // Update timer every minute
+    setInterval(updateFutarchyTimer, 60000);
+
+    function updatePayoutEstimates() {
+      const total = totalYesEth + totalNoEth;
+      if (total === 0) return;
+
+      // If you bet 0.01 ETH on YES, you'd win (0.01 / totalYes) * total
+      const sampleBet = 0.01;
+
+      // YES payout
+      const yesPool = totalYesEth || 0.01;
+      const yesPayout = (sampleBet / (yesPool + sampleBet)) * (total + sampleBet);
+      const yesPayoutUsd = yesPayout * ethPriceUsd;
+      document.getElementById('yes-payout').textContent = 'win ~$' + yesPayoutUsd.toFixed(0);
+
+      // NO payout
+      const noPool = totalNoEth || 0.01;
+      const noPayout = (sampleBet / (noPool + sampleBet)) * (total + sampleBet);
+      const noPayoutUsd = noPayout * ethPriceUsd;
+      document.getElementById('no-payout').textContent = 'win ~$' + noPayoutUsd.toFixed(0);
     }
 
     function futarchySelect(side) {
@@ -2217,11 +2304,41 @@
       document.getElementById('btn-fut-yes').classList.toggle('active', side === 'yes');
       document.getElementById('btn-fut-no').classList.toggle('active', side === 'no');
       updateFutarchySubmit();
+      updatePayoutPreview();
     }
 
     function futarchySetAmount(amount) {
       document.getElementById('futarchy-amount').value = amount;
       updateFutarchySubmit();
+      updatePayoutPreview();
+    }
+
+    function updatePayoutPreview() {
+      const amount = parseFloat(document.getElementById('futarchy-amount').value) || 0;
+      const preview = document.getElementById('payout-preview');
+
+      if (!futarchySelectedSide || amount <= 0) {
+        preview.style.display = 'none';
+        return;
+      }
+
+      preview.style.display = 'block';
+      const total = totalYesEth + totalNoEth + amount;
+
+      let payout, pool;
+      if (futarchySelectedSide === 'yes') {
+        pool = totalYesEth + amount;
+        payout = (amount / pool) * total;
+      } else {
+        pool = totalNoEth + amount;
+        payout = (amount / pool) * total;
+      }
+
+      const payoutUsd = payout * ethPriceUsd;
+      const mult = payout / amount;
+
+      document.getElementById('payout-value').textContent = '$' + payoutUsd.toFixed(2);
+      document.getElementById('payout-mult').textContent = mult.toFixed(2) + 'x return';
     }
 
     function updateFutarchySubmit() {
@@ -2235,12 +2352,16 @@
         btn.textContent = 'enter amount';
         btn.disabled = true;
       } else {
-        btn.textContent = `bet ${amount} eth on ${futarchySelectedSide}`;
+        const usd = (amount * ethPriceUsd).toFixed(0);
+        btn.textContent = `bet $${usd} on ${futarchySelectedSide}`;
         btn.disabled = false;
       }
     }
 
-    document.getElementById('futarchy-amount')?.addEventListener('input', updateFutarchySubmit);
+    document.getElementById('futarchy-amount')?.addEventListener('input', () => {
+      updateFutarchySubmit();
+      updatePayoutPreview();
+    });
 
     async function futarchyBet() {
       if (!futarchyContract || !futarchySelectedSide) return;
@@ -2270,6 +2391,7 @@
           document.getElementById('futarchy-amount').value = '';
           document.getElementById('btn-fut-yes').classList.remove('active');
           document.getElementById('btn-fut-no').classList.remove('active');
+          document.getElementById('payout-preview').style.display = 'none';
           updateFutarchySubmit();
         }, 2000);
 
@@ -2289,8 +2411,9 @@
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', () => {
       loadEdits();
-      // Pre-fetch NOICE price even before wallet connect
-      fetchNoicePrice();
+      // Fetch prices immediately and every 30 seconds
+      fetchPrices();
+      setInterval(fetchPrices, 30000);
     });
   </script>
 
