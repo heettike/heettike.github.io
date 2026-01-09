@@ -6,6 +6,7 @@
   <title>heet tike</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <style>
     * {
@@ -16,6 +17,9 @@
 
     html {
       scroll-behavior: smooth;
+      /* Monochrome filter - matches macOS accessibility grayscale */
+      filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);
     }
 
     body {
@@ -56,6 +60,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-content {
@@ -75,6 +81,37 @@
       height: 100%;
       object-fit: cover;
       border-radius: 4px;
+    }
+
+    /* Liquid Glass Canvas - Right side aligned with hero */
+    #particleCanvas {
+      position: fixed;
+      top: 50%;
+      right: 8%;
+      transform: translateY(-50%);
+      width: 280px;
+      height: 280px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1200px) {
+      #particleCanvas {
+        right: 5%;
+        width: 220px;
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #particleCanvas {
+        display: none;
+      }
+    }
+
+    .hero-video-wrapper {
+      position: relative;
+      z-index: 1;
     }
 
     .hero-text h1 {
@@ -416,6 +453,9 @@
   </style>
 </head>
 <body>
+  <!-- Particle Canvas -->
+  <canvas id="particleCanvas"></canvas>
+
   <!-- Hero Section -->
   <section id="hero">
     <div class="container">
@@ -429,7 +469,8 @@
         </div>
         <div class="hero-text">
           <h1>heet tike</h1>
-          <p>founder/ceo @ <a href="https://noice.so" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">noice.so</a></p>
+          <p>founder/ceo @ <a href="https://noice.so" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">noice</a></p>
+          <p>ex founder of <a href="https://ripen.in" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">ripen</a> and <a href="https://imagined.studio" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">imagined</a></p>
           <p><a href="https://balajis.com/p/network-school-fellowship" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">network school fellow</a></p>
           <p>24 and alive</p>
 
@@ -713,6 +754,461 @@ you will need to put up w/ a smile anyway.</p>
       // Make hero visible immediately
       document.getElementById('hero').classList.add('visible');
     });
+  </script>
+
+  <!-- Liquid Metal Effect - Paper Design Shaders -->
+  <script type="module">
+    // LiquidMetal shader from @paper-design/shaders
+    // Exact implementation from noice.so 404 page
+
+    const CONFIG = {
+      colorBack: [0.04, 0.04, 0.04, 1.0],     // #0a0a0a
+      colorTint: [0.83, 0.83, 0.85, 1.0],     // #d4d4d8
+      repetition: 3,
+      softness: 0.15,
+      shiftRed: 0.25,
+      shiftBlue: 0.25,
+      distortion: 0.08,
+      contour: 0.5,
+      angle: 55,
+      speed: 0.8
+    };
+
+    // Shader utilities
+    const declarePI = `const float PI = 3.14159265359;`;
+
+    const rotation2 = `
+      vec2 rotate(vec2 v, float a) {
+        float s = sin(a);
+        float c = cos(a);
+        mat2 m = mat2(c, -s, s, c);
+        return m * v;
+      }
+    `;
+
+    const simplexNoise = `
+      vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec2 mod289v2(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+      float snoise(vec2 v) {
+        const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+        vec2 i = floor(v + dot(v, C.yy));
+        vec2 x0 = v - i + dot(i, C.xx);
+        vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+        vec4 x12 = x0.xyxy + C.xxzz;
+        x12.xy -= i1;
+        i = mod289v2(i);
+        vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+        vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+        m = m*m; m = m*m;
+        vec3 x = 2.0 * fract(p * C.www) - 1.0;
+        vec3 h = abs(x) - 0.5;
+        vec3 ox = floor(x + 0.5);
+        vec3 a0 = x - ox;
+        m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+        vec3 g;
+        g.x = a0.x * x0.x + h.x * x0.y;
+        g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+        return 130.0 * dot(m, g);
+      }
+    `;
+
+    const colorBandingFix = `
+      color += (1.0/255.0) * (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898,78.233))) * 43758.5453) - 0.5);
+    `;
+
+    const vertexShader = `#version 300 es
+      precision mediump float;
+
+      in vec2 a_position;
+      out vec2 v_uv;
+
+      void main() {
+        v_uv = a_position * 0.5 + 0.5;
+        gl_Position = vec4(a_position, 0.0, 1.0);
+      }
+    `;
+
+    const fragmentShader = `#version 300 es
+      precision mediump float;
+
+      uniform sampler2D u_image;
+      uniform vec2 u_resolution;
+      uniform float u_time;
+      uniform vec4 u_colorBack;
+      uniform vec4 u_colorTint;
+      uniform float u_softness;
+      uniform float u_repetition;
+      uniform float u_shiftRed;
+      uniform float u_shiftBlue;
+      uniform float u_distortion;
+      uniform float u_contour;
+      uniform float u_angle;
+
+      in vec2 v_uv;
+      out vec4 fragColor;
+
+      ${declarePI}
+      ${rotation2}
+      ${simplexNoise}
+
+      float getColorChanges(float c1, float c2, float stripe_p, vec3 w, float blur, float bump, float tint) {
+        float ch = mix(c2, c1, smoothstep(.0, 2. * blur, stripe_p));
+        float border = w[0];
+        ch = mix(ch, c2, smoothstep(border, border + 2. * blur, stripe_p));
+        bump = smoothstep(.2, .8, bump);
+        border = w[0] + .4 * (1. - bump) * w[1];
+        ch = mix(ch, c1, smoothstep(border, border + 2. * blur, stripe_p));
+        border = w[0] + .5 * (1. - bump) * w[1];
+        ch = mix(ch, c2, smoothstep(border, border + 2. * blur, stripe_p));
+        border = w[0] + w[1];
+        ch = mix(ch, c1, smoothstep(border, border + 2. * blur, stripe_p));
+        float gradient_t = (stripe_p - w[0] - w[1]) / w[2];
+        float gradient = mix(c1, c2, smoothstep(0., 1., gradient_t));
+        ch = mix(ch, gradient, smoothstep(border, border + .5 * blur, stripe_p));
+        ch = mix(ch, 1. - min(1., (1. - ch) / max(tint, 0.0001)), u_colorTint.a);
+        return ch;
+      }
+
+      void main() {
+        float t = .3 * (u_time + 2.8);
+        vec2 uv = v_uv;
+
+        vec4 img = texture(u_image, uv);
+        float edge = img.r;
+        edge = pow(edge, 1.6);
+        edge *= mix(0.0, 1.0, smoothstep(0.0, 0.4, u_contour));
+
+        float opacity = img.g;
+        float cycleWidth = u_repetition;
+
+        vec2 rotatedUV = uv - vec2(.5);
+        float angle = (-u_angle + 70.) * PI / 180.;
+        rotatedUV = rotate(rotatedUV, angle) + vec2(.5);
+
+        float diagBLtoTR = rotatedUV.x - rotatedUV.y;
+        float diagTLtoBR = rotatedUV.x + rotatedUV.y;
+
+        vec3 color1 = vec3(.98, 0.98, 1.);
+        vec3 color2 = vec3(.1, .1, .1 + .1 * smoothstep(.7, 1.3, diagTLtoBR));
+
+        vec2 grad_uv = uv - .5;
+        float dist = length(grad_uv + vec2(0., .2 * diagBLtoTR));
+        grad_uv = rotate(grad_uv, (.25 - .2 * diagBLtoTR) * PI);
+        float direction = grad_uv.x;
+
+        float bump = pow(1.8 * dist, 1.2);
+        bump = 1. - bump;
+        bump *= pow(uv.y, .3);
+
+        float thin_strip_1_ratio = .12 / cycleWidth * (1. - .4 * bump);
+        float thin_strip_2_ratio = .07 / cycleWidth * (1. + .4 * bump);
+        float wide_strip_ratio = (1. - thin_strip_1_ratio - thin_strip_2_ratio);
+
+        float thin_strip_1_width = cycleWidth * thin_strip_1_ratio;
+        float thin_strip_2_width = cycleWidth * thin_strip_2_ratio;
+
+        float noise = snoise(uv * 4.0 - t);
+        edge += (1. - edge) * u_distortion * noise;
+
+        direction += diagBLtoTR;
+        direction -= 2. * noise * diagBLtoTR * (smoothstep(0., 1., edge) * (1.0 - smoothstep(0., 1., edge)));
+        direction *= mix(1., 1. - edge, smoothstep(.5, 1., u_contour));
+        direction -= 1.7 * edge * smoothstep(.5, 1., u_contour);
+        direction += .2 * pow(u_contour, 4.) * (1.0 - smoothstep(0., 1., edge));
+
+        bump *= clamp(pow(uv.y, .1), .3, 1.);
+        direction *= (.1 + (1.1 - edge) * bump);
+        direction *= (.4 + .6 * (1.0 - smoothstep(.5, 1., edge)));
+        direction += .18 * (smoothstep(.1, .2, uv.y) * (1.0 - smoothstep(.2, .4, uv.y)));
+        direction += .03 * (smoothstep(.1, .2, 1. - uv.y) * (1.0 - smoothstep(.2, .4, 1. - uv.y)));
+        direction *= (.5 + .5 * pow(uv.y, 2.));
+        direction *= cycleWidth;
+        direction -= t;
+
+        float colorDispersion = clamp(1. - bump, 0., 1.);
+        float dispersionRed = colorDispersion + .03 * bump * noise - diagBLtoTR;
+        dispersionRed += 5. * (smoothstep(-.1, .2, uv.y) * (1.0 - smoothstep(.1, .5, uv.y))) * (smoothstep(.4, .6, bump) * (1.0 - smoothstep(.4, 1., bump)));
+        float dispersionBlue = colorDispersion * 1.3 - .2 * edge;
+        dispersionBlue += (smoothstep(0., .4, uv.y) * (1.0 - smoothstep(.1, .8, uv.y))) * (smoothstep(.4, .6, bump) * (1.0 - smoothstep(.4, .8, bump)));
+
+        dispersionRed *= (u_shiftRed / 20.);
+        dispersionBlue *= (u_shiftBlue / 20.);
+
+        float softness = 0.05 * u_softness;
+        float blur = softness + .5 * smoothstep(1., 10., u_repetition) * smoothstep(.0, 1., edge);
+        float rExtraBlur = softness * (0.05 + .1 * (u_shiftRed / 20.) * bump);
+        float gExtraBlur = softness * 0.05 / max(0.001, abs(1. - diagBLtoTR));
+
+        vec3 w = vec3(thin_strip_1_width, thin_strip_2_width, wide_strip_ratio);
+        w[1] -= .02 * smoothstep(.0, 1., edge + bump);
+
+        float stripe_r = fract(direction + dispersionRed);
+        float r = getColorChanges(color1.r, color2.r, stripe_r, w, blur + fwidth(stripe_r) + rExtraBlur, bump, u_colorTint.r);
+        float stripe_g = fract(direction);
+        float g = getColorChanges(color1.g, color2.g, stripe_g, w, blur + fwidth(stripe_g) + gExtraBlur, bump, u_colorTint.g);
+        float stripe_b = fract(direction - dispersionBlue);
+        float b = getColorChanges(color1.b, color2.b, stripe_b, w, blur + fwidth(stripe_b), bump, u_colorTint.b);
+
+        vec3 color = vec3(r, g, b) * opacity;
+        vec3 bgColor = u_colorBack.rgb * u_colorBack.a;
+        color = color + bgColor * (1. - opacity);
+        opacity = opacity + u_colorBack.a * (1. - opacity);
+
+        ${colorBandingFix}
+
+        fragColor = vec4(color, opacity);
+      }
+    `;
+
+    let gl, program, texture, startTime;
+
+    async function processImage(imageSrc) {
+      return new Promise(async (resolve, reject) => {
+        // For SVGs, fetch and convert to data URL for proper rendering
+        let imgSrc = imageSrc;
+        if (imageSrc.endsWith('.svg')) {
+          try {
+            const response = await fetch(imageSrc);
+            const svgText = await response.text();
+            // Modify SVG to ensure it renders with a fill
+            const modifiedSvg = svgText.replace('fill="none"', 'fill="#000000"');
+            const blob = new Blob([modifiedSvg], { type: 'image/svg+xml' });
+            imgSrc = URL.createObjectURL(blob);
+          } catch (e) {
+            console.error('Failed to fetch SVG:', e);
+          }
+        }
+
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          try {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const size = 512;
+          canvas.width = size;
+          canvas.height = size;
+
+          // Draw image centered
+          const scale = Math.min(size / img.width, size / img.height) * 0.7;
+          const w = img.width * scale;
+          const h = img.height * scale;
+          const x = (size - w) / 2;
+          const y = (size - h) / 2;
+
+          ctx.clearRect(0, 0, size, size);
+          ctx.drawImage(img, x, y, w, h);
+
+          const imageData = ctx.getImageData(0, 0, size, size);
+          const data = imageData.data;
+          const width = size;
+          const height = size;
+
+          // Create binary mask from alpha or darkness
+          const mask = new Float32Array(width * height);
+          for (let i = 0; i < mask.length; i++) {
+            const idx = i * 4;
+            // Check if pixel is dark (part of the logo) or has alpha
+            const r = data[idx];
+            const g = data[idx + 1];
+            const b = data[idx + 2];
+            const a = data[idx + 3];
+            // SVG has black fill, so check for dark pixels
+            const brightness = (r + g + b) / 3;
+            mask[i] = (a > 10 && brightness < 128) ? 1 : 0;
+          }
+
+          // Compute distance field using jump flooding approximation
+          const maxDist = Math.sqrt(width * width + height * height);
+          const distField = new Float32Array(width * height);
+
+          // Initialize distance field
+          for (let i = 0; i < mask.length; i++) {
+            distField[i] = mask[i] > 0 ? 0 : maxDist;
+          }
+
+          // Simple distance transform (multiple passes for approximation)
+          const passes = 8;
+          for (let pass = 0; pass < passes; pass++) {
+            for (let y = 0; y < height; y++) {
+              for (let x = 0; x < width; x++) {
+                const idx = y * width + x;
+                if (mask[idx] > 0) continue;
+
+                let minDist = distField[idx];
+                // Check 8 neighbors
+                for (let dy = -1; dy <= 1; dy++) {
+                  for (let dx = -1; dx <= 1; dx++) {
+                    if (dx === 0 && dy === 0) continue;
+                    const nx = x + dx;
+                    const ny = y + dy;
+                    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                      const nidx = ny * width + nx;
+                      const d = Math.sqrt(dx * dx + dy * dy);
+                      minDist = Math.min(minDist, distField[nidx] + d);
+                    }
+                  }
+                }
+                distField[idx] = minDist;
+              }
+            }
+          }
+
+          // Sobel edge detection
+          const edges = new Float32Array(width * height);
+          for (let y = 1; y < height - 1; y++) {
+            for (let x = 1; x < width - 1; x++) {
+              const idx = y * width + x;
+
+              // Sobel kernels
+              const gx =
+                -1 * mask[(y-1) * width + (x-1)] + 1 * mask[(y-1) * width + (x+1)] +
+                -2 * mask[y * width + (x-1)] + 2 * mask[y * width + (x+1)] +
+                -1 * mask[(y+1) * width + (x-1)] + 1 * mask[(y+1) * width + (x+1)];
+
+              const gy =
+                -1 * mask[(y-1) * width + (x-1)] - 2 * mask[(y-1) * width + x] - 1 * mask[(y-1) * width + (x+1)] +
+                1 * mask[(y+1) * width + (x-1)] + 2 * mask[(y+1) * width + x] + 1 * mask[(y+1) * width + (x+1)];
+
+              edges[idx] = Math.min(1, Math.sqrt(gx * gx + gy * gy));
+            }
+          }
+
+          // Create final processed texture
+          // R = normalized distance/edge info, G = opacity mask
+          let maxDistFound = 0;
+          for (let i = 0; i < distField.length; i++) {
+            if (distField[i] > maxDistFound) maxDistFound = distField[i];
+          }
+          for (let i = 0; i < mask.length; i++) {
+            const idx = i * 4;
+
+            // Blend edge detection with distance field
+            const normalizedDist = 1 - Math.min(1, distField[i] / 50);
+            const edgeVal = edges[i];
+
+            // R channel: edge/contour information
+            const r = Math.floor(Math.max(edgeVal, normalizedDist * 0.5) * 255);
+
+            // G channel: opacity (shape mask)
+            const g = mask[i] > 0 ? 255 : 0;
+
+            data[idx] = r;       // R: edge info
+            data[idx + 1] = g;   // G: opacity
+            data[idx + 2] = 255; // B: unused
+            data[idx + 3] = 255; // A: full
+          }
+
+          ctx.putImageData(imageData, 0, 0);
+          resolve(canvas);
+          } catch (err) {
+            console.error('Processing error:', err.message, err.stack);
+            reject(err);
+          }
+        };
+        img.onerror = (e) => {
+          console.error('Image load error:', e);
+          reject(e);
+        };
+        img.src = imgSrc;
+      });
+    }
+
+    async function init() {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+
+      gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: false });
+      if (!gl) {
+        console.error('WebGL2 not supported');
+        return;
+      }
+
+      const size = window.innerWidth <= 1200 ? 220 : 280;
+      canvas.width = size;
+      canvas.height = size;
+      gl.viewport(0, 0, size, size);
+
+      // Create shaders
+      const vs = gl.createShader(gl.VERTEX_SHADER);
+      gl.shaderSource(vs, vertexShader);
+      gl.compileShader(vs);
+
+      const fs = gl.createShader(gl.FRAGMENT_SHADER);
+      gl.shaderSource(fs, fragmentShader);
+      gl.compileShader(fs);
+
+      if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) {
+        console.error('Fragment shader error:', gl.getShaderInfoLog(fs));
+        return;
+      }
+
+      program = gl.createProgram();
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
+      gl.useProgram(program);
+
+      // Quad vertices
+      const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+      const posLoc = gl.getAttribLocation(program, 'a_position');
+      gl.enableVertexAttribArray(posLoc);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+      // Load and process image
+      try {
+        const processedCanvas = await processImage('noice-graphic-logo.svg');
+        texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, processedCanvas);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      } catch (e) {
+        console.error('Failed to load image:', e);
+        return;
+      }
+
+      // Set uniforms
+      gl.uniform1i(gl.getUniformLocation(program, 'u_image'), 0);
+      gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), size, size);
+      gl.uniform4fv(gl.getUniformLocation(program, 'u_colorBack'), CONFIG.colorBack);
+      gl.uniform4fv(gl.getUniformLocation(program, 'u_colorTint'), CONFIG.colorTint);
+      gl.uniform1f(gl.getUniformLocation(program, 'u_softness'), CONFIG.softness);
+      gl.uniform1f(gl.getUniformLocation(program, 'u_repetition'), CONFIG.repetition);
+      gl.uniform1f(gl.getUniformLocation(program, 'u_shiftRed'), CONFIG.shiftRed);
+      gl.uniform1f(gl.getUniformLocation(program, 'u_shiftBlue'), CONFIG.shiftBlue);
+      gl.uniform1f(gl.getUniformLocation(program, 'u_distortion'), CONFIG.distortion);
+      gl.uniform1f(gl.getUniformLocation(program, 'u_contour'), CONFIG.contour);
+      gl.uniform1f(gl.getUniformLocation(program, 'u_angle'), CONFIG.angle);
+
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+      startTime = performance.now();
+      animate();
+    }
+
+    function animate() {
+      if (!gl || !program) return;
+      requestAnimationFrame(animate);
+
+      const time = (performance.now() - startTime) / 1000 * CONFIG.speed;
+      gl.uniform1f(gl.getUniformLocation(program, 'u_time'), time);
+
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
   </script>
 
   <script src="https://script.refix.ai/script.min.js" type="text/javascript" data-refix-token="e6f132ed-ff3a-4215-accf-f68a1430b42d" defer></script>
