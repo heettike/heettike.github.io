@@ -1408,8 +1408,8 @@
       <!-- Stats -->
       <div class="futarchy-stats">
         <div class="futarchy-stat">
-          <div class="futarchy-stat-label">$noice mcap</div>
-          <div class="futarchy-stat-value" id="noice-mcap">$--</div>
+          <div class="futarchy-stat-label">$noice fdv</div>
+          <div class="futarchy-stat-value" id="noice-mcap">loading...</div>
         </div>
         <div class="futarchy-stat">
           <div class="futarchy-stat-label">pool volume</div>
@@ -2177,6 +2177,11 @@
       changeEl.textContent = (isPositive ? '+' : '') + changePercent + '%';
       changeEl.classList.toggle('negative', !isPositive);
 
+      // Calculate and update FDV (100B total supply)
+      const TOTAL_SUPPLY = 100_000_000_000;
+      const fdv = lastPrice * TOTAL_SUPPLY;
+      document.getElementById('noice-mcap').textContent = '$' + formatNumber(fdv);
+
       // Update chart colors
       const line = document.getElementById('chart-line');
       const fill = document.getElementById('chart-fill');
@@ -2215,13 +2220,16 @@
     }
 
     function renderSampleChart() {
-      // Generate sample data that looks realistic
+      // Use current approximate price as base
+      const basePrice = 0.0001044;
       const points = [];
-      let price = 0.000008;
+      let price = basePrice * 0.98;
       for (let i = 0; i < 48; i++) {
-        price = price * (1 + (Math.random() - 0.48) * 0.05);
+        price = price * (1 + (Math.random() - 0.48) * 0.02);
         points.push(price);
       }
+      // Make last price close to current
+      points[points.length - 1] = basePrice;
       renderChart(points.map(p => ({ close: p })));
     }
 
