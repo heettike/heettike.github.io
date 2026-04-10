@@ -250,23 +250,38 @@
       letter-spacing: 0.08em;
     }
 
-    /* SCREENSHOTS GRID */
-    .screenshots-grid {
+    /* SCREENSHOTS */
+    .screenshots-portraits {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin: 48px 0;
+      margin: 48px 0 12px;
     }
-    .screenshots-grid img {
+    .screenshots-portraits img {
       width: 100%;
-      aspect-ratio: 9 / 19.5;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .screenshots-landscapes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 0 0 48px;
+    }
+    .screenshots-landscapes img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       object-position: top;
       display: block;
       border: 1px solid rgba(255,255,255,0.08);
     }
     @media (max-width: 700px) {
-      .screenshots-grid { grid-template-columns: repeat(2, 1fr); }
+      .screenshots-portraits { grid-template-columns: repeat(2, 1fr); }
+      .screenshots-landscapes { grid-template-columns: 1fr; }
     }
 
     /* TIMELINE */
@@ -463,9 +478,12 @@
       </div>
     </div>
 
-    <div class="screenshots-grid">
+    <div class="screenshots-portraits">
       <img src="app1.jpg" alt="noice configure tipping" loading="lazy">
       <img src="app2.jpg" alt="noice activity feed" loading="lazy">
+      <img src="app5.jpg" alt="noice armstrong" loading="lazy">
+    </div>
+    <div class="screenshots-landscapes">
       <img src="app3.jpg" alt="noice highest tippers leaderboard" loading="lazy">
       <img src="app4.jpg" alt="noice tipper details" loading="lazy">
     </div>
@@ -493,22 +511,14 @@
       </div>
     </div>
 
-    <div class="tweets-row">
-      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1925247346184704004"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1950251614993822172"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1945975857517826322"></a></blockquote></div>
+    <div class="tweet-embed-wrap" style="max-width:550px;">
+      <blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1925247346184704004"></a></blockquote>
     </div>
 
     <div style="margin-top:48px;">
       <div class="pof-note">
         we had to pivot because we couldn't get the tipping play on X. and farcaster wasn't growing. things were working really well, but we were in local maxima.
       </div>
-    </div>
-
-    <div class="tweet-embed-wrap" style="margin-top:48px; max-width:550px;">
-      <blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none">
-        <a href="https://twitter.com/i/status/1982443929183383649"></a>
-      </blockquote>
     </div>
   </div>
 
@@ -855,56 +865,140 @@
 
   <script>
   (function() {
-    // ── Iframe lazy loading (true: data-src swap) ────────────────
+    // ── Token formula (same as react-tweet / Twitter embed) ──────
+    function token(id) {
+      return ((Number(id) / 1e15) * Math.PI).toString(36).replace(/(0+|\.)/g, '');
+    }
+
+    // ── Fetch with sessionStorage cache ──────────────────────────
+    function fetchTweet(id, cb) {
+      var k = 'twt_' + id;
+      var hit = sessionStorage.getItem(k);
+      if (hit) { try { cb(JSON.parse(hit)); return; } catch(e) {} }
+      fetch('https://cdn.syndication.twimg.com/tweet-result?id=' + id + '&lang=en&token=' + token(id))
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(d) {
+          if (d) try { sessionStorage.setItem(k, JSON.stringify(d)); } catch(e) {}
+          cb(d || null);
+        })
+        .catch(function() { cb(null); });
+    }
+
+    // ── HTML escape ───────────────────────────────────────────────
+    function esc(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ── Format date ───────────────────────────────────────────────
+    function fmtDate(s) {
+      if (!s) return '';
+      try { return new Date(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+      catch(e) { return ''; }
+    }
+
+    // ── Build static card HTML ────────────────────────────────────
+    function buildCard(d, id) {
+      var u = d.user || {};
+      var name = esc(u.name || '');
+      var handle = u.screen_name || '';
+      var av = (u.profile_image_url_https || '').replace('_normal', '_200x200');
+      if (!av && handle) av = 'https://unavatar.io/x/' + handle;
+      var tweetUrl = 'https://x.com/' + (handle || 'i') + '/status/' + id;
+
+      // Get text, strip trailing media t.co URLs
+      var rawText = d.text || d.full_text || '';
+      var mediaDetails = d.mediaDetails || [];
+      mediaDetails.forEach(function(m) { if (m.url) rawText = rawText.replace(m.url, '').trim(); });
+      rawText = rawText.trim();
+
+      // Expand t.co links in text
+      var textHtml = esc(rawText);
+      var urls = (d.entities && d.entities.urls) || [];
+      urls.forEach(function(eu) {
+        var escapedUrl = esc(eu.url);
+        if (textHtml.indexOf(escapedUrl) !== -1) {
+          textHtml = textHtml.replace(escapedUrl,
+            '<a href="' + esc(eu.expanded_url || eu.url) + '" target="_blank" rel="noopener" ' +
+            'style="opacity:0.6;text-decoration:underline;text-underline-offset:2px;" ' +
+            'onclick="event.stopPropagation()">' + esc(eu.display_url || eu.expanded_url) + '</a>'
+          );
+        }
+      });
+      textHtml = textHtml.replace(/\n/g, '<br>');
+
+      // Media
+      var mediaHtml = '';
+      if (mediaDetails.length) {
+        var m = mediaDetails[0];
+        var imgSrc = esc(m.media_url_https || m.media_url || '');
+        if (m.type === 'photo') {
+          mediaHtml = '<img src="' + imgSrc + '" style="width:100%;display:block;margin-top:12px;border:1px solid rgba(255,255,255,0.06);" loading="lazy" alt="">';
+        } else if (m.type === 'video' || m.type === 'animated_gif') {
+          mediaHtml = '<div style="position:relative;margin-top:12px;">' +
+            '<img src="' + imgSrc + '" style="width:100%;display:block;border:1px solid rgba(255,255,255,0.06);" loading="lazy" alt="">' +
+            '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.65);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;">' +
+              '<svg width="13" height="14" viewBox="0 0 13 14" fill="white"><polygon points="1,1 12,7 1,13"/></svg>' +
+            '</div></div>';
+        }
+      }
+
+      return '<div style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.1);padding:20px;cursor:pointer;transition:border-color 0.2s;" ' +
+          'onmouseover="this.style.borderColor=\'rgba(255,255,255,0.25)\'" ' +
+          'onmouseout="this.style.borderColor=\'rgba(255,255,255,0.1)\'" ' +
+          'onclick="window.open(\'' + tweetUrl + '\',\'_blank\')">' +
+        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">' +
+          '<img src="' + esc(av) + '" style="width:34px;height:34px;border-radius:50%;flex-shrink:0;" alt="" loading="lazy">' +
+          '<div style="min-width:0;">' +
+            '<div style="font-size:14px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + name + '</div>' +
+            '<div style="font-size:12px;opacity:0.35;margin-top:1px;">@' + esc(handle) + '</div>' +
+          '</div>' +
+          '<div style="margin-left:auto;flex-shrink:0;opacity:0.2;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.622 5.905-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
+          '</div>' +
+        '</div>' +
+        '<div style="font-size:15px;line-height:1.65;opacity:0.85;">' + textHtml + '</div>' +
+        mediaHtml +
+        '<div style="margin-top:10px;font-size:11px;opacity:0.25;letter-spacing:0.03em;">' + fmtDate(d.created_at) + '</div>' +
+      '</div>';
+    }
+
+    // ── Iframe lazy loading ───────────────────────────────────────
     var iframeObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        iframeObs.unobserve(el);
-        el.src = el.dataset.src;
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        iframeObs.unobserve(e.target);
+        e.target.src = e.target.dataset.src;
       });
     }, { rootMargin: '300px 0px' });
 
-    // ── Tweet lazy loading ───────────────────────────────────────
-    var widgetsLoaded = false;
-    var callbacks = [];
-
-    function loadWidgetsJS(cb) {
-      if (widgetsLoaded) { cb && cb(); return; }
-      callbacks.push(cb);
-      if (callbacks.length > 1) return;
-      var s = document.createElement('script');
-      s.src = 'https://platform.twitter.com/widgets.js';
-      s.async = true;
-      s.onload = function() {
-        widgetsLoaded = true;
-        var fns = callbacks.slice(); callbacks = [];
-        fns.forEach(function(fn) { fn && fn(); });
-      };
-      document.head.appendChild(s);
-    }
-
+    // ── Tweet lazy loading via Syndication API ────────────────────
     var tweetObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (!entry.isIntersecting) return;
-        var wrap = entry.target;
+      entries.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        var wrap = e.target;
         tweetObs.unobserve(wrap);
         var bq = wrap.querySelector('.tweet-q');
         if (!bq) return;
-        bq.className = 'twitter-tweet';
-        loadWidgetsJS(function() {
-          window.twttr && window.twttr.widgets && window.twttr.widgets.load(wrap);
+        var a = bq.querySelector('a');
+        if (!a) return;
+        var m = (a.href || '').match(/status\/(\d+)/);
+        if (!m) return;
+        var id = m[1];
+        wrap.innerHTML = '<div style="padding:20px;font-size:12px;opacity:0.15;font-family:\'Ovo\',serif;">···</div>';
+        fetchTweet(id, function(data) {
+          if (data && data.user) {
+            wrap.innerHTML = buildCard(data, id);
+          } else {
+            wrap.innerHTML = '<div style="padding:16px;border:1px solid rgba(255,255,255,0.08);font-size:13px;opacity:0.35;font-family:\'Ovo\',serif;">' +
+              '<a href="https://x.com/i/status/' + id + '" target="_blank" onclick="event.stopPropagation()">view on x ↗</a></div>';
+          }
         });
       });
     }, { rootMargin: '200px 0px' });
 
     document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('iframe[data-src]').forEach(function(el) {
-        iframeObs.observe(el);
-      });
-      document.querySelectorAll('.tweet-embed-wrap').forEach(function(el) {
-        tweetObs.observe(el);
-      });
+      document.querySelectorAll('iframe[data-src]').forEach(function(el) { iframeObs.observe(el); });
+      document.querySelectorAll('.tweet-embed-wrap').forEach(function(el) { tweetObs.observe(el); });
     });
   })();
   </script>
