@@ -251,37 +251,22 @@
     }
 
     /* SCREENSHOTS */
-    .screenshots-portraits {
+    .screenshots-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      margin: 48px 0 12px;
+      margin: 48px 0;
     }
-    .screenshots-portraits img {
+    .screenshots-grid img {
       width: 100%;
-      aspect-ratio: 9 / 16;
-      object-fit: cover;
-      object-position: top;
-      display: block;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .screenshots-landscapes {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin: 0 0 48px;
-    }
-    .screenshots-landscapes img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 9 / 19;
       object-fit: cover;
       object-position: top;
       display: block;
       border: 1px solid rgba(255,255,255,0.08);
     }
     @media (max-width: 700px) {
-      .screenshots-portraits { grid-template-columns: repeat(2, 1fr); }
-      .screenshots-landscapes { grid-template-columns: 1fr; }
+      .screenshots-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* TIMELINE */
@@ -380,12 +365,13 @@
 
     /* POINT OF FAILURE */
     .pof-note {
-      font-size: 19px;
-      opacity: 0.6;
-      line-height: 1.8;
-      max-width: 640px;
-      padding: 40px;
-      border-left: 2px solid rgba(255,255,255,0.15);
+      font-size: 24px;
+      opacity: 1;
+      line-height: 1.7;
+      max-width: 680px;
+      padding: 40px 40px 40px 36px;
+      border-left: 3px solid rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.03);
     }
 
     /* RESPONSIVE */
@@ -478,13 +464,10 @@
       </div>
     </div>
 
-    <div class="screenshots-portraits">
+    <div class="screenshots-grid">
       <img src="app1.jpg" alt="noice configure tipping" loading="lazy">
       <img src="app2.jpg" alt="noice activity feed" loading="lazy">
-      <img src="app5.jpg" alt="noice armstrong" loading="lazy">
-    </div>
-    <div class="screenshots-landscapes">
-      <img src="app3.jpg" alt="noice highest tippers leaderboard" loading="lazy">
+      <img src="app3.jpg" alt="noice leaderboard" loading="lazy">
       <img src="app4.jpg" alt="noice tipper details" loading="lazy">
     </div>
 
@@ -511,11 +494,12 @@
       </div>
     </div>
 
+    <div class="section-label" style="margin-bottom:16px;">launch video</div>
     <div class="tweet-embed-wrap" style="max-width:550px;">
       <blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1925247346184704004"></a></blockquote>
     </div>
 
-    <div style="margin-top:48px;">
+    <div style="margin-top:64px;">
       <div class="pof-note">
         we had to pivot because we couldn't get the tipping play on X. and farcaster wasn't growing. things were working really well, but we were in local maxima.
       </div>
@@ -898,15 +882,22 @@
 
     // ── Build static card HTML ────────────────────────────────────
     function buildCard(d, id) {
-      var u = d.user || {};
+      // Handle both v1 (d.user) and v2 (d.core.user_results) API formats
+      var u = d.user ||
+        (d.core && d.core.user_results && d.core.user_results.result &&
+          (d.core.user_results.result.legacy || d.core.user_results.result)) || {};
       var name = esc(u.name || '');
       var handle = u.screen_name || '';
       var av = (u.profile_image_url_https || '').replace('_normal', '_200x200');
       if (!av && handle) av = 'https://unavatar.io/x/' + handle;
       var tweetUrl = 'https://x.com/' + (handle || 'i') + '/status/' + id;
 
-      // Get text, strip trailing media t.co URLs
-      var rawText = d.text || d.full_text || '';
+      // Get text (v1 and v2 formats)
+      var rawText = d.text || d.full_text ||
+        (d.legacy && (d.legacy.full_text || d.legacy.text)) ||
+        (d.note_tweet && d.note_tweet.note_tweet_results &&
+          d.note_tweet.note_tweet_results.result &&
+          d.note_tweet.note_tweet_results.result.text) || '';
       var mediaDetails = d.mediaDetails || [];
       mediaDetails.forEach(function(m) { if (m.url) rawText = rawText.replace(m.url, '').trim(); });
       rawText = rawText.trim();
@@ -962,6 +953,19 @@
       '</div>';
     }
 
+    // ── Twitter embed iframe resize via postMessage ───────────────
+    window.addEventListener('message', function(evt) {
+      try {
+        var msg = typeof evt.data === 'string' ? JSON.parse(evt.data) : evt.data;
+        var embed = msg && msg['twttr.embed'];
+        if (!embed || embed.method !== 'twttr.private.resize') return;
+        var p = embed.params && embed.params[0];
+        if (!p || !p.id || !p.height) return;
+        var el = document.getElementById(p.id);
+        if (el) el.style.height = Math.ceil(p.height) + 'px';
+      } catch(e) {}
+    }, false);
+
     // ── Iframe lazy loading ───────────────────────────────────────
     var iframeObs = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
@@ -986,11 +990,16 @@
         var id = m[1];
         wrap.innerHTML = '<div style="padding:20px;font-size:12px;opacity:0.15;font-family:\'Ovo\',serif;">···</div>';
         fetchTweet(id, function(data) {
-          if (data && data.user) {
+          if (data && (data.user || data.core || data.legacy)) {
             wrap.innerHTML = buildCard(data, id);
           } else {
-            wrap.innerHTML = '<div style="padding:16px;border:1px solid rgba(255,255,255,0.08);font-size:13px;opacity:0.35;font-family:\'Ovo\',serif;">' +
-              '<a href="https://x.com/i/status/' + id + '" target="_blank" onclick="event.stopPropagation()">view on x ↗</a></div>';
+            // Fallback: direct Twitter embed iframe (auto-resizes via postMessage)
+            var fid = 'tw-' + id;
+            wrap.innerHTML = '<iframe id="' + fid + '" ' +
+              'src="https://platform.twitter.com/embed/Tweet.html?id=' + id +
+              '&frame_id=' + fid + '&theme=dark&dnt=true&hideConversation=on&lang=en" ' +
+              'style="width:100%;height:200px;border:none;display:block;" ' +
+              'frameborder="0" scrolling="no" allowfullscreen></iframe>';
           }
         });
       });
