@@ -260,6 +260,56 @@
       border-radius: 4px;
     }
 
+    /* Videos Section */
+    #videos {
+      min-height: auto;
+      padding: 100px 20px;
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .video-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .video-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .video-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-title {
+      font-size: 17px;
+      opacity: 0.7;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .videos-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
     /* Footer */
     footer {
       padding: 60px 20px;
@@ -454,6 +504,8 @@
             <a href="https://open.spotify.com/user/heettike" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">spotify</a>
             <span style="opacity: 0.3;"> • </span>
             <a href="mailto:tike@ripen.in" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">email</a>
+            <span style="opacity: 0.3;"> • </span>
+            <a href="https://www.youtube.com/@heettike" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">youtube</a>
           </div>
         </div>
       </div>
@@ -479,6 +531,51 @@
       <p style="margin-top: -20px; margin-bottom: 40px; opacity: 0.5; font-size: 16px;">tweeting more than i write</p>
       <div class="essay-list" id="essay-list">
         <!-- Essays will be loaded here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos Section -->
+  <section id="videos">
+    <div class="container">
+      <h2>videos</h2>
+      <div class="videos-grid">
+        <div class="video-item">
+          <div class="video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/wNnvfW4GB8E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-title">nothingness, courage & flow state</div>
+        </div>
+        <div class="video-item">
+          <div class="video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/5gTU9GkJIWU" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-title">noice</div>
+        </div>
+        <div class="video-item">
+          <div class="video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/k6sLrSlSQVo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-title">anxiety, spectrum of human emotion & pain</div>
+        </div>
+        <div class="video-item">
+          <div class="video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/48PE22xdoT4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-title">truth, perception, serving urself & some more</div>
+        </div>
+        <div class="video-item">
+          <div class="video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/5OC2uysyd0A" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-title">dopamine monkeys</div>
+        </div>
+        <div class="video-item">
+          <div class="video-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/XDHS_HSpdw8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="video-title">be present</div>
+        </div>
       </div>
     </div>
   </section>
