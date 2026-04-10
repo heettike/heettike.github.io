@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>ripen — heet tike</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Ovo', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 24px 40px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+    }
+    nav a {
+      font-size: 15px;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 1; }
+
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    section.full-width {
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    #hero h1 {
+      font-size: 96px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    #hero .tagline {
+      font-size: 22px;
+      opacity: 0.5;
+      margin-bottom: 40px;
+      max-width: 640px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-top: 60px;
+    }
+    .stat-cell {
+      background: #000;
+      padding: 40px 36px;
+    }
+    .stat-number {
+      font-size: 42px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.4;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 48px;
+    }
+    h2 {
+      font-size: 42px;
+      font-weight: 400;
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .body-text {
+      font-size: 19px;
+      line-height: 1.8;
+      opacity: 0.75;
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    /* PRODUCT SECTIONS */
+    .product-block {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .product-image {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.08);
+      display: block;
+    }
+    .product-image-wrap {
+      position: relative;
+    }
+
+    /* COMMUNITY CAROUSEL */
+    #community-section {
+      padding: 80px 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .community-header {
+      padding: 0 40px;
+      margin-bottom: 40px;
+    }
+    .carousel-outer {
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding: 0 40px;
+    }
+    .tweet-card {
+      flex: 0 0 calc(25% - 12px);
+      min-width: 260px;
+    }
+
+    .link-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      font-size: 16px;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+      margin-right: 32px;
+      margin-bottom: 8px;
+    }
+    .link-block:hover { opacity: 1; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 0;
+    }
+
+    footer {
+      padding: 60px 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a {
+      opacity: 0.4;
+      font-size: 15px;
+      transition: opacity 0.3s;
+    }
+    footer a:hover { opacity: 1; }
+
+    .pivot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .pivot-item {
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .pivot-name {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .pivot-desc {
+      font-size: 15px;
+      opacity: 0.5;
+      line-height: 1.7;
+    }
+    .pivot-note {
+      font-size: 13px;
+      opacity: 0.35;
+      margin-top: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 900px) {
+      #hero h1 { font-size: 64px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-layout { grid-template-columns: 1fr; }
+      .pivot-grid { grid-template-columns: repeat(2, 1fr); }
+      .tweet-card { flex: 0 0 calc(50% - 8px); }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 20px 24px; }
+      section { padding: 60px 24px; }
+      #hero h1 { font-size: 48px; }
+      .stat-number { font-size: 30px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .pivot-grid { grid-template-columns: 1fr; }
+      .tweet-card { flex: 0 0 calc(100% - 48px); }
+      footer { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/">← heet tike</a>
+    <a href="https://x.com/ripenapp" target="_blank" style="opacity:0.4;">@ripenapp ↗</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="section-label">2021 — 2023</div>
+    <h1>ripen</h1>
+    <p class="tagline">a venture-backed consumer company building mobile apps to help gen-z with their career, health, finance, and relationships.</p>
+
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-number">$550K</div>
+        <div class="stat-label">raised over 2 rounds</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">30</div>
+        <div class="stat-label">team at peak</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">25K+</div>
+        <div class="stat-label">whatsapp community members</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">6</div>
+        <div class="stat-label">products built</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="section-label">what we did</div>
+    <h2>life school</h2>
+    <div class="body-text">
+      before launching a product, we spent more than a year researching india's 18-25 year olds and their core problems to build our thesis.
+      <br><br>
+      we did this through ripen's life school — cohort-based learning programs to help young adults conquer life skills like dating, investing, fitness, and more.
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:60px;">
+      <div>
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/life%20school.png" alt="ripen life school" class="product-image">
+        <div style="font-size:13px; opacity:0.35; margin-top:12px; text-transform:uppercase; letter-spacing:0.08em;">ripen squads — 30-day cohort program</div>
+      </div>
+      <div>
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/all%20things%20money.png" alt="all things money" class="product-image">
+        <div style="font-size:13px; opacity:0.35; margin-top:12px; text-transform:uppercase; letter-spacing:0.08em;">all things money — 50 member finance cohort</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <div class="product-block">
+    <div class="section-label">community</div>
+    <h2>25K+ members</h2>
+    <div class="body-text">
+      while we grew life school, we created a free whatsapp community for people to navigate adulthood together. when we launched our apps, these members became our early users. it has since grown to 25K+ members over 15 groups and still remains active.
+    </div>
+    <a href="https://chat.whatsapp.com/ripen" target="_blank" class="link-block">ripen community ↗</a>
+  </div>
+
+  <!-- APP V1 -->
+  <div class="product-block">
+    <div class="section-label">product — v1</div>
+    <div class="product-layout">
+      <div>
+        <h2>ripen app v1</h2>
+        <div class="body-text">
+          our thesis: teach essential life skills through gamified lessons, to-dos, and product suggestions. the idea was to be the "duolingo" for finance, health, career and life.
+          <br><br>
+          after a private beta, we launched publicly in april 2023 and trended #90 on the lifestyle apps list. we had our first 1,000 users within 3 days.
+        </div>
+        <a href="https://x.com/heettike" target="_blank" class="link-block">version 1 demo ↗</a>
+      </div>
+      <div class="product-image-wrap">
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/ripen%20v-1.png" alt="ripen app v1" class="product-image">
+      </div>
+    </div>
+  </div>
+
+  <!-- RIPEN GAMES -->
+  <div class="product-block">
+    <div class="section-label">product — v2</div>
+    <div class="product-layout">
+      <div>
+        <h2>ripen games</h2>
+        <div class="body-text">
+          when v1 failed, we learned two things:
+          <br><br>
+          for people to achieve their goals, they need accountability. for people to achieve their goals, they need to put money on the line.
+          <br><br>
+          so we rebuilt the entire experience and launched ripen games. the app quickly grew to over 10,000 users but we had to shut it down due to betting laws and tax issues in india.
+        </div>
+      </div>
+      <div class="product-image-wrap">
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/ripen-games.png" alt="ripen games" class="product-image">
+      </div>
+    </div>
+  </div>
+
+  <!-- PIVOT ATTEMPTS -->
+  <div class="product-block">
+    <div class="section-label">what we tried</div>
+    <h2>pivot attempts</h2>
+    <div class="body-text">before returning capital to our investors, a few more things we tried.</div>
+
+    <div class="pivot-grid">
+      <div class="pivot-item">
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/weekly.png" alt="weekly app" style="width:100%; margin-bottom:20px; border:1px solid rgba(255,255,255,0.08);">
+        <div class="pivot-name">weekly</div>
+        <div class="pivot-desc">share a weekly summary with your close friends. photos, health, or even music you heard.</div>
+      </div>
+      <div class="pivot-item">
+        <div style="height:140px; border:1px solid rgba(255,255,255,0.08); margin-bottom:20px; display:flex; align-items:center; justify-content:center; opacity:0.2; font-size:14px; letter-spacing:0.1em; text-transform:uppercase;">venti</div>
+        <div class="pivot-name">venti</div>
+        <div class="pivot-desc">anonymous support groups for everything from breakups to addictions.</div>
+        <div class="pivot-note">10 users paid $1,200</div>
+      </div>
+      <div class="pivot-item">
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/ripen%20mentors.png" alt="ripen mentorship" style="width:100%; margin-bottom:20px; border:1px solid rgba(255,255,255,0.08);">
+        <div class="pivot-name">ripen mentorship</div>
+        <div class="pivot-desc">elder sibling as a service for teenagers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNITY CAROUSEL -->
+  <section id="community-section" class="full-width">
+    <div class="community-header">
+      <div class="section-label">the community</div>
+      <h2>25K+ navigating adulthood</h2>
+      <div class="body-text" style="max-width:500px; margin-bottom:0;">the ripen community still remains one of the most active gen-z communities in india.</div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding:0 40px;">
+      <div>
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/ripen.png" alt="ripen" style="width:100%; border:1px solid rgba(255,255,255,0.08);">
+      </div>
+      <div style="grid-column:span 2;">
+        <div style="font-size:28px; font-weight:400; line-height:1.5; opacity:0.8; padding-top:20px;">
+          "from sept 2021 to dec 2023, the company built over 6 products with a team of 30 people. the company raised $550,000 over 2 rounds."
+        </div>
+        <div style="margin-top:32px; font-size:14px; opacity:0.35; text-transform:uppercase; letter-spacing:0.1em;">ripen — 2021–2023</div>
+        <div style="margin-top:40px;">
+          <a href="https://www.youtube.com/results?search_query=ripen+app" target="_blank" class="link-block">watch ripen's story on youtube ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/">← back to heettike.com</a>
+    <a href="https://x.com/HeetTike" target="_blank">@heettike ↗</a>
+  </footer>
+
+</body>
+</html>

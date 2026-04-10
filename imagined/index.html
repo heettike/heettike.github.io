@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>imagined — heet tike</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Ovo', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 24px 40px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+    }
+    nav a {
+      font-size: 15px;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 1; }
+
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    #hero h1 {
+      font-size: 96px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    #hero .tagline {
+      font-size: 22px;
+      opacity: 0.5;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .status-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 40px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 48px;
+    }
+    h2 {
+      font-size: 42px;
+      font-weight: 400;
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    .body-text {
+      font-size: 19px;
+      line-height: 1.8;
+      opacity: 0.75;
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    /* ABOUT IMAGE */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-image {
+      width: 100%;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* CLIENTS */
+    .client-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .client-row {
+      display: grid;
+      grid-template-columns: 280px 1fr auto;
+      gap: 40px;
+      align-items: start;
+      padding: 48px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .client-row:first-child {
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .client-image-wrap {
+      width: 100%;
+    }
+    .client-image {
+      width: 100%;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .client-image-gif {
+      width: 100%;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .client-content {
+      padding-top: 4px;
+    }
+    .client-name {
+      font-size: 32px;
+      font-weight: 400;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .client-desc {
+      font-size: 17px;
+      opacity: 0.6;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .client-scope {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .scope-tag {
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      opacity: 0.5;
+    }
+    .client-link {
+      font-size: 14px;
+      opacity: 0.4;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 2px;
+      transition: opacity 0.3s;
+    }
+    .client-link:hover { opacity: 0.8; }
+    .client-raise {
+      font-size: 13px;
+      opacity: 0.35;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      padding-top: 8px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 0;
+    }
+
+    footer {
+      padding: 60px 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a {
+      opacity: 0.4;
+      font-size: 15px;
+      transition: opacity 0.3s;
+    }
+    footer a:hover { opacity: 1; }
+
+    @media (max-width: 900px) {
+      #hero h1 { font-size: 64px; }
+      .about-layout { grid-template-columns: 1fr; gap: 40px; }
+      .client-row { grid-template-columns: 1fr; gap: 24px; }
+      .client-image-wrap { max-width: 400px; }
+      .client-raise { padding-top: 0; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 20px 24px; }
+      section { padding: 60px 24px; }
+      #hero h1 { font-size: 48px; }
+      footer { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/">← heet tike</a>
+    <a href="https://imagined.studio" target="_blank" style="opacity:0.4;">imagined.studio ↗</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="section-label">2020 — 2023</div>
+    <h1>imagined</h1>
+    <div class="status-tag">acquired</div>
+    <p class="tagline">a design and motion studio building websites, brands, and decks for the best startups in india. acquired in 2023.</p>
+  </section>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="section-label">about</div>
+    <div class="about-layout">
+      <div>
+        <h2>design that moves</h2>
+        <div class="body-text">
+          imagined was a creative services company working with india's fastest-growing startups — from brand identity and website design to motion graphics and fundraise support.
+          <br><br>
+          we personally helped raise over $4M+ across portfolio companies through decks, positioning, and design that told the right story.
+          <br><br>
+          the company was acquired in 2023.
+        </div>
+      </div>
+      <div>
+        <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/about%20imagined.png" alt="about imagined" class="about-image">
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section>
+    <div class="section-label">selected work</div>
+    <h2>clients</h2>
+
+    <div class="client-grid">
+
+      <!-- CRED -->
+      <div class="client-row">
+        <div class="client-image-wrap">
+          <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/cred.png" alt="CRED" class="client-image">
+        </div>
+        <div class="client-content">
+          <div class="client-name">CRED</div>
+          <div class="client-desc">india's largest credit card management app with 14 million monthly active users. imagined worked on copy, illustrations, and motion graphics with their marketing team.</div>
+          <div class="client-scope">
+            <span class="scope-tag">copy</span>
+            <span class="scope-tag">illustrations</span>
+            <span class="scope-tag">motion graphics</span>
+          </div>
+          <a href="https://cred.club" target="_blank" class="client-link">cred.club ↗</a>
+        </div>
+        <div class="client-raise">14M MAU</div>
+      </div>
+
+      <!-- MOONCAPITAL -->
+      <div class="client-row">
+        <div class="client-image-wrap">
+          <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/mooncap.gif" alt="mooncapital" class="client-image-gif">
+        </div>
+        <div class="client-content">
+          <div class="client-name">mooncapital</div>
+          <div class="client-desc">website, motion, and brand for mooncapital. used three.js and runway ai for videos.</div>
+          <div class="client-scope">
+            <span class="scope-tag">website</span>
+            <span class="scope-tag">motion</span>
+            <span class="scope-tag">brand</span>
+            <span class="scope-tag">three.js</span>
+          </div>
+        </div>
+        <div class="client-raise"></div>
+      </div>
+
+      <!-- PLUTO -->
+      <div class="client-row">
+        <div class="client-image-wrap">
+          <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/pluto.png" alt="pluto" class="client-image">
+        </div>
+        <div class="client-content">
+          <div class="client-name">pluto</div>
+          <div class="client-desc">website, deck and fundraise support. personally helped them raise a $2 million seed round.</div>
+          <div class="client-scope">
+            <span class="scope-tag">website</span>
+            <span class="scope-tag">deck</span>
+            <span class="scope-tag">fundraise support</span>
+          </div>
+          <a href="https://pluto.money" target="_blank" class="client-link">pluto.money ↗</a>
+        </div>
+        <div class="client-raise">$2M seed</div>
+      </div>
+
+      <!-- ARMATRIX -->
+      <div class="client-row">
+        <div class="client-image-wrap">
+          <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/armatrix%20work.png" alt="armatrix" class="client-image">
+        </div>
+        <div class="client-content">
+          <div class="client-name">armatrix</div>
+          <div class="client-desc">website, deck and fundraise support. personally helped them raise a $2.1 million seed round.</div>
+          <div class="client-scope">
+            <span class="scope-tag">website</span>
+            <span class="scope-tag">deck</span>
+            <span class="scope-tag">fundraise support</span>
+          </div>
+        </div>
+        <div class="client-raise">$2.1M seed</div>
+      </div>
+
+      <!-- SIMPL -->
+      <div class="client-row">
+        <div class="client-image-wrap">
+          <img src="https://publish-01.obsidian.md/access/9c8a4e5b88b39a19487c33f04506c19e/zoo/images/simpl.png" alt="simpl" class="client-image">
+        </div>
+        <div class="client-content">
+          <div class="client-name">simpl</div>
+          <div class="client-desc">website design/development, content, and app design for india's largest buy now pay later app.</div>
+          <div class="client-scope">
+            <span class="scope-tag">website</span>
+            <span class="scope-tag">app design</span>
+            <span class="scope-tag">content</span>
+          </div>
+          <a href="https://simpl.credit" target="_blank" class="client-link">simpl.credit ↗</a>
+        </div>
+        <div class="client-raise">india's largest BNPL</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <a href="/">← back to heettike.com</a>
+    <a href="https://imagined.studio" target="_blank">imagined.studio ↗</a>
+  </footer>
+
+</body>
+</html>

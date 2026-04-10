@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>noice — heet tike</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Ovo', serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 24px 40px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+    }
+    nav a {
+      font-size: 15px;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+      letter-spacing: 0.02em;
+    }
+    nav a:hover { opacity: 1; }
+    .nav-right {
+      display: flex;
+      gap: 24px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    section.full-width {
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 120px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    #hero h1 {
+      font-size: 96px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    #hero .tagline {
+      font-size: 22px;
+      opacity: 0.5;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    .btn-primary {
+      padding: 12px 28px;
+      border: 1px solid rgba(255,255,255,0.3);
+      font-family: 'Ovo', serif;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: transparent;
+    }
+    .btn-primary:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    /* NUMBERS GRID */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-top: 60px;
+    }
+    .stat-cell {
+      background: #000;
+      padding: 40px 36px;
+    }
+    .stat-number {
+      font-size: 42px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.4;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* SECTION HEADINGS */
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 48px;
+    }
+    h2 {
+      font-size: 42px;
+      font-weight: 400;
+      margin-bottom: 48px;
+      letter-spacing: -0.01em;
+    }
+
+    /* MILESTONES */
+    .milestones-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+    .milestone {
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .milestone-label {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 16px;
+    }
+
+    /* TWEET EMBED CONTAINERS */
+    .tweet-embed-wrap {
+      width: 100%;
+    }
+    .tweet-embed-wrap .twitter-tweet {
+      margin: 0 !important;
+    }
+
+    /* BUILD IN PUBLIC - static grid */
+    .static-tweets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* COMMUNITY CAROUSEL */
+    #community {
+      padding: 80px 0;
+      overflow: hidden;
+    }
+    .community-header {
+      padding: 0 40px;
+      margin-bottom: 40px;
+    }
+    .carousel-outer {
+      position: relative;
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding: 0 40px;
+      will-change: transform;
+    }
+    .tweet-card {
+      flex: 0 0 calc(25% - 12px);
+      min-width: 260px;
+    }
+    .tweet-card .twitter-tweet {
+      width: 100% !important;
+    }
+
+    /* ORACLE SECTION */
+    .product-section {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .product-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .product-desc {
+      font-size: 20px;
+      line-height: 1.7;
+      opacity: 0.75;
+    }
+    .product-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .product-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .product-stat-val {
+      font-size: 28px;
+      letter-spacing: -0.01em;
+    }
+    .product-stat-key {
+      font-size: 13px;
+      opacity: 0.4;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      display: flex;
+      gap: 40px;
+      margin: 40px 0;
+    }
+    .timeline-item {
+      flex: 1;
+    }
+    .timeline-date {
+      font-size: 13px;
+      opacity: 0.4;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .timeline-event {
+      font-size: 17px;
+    }
+
+    /* TWEETS ROW (oracle media etc) */
+    .tweets-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    /* TEAM */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .team-member {
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .team-member:hover { opacity: 1; }
+    .team-member a {
+      opacity: inherit;
+    }
+    .team-name {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+    .team-handle {
+      font-size: 13px;
+      opacity: 0.4;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 60px 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a {
+      opacity: 0.4;
+      font-size: 15px;
+      transition: opacity 0.3s;
+    }
+    footer a:hover { opacity: 1; }
+
+    /* POINT OF FAILURE */
+    .pof-note {
+      font-size: 19px;
+      opacity: 0.6;
+      line-height: 1.8;
+      max-width: 640px;
+      padding: 40px;
+      border-left: 2px solid rgba(255,255,255,0.15);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      #hero h1 { font-size: 64px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .milestones-grid { grid-template-columns: 1fr; }
+      .static-tweets-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-meta { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .tweets-row { grid-template-columns: repeat(2, 1fr); }
+      .tweet-card { flex: 0 0 calc(50% - 8px); }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 20px 24px; }
+      section { padding: 60px 24px; }
+      #hero h1 { font-size: 48px; }
+      .stat-number { font-size: 30px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .static-tweets-grid { grid-template-columns: 1fr; }
+      .tweets-row { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .tweet-card { flex: 0 0 calc(100% - 48px); }
+      .timeline { flex-direction: column; gap: 20px; }
+      footer { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/">← heet tike</a>
+    <div class="nav-right">
+      <a href="https://noice.so" target="_blank">noice.so ↗</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="section-label">2025 — present</div>
+    <h1>noice</h1>
+    <p class="tagline">permissionless token launches on base. anyone can deploy, trade, and own a piece of the internet.</p>
+    <div class="hero-actions">
+      <a href="https://noice.so" target="_blank" class="btn-primary">visit noice.so</a>
+      <a href="https://x.com/noicedotso" target="_blank" style="opacity:0.4; font-size:15px; border-bottom: 1px solid rgba(255,255,255,0.2); transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.4">@noicedotso</a>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-number">$2.14M</div>
+        <div class="stat-label">GMV</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">12.75M</div>
+        <div class="stat-label">transactions facilitated</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">83,324</div>
+        <div class="stat-label">unique address recipients</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">9,578</div>
+        <div class="stat-label">unique tippers</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">1,861</div>
+        <div class="stat-label">unique currencies tipped</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">20M</div>
+        <div class="stat-label">views across farcaster + twitter</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MILESTONES -->
+  <section>
+    <div class="section-label">key moments</div>
+    <h2>milestones</h2>
+    <div class="milestones-grid">
+
+      <div class="milestone">
+        <div class="milestone-label">coinbase listing</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/CoinbaseAssets/status/1964125377439109557"></a>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-label">fundraise</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/heettike/status/1978110975317332268"></a>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-label">crossing $1M GMV</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/heettike/status/1971149595179921466"></a>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-label">airdrop</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/noicedotso/status/1942364816439664980"></a>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-label">presenting at a global stage</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/heettike/status/1946437385505349664"></a>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-label">global winners</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/heettike/status/1947568767443341765"></a>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-label">ethereum talking about us</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/noicedotso/status/1939681148810023391"></a>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-label">acceleration</div>
+        <div class="tweet-embed-wrap">
+          <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none">
+            <a href="https://twitter.com/heettike/status/1965668613882577370"></a>
+          </blockquote>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BUILD IN PUBLIC -->
+  <section>
+    <div class="section-label">build in public</div>
+    <h2>from the founder</h2>
+    <div class="static-tweets-grid">
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1953493025218519226"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1947718407744590077"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1946240432347791409"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1940278506099024185"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1989656945536704785"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1987589494049271901"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2024137303564644604"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1996641927366852793"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1985425533732069841"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/100milesss/status/1976057700300750908"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1975236566558871918"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1972938434265387442"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1969811115694563667"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965803868157259822"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1927926863063831026"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934708959740612713"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934862597448454476"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1935007705019908499"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1926330290705760359"></a></blockquote></div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY CAROUSEL -->
+  <section id="community" class="full-width">
+    <div class="community-header">
+      <div class="section-label">what people said</div>
+      <h2>community</h2>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="communityTrack">
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/brian_armstrong/status/1945211121092174070"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1949560028106723399"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/dwr/status/1968331883340763630"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/spencernoon/status/1938974922027794740"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/myprasanna/status/1977799724796424678"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/srijancse/status/1974183587235967313"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/base/status/1937496252645769544"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/arbitrum/status/1940789219318026753"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/seedclub/status/1935794965713457545"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/segall_max/status/1963295506878402573"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xLuo/status/1964369353769636137"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xnazo_/status/1963527468523942364"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rainbowdotme/status/1949837046194827479"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/kunalvg/status/1949702515777589532"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rachit/status/1945014230199005328"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/clipsofcrypto/status/1947308835729023274"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/saxenasaheb/status/1947230647002525965"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/segall_max/status/1945613672216498644"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Natan_benish/status/1945242925262053532"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/theborklar/status/1945675584698507379"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ShubhamTotu/status/1946475419878002706"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/satyaki44/status/1946478573579313332"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rahulbhadoriiya/status/1945706927893426373"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/aoifeodwyer/status/1949991967804264747"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BFreshHB/status/1949832999291240611"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1947029312789741723"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/latenightonbase/status/1943699511706013780"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/gmfarcaster/status/1943458321060475024"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ohmdreams/status/1943061848343089205"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/david_tomu/status/1942940320607686920"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rachit/status/1942242594286600534"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/eth_call/status/1942672264086036686"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/_twochanz/status/1942698995631153587"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/24_gutta/status/1942521478538244135"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1940912300703338715"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/kunalvg/status/1940060321085104413"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/bajpaiharsh244/status/1939803209243267448"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1939403303412252778"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1939020231835558044"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Abbasshaikh/status/1938870250503905754"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/deLeyritzluc/status/1938571104702087208"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1938029989267734684"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BagChaserXJ/status/1937419702306791588"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BFreshHB/status/1937477808525103148"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/mbstuart/status/1937334980020940890"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1934408981486637093"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1932942569421615447"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/iirfan/status/1935005161224839551"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/_twochanz/status/1934718997402145152"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/srijancse/status/1933642631156056458"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/yeak__/status/1932871119951806556"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/markmeyourze/status/1932470078890738147"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1950108627718508670"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/satyaki44/status/1950103973739786289"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/interfacedapp/status/1951311923531678181"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/shashankUX/status/1951978786016412107"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1951651954951884938"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1952838587688566912"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/314yush/status/1950854126826570149"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/wijuwiju0x/status/1949430632200786334"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xSiddesh/status/1949499955812634910"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1939569590054330539"></a></blockquote></div>
+        <div class="tweet-card"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965646723436708229"></a></blockquote></div>
+      </div>
+    </div>
+    <div style="display:flex; gap:8px; padding: 24px 40px 0;">
+      <button id="carouselPrev" onclick="carouselMove(-1)" style="background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:8px 20px;font-family:'Ovo',serif;cursor:pointer;font-size:14px;opacity:0.5;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5">←</button>
+      <button id="carouselNext" onclick="carouselMove(1)" style="background:none;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:8px 20px;font-family:'Ovo',serif;cursor:pointer;font-size:14px;opacity:0.5;transition:opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5">→</button>
+    </div>
+  </section>
+
+  <!-- ORACLE -->
+  <hr class="divider">
+  <div class="product-section">
+    <div class="section-label">product — oracle</div>
+    <h2>oracle</h2>
+    <div class="product-meta">
+      <div class="product-desc">
+        your social feed is where most of your alpha is. you discover assets and ideas on your twitter feed. we built an agent that tweets about tokens and coins across base and solana — you simply like the tweet to buy the coin.
+        <br><br>
+        any like by anyone can lead to a buy.
+      </div>
+      <div class="product-stats">
+        <div class="product-stat">
+          <span class="product-stat-val">7,789</span>
+          <span class="product-stat-key">x users</span>
+        </div>
+        <div class="product-stat">
+          <span class="product-stat-val">143,210</span>
+          <span class="product-stat-key">buys via likes</span>
+        </div>
+        <div class="product-stat">
+          <span class="product-stat-val">$1.2M</span>
+          <span class="product-stat-key">GMV</span>
+        </div>
+        <div class="product-stat">
+          <span class="product-stat-val">120</span>
+          <span class="product-stat-key">tweets by oracle</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-bottom:24px;">launch</div>
+    <div class="tweets-row" style="margin-bottom:60px;">
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1988296097807409355"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1988544832361447730"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1983168189694726445"></a></blockquote></div>
+    </div>
+
+    <div class="section-label" style="margin-bottom:24px;">media on us</div>
+    <div class="tweets-row">
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Bankless/status/1990420154006581349"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1988361609543311831"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/base/status/2014455773569679584"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rick_peak/status/1993062400262914545"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/sio_eth/status/1991554471713796222"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1991554915370713088"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/myprasanna/status/1988304499140972841"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xbasil/status/1988430900439273584"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/4484/status/1980356332713885713"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ikeacrisp/status/1980254622016233787"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xDeployer/status/1982169756904894864"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/alexanderchopan/status/1985069199107264897"></a></blockquote></div>
+    </div>
+  </div>
+
+  <!-- YC FOR STARTUPS -->
+  <hr class="divider">
+  <div class="product-section">
+    <div class="section-label">product — pivot phase</div>
+    <h2>yc for startups</h2>
+    <div class="product-meta">
+      <div class="product-desc">
+        we believed every early-stage startup needed access to the right network at the right time. we built tooling to help founders find community, accountability, and early momentum — without gatekeeping.
+      </div>
+      <div></div>
+    </div>
+    <div class="tweets-row">
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2023483266767196445"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2001750952160973000"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2000623136681984104"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/StreetFDN/status/1992981259853701412"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Delphi_Digital/status/1981073663723258146"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1998430292982575232"></a></blockquote></div>
+    </div>
+  </div>
+
+  <!-- $1000 SHOW -->
+  <hr class="divider">
+  <div class="product-section">
+    <div class="section-label">product — $1000 show</div>
+    <h2>the $1000 show</h2>
+    <div class="product-meta">
+      <div class="product-desc">
+        too many hackathons on "ai", agents, or "shipping" — none on making money. we let 60 people do literally anything to make $1,000 in a 48-hour livestreamed hackathon. people traded perps, became tutors, sold t-shirts, launched tokens. we only planned this a week before, but regardless was fun.
+      </div>
+      <div class="product-stats">
+        <div class="product-stat">
+          <span class="product-stat-val">43,000</span>
+          <span class="product-stat-key">viewers (48h continuous)</span>
+        </div>
+        <div class="product-stat">
+          <span class="product-stat-val">$13,400</span>
+          <span class="product-stat-key">revenue generated</span>
+        </div>
+        <div class="product-stat">
+          <span class="product-stat-val">180</span>
+          <span class="product-stat-key">participants (60 physical + 120 virtual)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tweets-row">
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2033582935077728363"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2034687669314474172"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/2035750510784098436"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2035734613918924859"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BharatJain8873/status/2036424365823480108"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/DsouzaJovian/status/2035776323197796521"></a></blockquote></div>
+    </div>
+  </div>
+
+  <!-- PERMISSIONLESS LAUNCHPAD -->
+  <hr class="divider">
+  <div class="product-section">
+    <div class="section-label">product — permissionless launchpad</div>
+    <h2>permissionless launchpad</h2>
+    <div class="product-desc" style="max-width:640px; margin-bottom:48px; opacity:0.7;">
+      the core product that noice is known for. anyone can deploy a token, no approval window. permissionless launches on base. tokens start as attention coins and graduate to ownership coins when the community grows.
+    </div>
+    <div class="tweets-row">
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1995112824582938912"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1995811409729323363"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2039247702681354294"></a></blockquote></div>
+    </div>
+  </div>
+
+  <!-- NOICE MINI APP -->
+  <hr class="divider">
+  <div class="product-section">
+    <div class="section-label">product — noice mini app</div>
+    <h2>noice mini app</h2>
+
+    <div class="timeline" style="margin-bottom:48px;">
+      <div class="timeline-item">
+        <div class="timeline-date">idea day</div>
+        <div class="timeline-event">april 27th</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">launch day</div>
+        <div class="timeline-event">may 23rd</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">deprioritised</div>
+        <div class="timeline-event">july 29th</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">wind down</div>
+        <div class="timeline-event">february 10th, 2026</div>
+      </div>
+    </div>
+
+    <div class="tweets-row">
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1925247346184704004"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1950251614993822172"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1945975857517826322"></a></blockquote></div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <div class="pof-note">
+        the noice mini app taught us one thing: growth without retention is noise. we had wild numbers early — we moved fast, scaled faster, and had to make hard calls to redirect focus toward what compounded.
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <hr class="divider">
+  <div class="product-section">
+    <div class="section-label">contributors</div>
+    <h2>the team</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <a href="https://x.com/HeetTike" target="_blank">
+          <div class="team-name">heet tike</div>
+          <div class="team-handle">@heettike</div>
+        </a>
+      </div>
+      <div class="team-member">
+        <div class="team-name">srijan agarwal</div>
+        <div class="team-handle"></div>
+      </div>
+      <div class="team-member">
+        <div class="team-name">divyanshu dagar</div>
+        <div class="team-handle"></div>
+      </div>
+      <div class="team-member">
+        <div class="team-name">vhawk</div>
+        <div class="team-handle"></div>
+      </div>
+      <div class="team-member">
+        <div class="team-name">preet parekh</div>
+        <div class="team-handle"></div>
+      </div>
+      <div class="team-member">
+        <div class="team-name">yash arora</div>
+        <div class="team-handle"></div>
+      </div>
+      <div class="team-member">
+        <a href="https://x.com/parzuko" target="_blank">
+          <div class="team-name">jivansh sharma</div>
+          <div class="team-handle">@parzuko</div>
+        </a>
+      </div>
+      <div class="team-member">
+        <a href="https://x.com/dayadzn" target="_blank">
+          <div class="team-name">daya udayamgiri</div>
+          <div class="team-handle">@dayadzn</div>
+        </a>
+      </div>
+      <div class="team-member">
+        <a href="https://x.com/charanex3" target="_blank">
+          <div class="team-name">charan reddy</div>
+          <div class="team-handle">@charanex3</div>
+        </a>
+      </div>
+      <div class="team-member">
+        <a href="https://x.com/100milesss" target="_blank">
+          <div class="team-name">soumil agarwal</div>
+          <div class="team-handle">@100milesss</div>
+        </a>
+      </div>
+      <div class="team-member">
+        <div class="team-name">shreya ganeriwala</div>
+        <div class="team-handle"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/">← back to heettike.com</a>
+    <a href="https://noice.so" target="_blank">noice.so ↗</a>
+  </footer>
+
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  <script>
+    const track = document.getElementById('communityTrack');
+    const cards = track.querySelectorAll('.tweet-card');
+    const cardWidth = 260 + 16;
+    const visibleCount = 4;
+    let currentIndex = 0;
+    let autoplay;
+
+    function getCardWidth() {
+      if (window.innerWidth < 600) return window.innerWidth * 0.85 + 16;
+      if (window.innerWidth < 900) return window.innerWidth * 0.48 + 16;
+      return 260 + 16;
+    }
+
+    function carouselMove(dir) {
+      const cw = getCardWidth();
+      const maxIndex = cards.length - (window.innerWidth < 600 ? 1 : window.innerWidth < 900 ? 2 : 4);
+      currentIndex = Math.max(0, Math.min(currentIndex + dir, maxIndex));
+      track.style.transform = `translateX(-${currentIndex * cw}px)`;
+      resetAutoplay();
+    }
+
+    function resetAutoplay() {
+      clearInterval(autoplay);
+      autoplay = setInterval(() => carouselMove(1), 3000);
+    }
+
+    // Wrap around
+    setInterval(() => {
+      const maxIndex = cards.length - (window.innerWidth < 600 ? 1 : window.innerWidth < 900 ? 2 : 4);
+      if (currentIndex >= maxIndex) {
+        currentIndex = 0;
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0)';
+        setTimeout(() => {
+          track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        }, 50);
+      } else {
+        carouselMove(1);
+      }
+    }, 3000);
+  </script>
+
+</body>
+</html>
