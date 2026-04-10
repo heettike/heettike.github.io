@@ -123,13 +123,8 @@
     }
 
     .hero-text .experiments {
-      opacity: 0.45;
-      font-size: 16px;
-      margin-top: 16px;
-    }
-
-    .hero-text .experiments a {
-      opacity: 1;
+      font-size: 19px;
+      margin-top: 0;
     }
 
     /* About Section */
@@ -550,7 +545,7 @@
           <p><a href="https://balajis.com/p/network-school-fellowship" target="_blank" class="hero-link">network school fellow</a></p>
           <p>write small <a href="/essays" class="hero-link">essays</a> and used to write <a href="https://musingsbyh33t.substack.com/" target="_blank" class="hero-link">substacks</a></p>
           <p class="experiments">experiments: <a href="https://eli5.fun" target="_blank" class="hero-link">eli5.fun</a> &nbsp;·&nbsp; <a href="https://chat.whatsapp.com/GWWGkclNUyF3iwb0i3up2l?mode=gi_t" target="_blank" class="hero-link">tk's museum</a></p>
-          <p id="meditation-line" class="experiments"></p>
+          <p id="meditation-line"></p>
           <p>24 and alive</p>
 
           <div style="margin-top: 36px; font-size: 16px; display: flex; flex-wrap: wrap; gap: 4px 0;">
@@ -632,7 +627,7 @@
       start.setHours(0,0,0,0);
       var days = Math.floor((today - start) / (1000 * 60 * 60 * 24));
       var el = document.getElementById('meditation-line');
-      if (el) el.textContent = 'i\u2019ve been meditating for ' + days + ' days consecutively. i go for vipassana or spend a week with monks every quarter.';
+      if (el) el.innerHTML = 'i\u2019ve been meditating for <span style="text-decoration:underline;text-underline-offset:3px;">' + days + ' days consecutively</span>. i go for vipassana or spend a week with monks every quarter.';
     })();
   </script>
 
