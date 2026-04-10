@@ -172,22 +172,9 @@
     /* TWEET EMBED CONTAINERS */
     .tweet-embed-wrap {
       width: 100%;
-      min-height: 120px;
     }
     .tweet-embed-wrap .twitter-tweet {
       margin: 0 !important;
-    }
-    /* placeholder shown before tweet loads */
-    .tweet-embed-wrap::before {
-      content: '';
-      display: block;
-      height: 120px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 2px;
-    }
-    .tweet-embed-wrap.loaded::before {
-      display: none;
     }
 
     /* TWEET WALL — used for build in public, oracle media, etc */
@@ -263,22 +250,23 @@
       letter-spacing: 0.08em;
     }
 
-    /* SCREENSHOTS ROW */
-    .screenshots-row {
-      display: flex;
-      gap: 16px;
+    /* SCREENSHOTS GRID */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
       margin: 48px 0;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
     }
-    .screenshots-row::-webkit-scrollbar { display: none; }
-    .screenshots-row img {
-      height: 400px;
-      width: auto;
+    .screenshots-grid img {
+      width: 100%;
+      aspect-ratio: 9 / 19.5;
+      object-fit: cover;
+      object-position: top;
       display: block;
       border: 1px solid rgba(255,255,255,0.08);
-      flex-shrink: 0;
+    }
+    @media (max-width: 700px) {
+      .screenshots-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* TIMELINE */
@@ -475,12 +463,11 @@
       </div>
     </div>
 
-    <div class="screenshots-row">
-      <img src="app1.jpg" alt="noice configure tipping">
-      <img src="app2.jpg" alt="noice activity feed">
-      <img src="app3.jpg" alt="noice highest tippers leaderboard">
-      <img src="app4.jpg" alt="noice tipper details">
-      <img src="app5.jpg" alt="heet with brian armstrong">
+    <div class="screenshots-grid">
+      <img src="app1.jpg" alt="noice configure tipping" loading="lazy">
+      <img src="app2.jpg" alt="noice activity feed" loading="lazy">
+      <img src="app3.jpg" alt="noice highest tippers leaderboard" loading="lazy">
+      <img src="app4.jpg" alt="noice tipper details" loading="lazy">
     </div>
 
     <div style="margin-bottom: 60px;">
@@ -514,8 +501,14 @@
 
     <div style="margin-top:48px;">
       <div class="pof-note">
-        the noice mini app taught us one thing: growth without retention is noise. we had wild numbers early — we moved fast, scaled faster, and had to make hard calls to redirect focus toward what compounded.
+        we had to pivot because we couldn't get the tipping play on X. and farcaster wasn't growing. things were working really well, but we were in local maxima.
       </div>
+    </div>
+
+    <div class="tweet-embed-wrap" style="margin-top:48px; max-width:550px;">
+      <blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none">
+        <a href="https://twitter.com/i/status/1982443929183383649"></a>
+      </blockquote>
     </div>
   </div>
 
@@ -700,7 +693,7 @@
     </div>
 
     <div style="width: 100%; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; position: relative; padding-top: 56.25%; margin-bottom: 60px;">
-      <iframe src="https://oracle.noice.so" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" title="oracle.noice.so"></iframe>
+      <iframe data-src="https://oracle.noice.so" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" title="oracle.noice.so"></iframe>
     </div>
     <div style="margin-bottom: 48px; font-size: 13px; opacity: 0.3; text-transform: uppercase; letter-spacing: 0.08em; margin-top: -48px;">oracle.noice.so</div>
 
@@ -753,7 +746,7 @@
       </div>
     </div>
     <div style="width: 100%; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; position: relative; padding-top: 56.25%; margin-bottom: 60px;">
-      <iframe src="https://1000.noice.so" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" title="1000.noice.so"></iframe>
+      <iframe data-src="https://1000.noice.so" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" title="1000.noice.so"></iframe>
     </div>
     <div style="margin-bottom: 48px; font-size: 13px; opacity: 0.3; text-transform: uppercase; letter-spacing: 0.08em; margin-top: -48px;">1000.noice.so</div>
 
@@ -796,7 +789,7 @@
     </div>
 
     <div style="width: 100%; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; position: relative; padding-top: 56.25%; margin-bottom: 12px;">
-      <iframe src="https://noice.so/times-square" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" title="noice times square"></iframe>
+      <iframe data-src="https://noice.so/times-square" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" loading="lazy" title="noice times square"></iframe>
     </div>
     <div style="margin-bottom: 60px; font-size: 13px; opacity: 0.3; text-transform: uppercase; letter-spacing: 0.08em;">noice.so/times-square</div>
 
@@ -862,6 +855,17 @@
 
   <script>
   (function() {
+    // ── Iframe lazy loading (true: data-src swap) ────────────────
+    var iframeObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        iframeObs.unobserve(el);
+        el.src = el.dataset.src;
+      });
+    }, { rootMargin: '300px 0px' });
+
+    // ── Tweet lazy loading ───────────────────────────────────────
     var widgetsLoaded = false;
     var callbacks = [];
 
@@ -880,29 +884,26 @@
       document.head.appendChild(s);
     }
 
-    var observer = new IntersectionObserver(function(entries) {
+    var tweetObs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (!entry.isIntersecting) return;
         var wrap = entry.target;
-        observer.unobserve(wrap);
+        tweetObs.unobserve(wrap);
         var bq = wrap.querySelector('.tweet-q');
         if (!bq) return;
         bq.className = 'twitter-tweet';
-        bq.setAttribute('data-theme', 'dark');
-        bq.setAttribute('data-dnt', 'true');
-        bq.setAttribute('data-conversation', 'none');
         loadWidgetsJS(function() {
-          if (window.twttr && window.twttr.widgets) {
-            window.twttr.widgets.load(wrap);
-            wrap.classList.add('loaded');
-          }
+          window.twttr && window.twttr.widgets && window.twttr.widgets.load(wrap);
         });
       });
-    }, { rootMargin: '500px 0px' });
+    }, { rootMargin: '200px 0px' });
 
     document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('iframe[data-src]').forEach(function(el) {
+        iframeObs.observe(el);
+      });
       document.querySelectorAll('.tweet-embed-wrap').forEach(function(el) {
-        observer.observe(el);
+        tweetObs.observe(el);
       });
     });
   })();
