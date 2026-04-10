@@ -544,27 +544,27 @@
         </div>
         <div class="hero-text">
           <h1>heet tike</h1>
-          <p>idea guy. mostly creative, storytelling — but with companies.</p>
-          <p class="meta">founder/ceo @ <a href="/noice" class="hero-link">noice</a> — viral, consumer, speculation-first products</p>
+          <p>founder/ceo @ <a href="/noice" class="hero-link">noice</a> — viral, consumer, speculation-first products</p>
           <p>founded <a href="/imagined" class="hero-link">imagined</a> — a design studio, acquired</p>
           <p>founded <a href="/ripen" class="hero-link">ripen</a> — education + community for adults, raised $550K</p>
           <p><a href="https://balajis.com/p/network-school-fellowship" target="_blank" class="hero-link">network school fellow</a></p>
-          <p>write small <a href="https://github.com/heettike/heettike.github.io/tree/main/essays" target="_blank" class="hero-link">essays</a> and used to write <a href="https://musingsbyh33t.substack.com/" target="_blank" class="hero-link">substacks</a></p>
+          <p>write small <a href="/essays" class="hero-link">essays</a> and used to write <a href="https://musingsbyh33t.substack.com/" target="_blank" class="hero-link">substacks</a></p>
           <p class="experiments">experiments: <a href="https://eli5.fun" target="_blank" class="hero-link">eli5.fun</a> &nbsp;·&nbsp; <a href="https://chat.whatsapp.com/GWWGkclNUyF3iwb0i3up2l?mode=gi_t" target="_blank" class="hero-link">tk's museum</a></p>
+          <p id="meditation-line" class="experiments"></p>
           <p>24 and alive</p>
 
-          <div style="margin-top: 36px; font-size: 16px; opacity: 0.4; display: flex; flex-wrap: wrap; gap: 4px 0;">
-            <a href="https://x.com/HeetTike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">x</a>
+          <div style="margin-top: 36px; font-size: 16px; display: flex; flex-wrap: wrap; gap: 4px 0;">
+            <a href="https://x.com/HeetTike" target="_blank" class="hero-link" style="opacity:0.4; border:none;">x</a>
             <span style="opacity: 0.2; padding: 0 8px;"> · </span>
-            <a href="https://github.com/heettike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">github</a>
+            <a href="https://github.com/heettike" target="_blank" class="hero-link" style="opacity:0.4; border:none;">github</a>
             <span style="opacity: 0.2; padding: 0 8px;"> · </span>
-            <a href="https://www.instagram.com/heetike/" target="_blank" class="hero-link" style="opacity:0.5; border:none;">instagram</a>
+            <a href="https://www.instagram.com/heetike/" target="_blank" class="hero-link" style="opacity:0.4; border:none;">instagram</a>
             <span style="opacity: 0.2; padding: 0 8px;"> · </span>
-            <a href="https://www.linkedin.com/in/heettike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">linkedin</a>
+            <a href="https://www.linkedin.com/in/heettike" target="_blank" class="hero-link" style="opacity:0.4; border:none;">linkedin</a>
             <span style="opacity: 0.2; padding: 0 8px;"> · </span>
-            <a href="mailto:tk@noice.so" class="hero-link" style="opacity:0.5; border:none;">email</a>
+            <a href="mailto:tk@noice.so" class="hero-link" style="opacity:0.4; border:none;">email</a>
             <span style="opacity: 0.2; padding: 0 8px;"> · </span>
-            <a href="https://www.youtube.com/@heettike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">youtube</a>
+            <a href="https://www.youtube.com/@heettike" target="_blank" class="hero-link" style="opacity:0.4; border:none;">youtube</a>
           </div>
         </div>
       </div>
@@ -622,6 +622,19 @@
       </div>
     </div>
   </section>
+
+  <script>
+    // meditation streak: counting from Nov 1, 2024
+    (function() {
+      var start = new Date('2024-11-01');
+      var today = new Date();
+      today.setHours(0,0,0,0);
+      start.setHours(0,0,0,0);
+      var days = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+      var el = document.getElementById('meditation-line');
+      if (el) el.textContent = 'i\u2019ve been meditating for ' + days + ' days consecutively. i go for vipassana or spend a week with monks every quarter.';
+    })();
+  </script>
 
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
