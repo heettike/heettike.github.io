@@ -91,9 +91,10 @@
     }
 
     .hero-text p {
-      font-size: 20px;
+      font-size: 19px;
       opacity: 0.7;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      line-height: 1.6;
     }
 
     .hero-text p:last-child {
@@ -106,6 +107,29 @@
       margin-bottom: 40px;
       font-weight: 400;
       opacity: 0.9;
+    }
+
+    .hero-link {
+      color: inherit;
+      opacity: 0.7;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      transition: opacity 0.3s ease;
+    }
+    .hero-link:hover { opacity: 1; }
+
+    .hero-text .meta {
+      margin-top: 20px;
+    }
+
+    .hero-text .experiments {
+      opacity: 0.45;
+      font-size: 16px;
+      margin-top: 16px;
+    }
+
+    .hero-text .experiments a {
+      opacity: 1;
     }
 
     /* About Section */
@@ -266,17 +290,32 @@
       padding: 100px 20px;
     }
 
+    .section-sublabel {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
     .videos-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-      margin-top: 40px;
+      gap: 32px;
+      margin-top: 32px;
     }
 
     .video-item {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .video-embed {
@@ -297,17 +336,36 @@
     }
 
     .video-title {
-      font-size: 17px;
-      opacity: 0.7;
+      font-size: 15px;
+      opacity: 0.5;
       font-weight: 400;
       line-height: 1.4;
+    }
+
+    /* Tweet Wall */
+    .tweet-wall-home {
+      columns: 3;
+      column-gap: 16px;
+      margin-top: 32px;
+    }
+
+    .tweet-wall-home .tweet-wrap {
+      break-inside: avoid;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .tweet-wall-home { columns: 2; }
     }
 
     @media (max-width: 768px) {
       .videos-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 24px;
       }
+      .tweet-wall-home { columns: 1; }
     }
 
     /* Footer */
@@ -487,29 +545,26 @@
         <div class="hero-text">
           <h1>heet tike</h1>
           <p>idea guy. mostly creative, storytelling — but with companies.</p>
-          <p style="margin-top: 20px;">founder/ceo @ <a href="/noice" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">noice</a> — permissionless token launches on base</p>
-          <p>founded <a href="/imagined" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">imagined</a> — a design studio, acquired</p>
-          <p>founded <a href="/ripen" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">ripen</a> — education + community for adults, raised $550L</p>
-          <p><a href="https://balajis.com/p/network-school-fellowship" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">network school fellow</a></p>
-          <p>write small <a href="https://github.com/heettike/heettike.github.io/tree/main/essays" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">essays</a> and used to write <a href="https://musingsbyh33t.substack.com/" target="_blank" style="color: inherit; opacity: 0.7; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); transition: opacity 0.3s ease;">substacks</a></p>
-          <p style="margin-top: 20px; opacity: 0.5; font-size: 16px;">experiments: <a href="https://eli5.fun" target="_blank" style="color: inherit; opacity: 1; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); transition: opacity 0.3s ease;" onmouseover="this.style.opacity=0.6" onmouseout="this.style.opacity=1">eli5.fun</a> &nbsp;·&nbsp; <a href="https://chat.whatsapp.com/GWWGkclNUyF3iwb0i3up2l?mode=gi_t" target="_blank" style="color: inherit; opacity: 1; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); transition: opacity 0.3s ease;" onmouseover="this.style.opacity=0.6" onmouseout="this.style.opacity=1">tk's museum</a></p>
+          <p class="meta">founder/ceo @ <a href="/noice" class="hero-link">noice</a> — permissionless token launches on base</p>
+          <p>founded <a href="/imagined" class="hero-link">imagined</a> — a design studio, acquired</p>
+          <p>founded <a href="/ripen" class="hero-link">ripen</a> — education + community for adults, raised $550K</p>
+          <p><a href="https://balajis.com/p/network-school-fellowship" target="_blank" class="hero-link">network school fellow</a></p>
+          <p>write small <a href="https://github.com/heettike/heettike.github.io/tree/main/essays" target="_blank" class="hero-link">essays</a> and used to write <a href="https://musingsbyh33t.substack.com/" target="_blank" class="hero-link">substacks</a></p>
+          <p class="experiments">experiments: <a href="https://eli5.fun" target="_blank" class="hero-link">eli5.fun</a> &nbsp;·&nbsp; <a href="https://chat.whatsapp.com/GWWGkclNUyF3iwb0i3up2l?mode=gi_t" target="_blank" class="hero-link">tk's museum</a></p>
           <p>24 and alive</p>
 
-          <!-- Social Links -->
-          <div style="margin-top: 40px; font-size: 18px;">
-            <a href="https://x.com/HeetTike" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">x</a>
-            <span style="opacity: 0.3;"> • </span>
-            <a href="https://github.com/heettike" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">github</a>
-            <span style="opacity: 0.3;"> • </span>
-            <a href="https://www.instagram.com/heetike/" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">instagram</a>
-            <span style="opacity: 0.3;"> • </span>
-            <a href="https://www.linkedin.com/in/heettike" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">linkedin</a>
-            <span style="opacity: 0.3;"> • </span>
-            <a href="https://open.spotify.com/user/heettike" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">spotify</a>
-            <span style="opacity: 0.3;"> • </span>
-            <a href="mailto:tike@ripen.in" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">email</a>
-            <span style="opacity: 0.3;"> • </span>
-            <a href="https://www.youtube.com/@heettike" target="_blank" style="color: inherit; opacity: 0.5; text-decoration: none; transition: opacity 0.3s ease;">youtube</a>
+          <div style="margin-top: 36px; font-size: 16px; opacity: 0.4; display: flex; flex-wrap: wrap; gap: 4px 0;">
+            <a href="https://x.com/HeetTike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">x</a>
+            <span style="opacity: 0.2; padding: 0 8px;"> · </span>
+            <a href="https://github.com/heettike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">github</a>
+            <span style="opacity: 0.2; padding: 0 8px;"> · </span>
+            <a href="https://www.instagram.com/heetike/" target="_blank" class="hero-link" style="opacity:0.5; border:none;">instagram</a>
+            <span style="opacity: 0.2; padding: 0 8px;"> · </span>
+            <a href="https://www.linkedin.com/in/heettike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">linkedin</a>
+            <span style="opacity: 0.2; padding: 0 8px;"> · </span>
+            <a href="mailto:tk@noice.so" class="hero-link" style="opacity:0.5; border:none;">email</a>
+            <span style="opacity: 0.2; padding: 0 8px;"> · </span>
+            <a href="https://www.youtube.com/@heettike" target="_blank" class="hero-link" style="opacity:0.5; border:none;">youtube</a>
           </div>
         </div>
       </div>
@@ -539,10 +594,42 @@
     </div>
   </section>
 
+  <!-- Noice Build in Public Section -->
+  <section id="noice-bip" style="min-height: auto; padding: 80px 20px;">
+    <div class="container">
+      <div class="section-sublabel">build in public</div>
+      <div class="section-title">noice</div>
+      <div class="tweet-wall-home">
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1953493025218519226"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1947718407744590077"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1946240432347791409"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1940278506099024185"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1989656945536704785"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1987589494049271901"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2024137303564644604"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1996641927366852793"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1985425533732069841"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/100milesss/status/1976057700300750908"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1975236566558871918"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1972938434265387442"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1969811115694563667"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965803868157259822"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1927926863063831026"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934708959740612713"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934862597448454476"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1935007705019908499"></a></blockquote></div>
+        <div class="tweet-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1926330290705760359"></a></blockquote></div>
+      </div>
+    </div>
+  </section>
+
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
   <!-- Videos Section -->
   <section id="videos">
     <div class="container">
-      <h2>videos</h2>
+      <div class="section-sublabel">videos</div>
+      <div class="section-title">stream of consciousness</div>
       <div class="videos-grid">
         <div class="video-item">
           <div class="video-embed">
@@ -550,7 +637,7 @@
           </div>
           <div class="video-title">nothingness, courage & flow state</div>
         </div>
-<div class="video-item">
+        <div class="video-item">
           <div class="video-embed">
             <iframe src="https://www.youtube-nocookie.com/embed/k6sLrSlSQVo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
