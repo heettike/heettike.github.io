@@ -244,6 +244,24 @@
       letter-spacing: 0.08em;
     }
 
+    /* SCREENSHOTS ROW */
+    .screenshots-row {
+      display: flex;
+      gap: 16px;
+      margin: 48px 0;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .screenshots-row::-webkit-scrollbar { display: none; }
+    .screenshots-row img {
+      height: 400px;
+      width: auto;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
     /* TIMELINE */
     .timeline {
       display: flex;
@@ -436,6 +454,14 @@
           <span class="product-stat-key">views across farcaster + twitter</span>
         </div>
       </div>
+    </div>
+
+    <div class="screenshots-row">
+      <img src="app1.jpg" alt="noice configure tipping">
+      <img src="app2.jpg" alt="noice activity feed">
+      <img src="app3.jpg" alt="noice highest tippers leaderboard">
+      <img src="app4.jpg" alt="noice tipper details">
+      <img src="app5.jpg" alt="heet with brian armstrong">
     </div>
 
     <div style="margin-bottom: 60px;">
