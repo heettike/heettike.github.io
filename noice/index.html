@@ -4,7 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>noice — heet tike</title>
-  <link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+  <!-- performance hints -->
+  <link rel="preconnect" href="https://platform.twitter.com">
+  <link rel="preconnect" href="https://cdn.syndication.twimg.com">
+  <link rel="dns-prefetch" href="https://platform.twitter.com">
+  <link rel="dns-prefetch" href="https://abs.twimg.com">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet"></noscript>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -166,9 +172,22 @@
     /* TWEET EMBED CONTAINERS */
     .tweet-embed-wrap {
       width: 100%;
+      min-height: 120px;
     }
     .tweet-embed-wrap .twitter-tweet {
       margin: 0 !important;
+    }
+    /* placeholder shown before tweet loads */
+    .tweet-embed-wrap::before {
+      content: '';
+      display: block;
+      height: 120px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 2px;
+    }
+    .tweet-embed-wrap.loaded::before {
+      display: none;
     }
 
     /* TWEET WALL — used for build in public, oracle media, etc */
@@ -488,9 +507,9 @@
     </div>
 
     <div class="tweets-row">
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1925247346184704004"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1950251614993822172"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1945975857517826322"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1925247346184704004"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1950251614993822172"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1945975857517826322"></a></blockquote></div>
     </div>
 
     <div style="margin-top:48px;">
@@ -508,42 +527,42 @@
 
       <div class="milestone-row">
         <div class="milestone-label">coinbase listing</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/CoinbaseAssets/status/1964125377439109557"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/CoinbaseAssets/status/1964125377439109557"></a></blockquote></div>
       </div>
 
       <div class="milestone-row">
         <div class="milestone-label">fundraise</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1978110975317332268"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1978110975317332268"></a></blockquote></div>
       </div>
 
       <div class="milestone-row">
         <div class="milestone-label">crossing $1M GMV</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1971149595179921466"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1971149595179921466"></a></blockquote></div>
       </div>
 
       <div class="milestone-row">
         <div class="milestone-label">airdrop</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1942364816439664980"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1942364816439664980"></a></blockquote></div>
       </div>
 
       <div class="milestone-row">
         <div class="milestone-label">presenting at a global stage</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1946437385505349664"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1946437385505349664"></a></blockquote></div>
       </div>
 
       <div class="milestone-row">
         <div class="milestone-label">global winners</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1947568767443341765"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1947568767443341765"></a></blockquote></div>
       </div>
 
       <div class="milestone-row">
         <div class="milestone-label">ethereum talking about us</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1939681148810023391"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1939681148810023391"></a></blockquote></div>
       </div>
 
       <div class="milestone-row">
         <div class="milestone-label">acceleration</div>
-        <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965668613882577370"></a></blockquote></div>
+        <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965668613882577370"></a></blockquote></div>
       </div>
 
     </div>
@@ -554,25 +573,25 @@
     <div class="section-label">build in public</div>
     <h2>from the founder</h2>
     <div class="tweet-wall">
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1953493025218519226"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1947718407744590077"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1946240432347791409"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1940278506099024185"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1989656945536704785"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1987589494049271901"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2024137303564644604"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1996641927366852793"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1985425533732069841"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/100milesss/status/1976057700300750908"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1975236566558871918"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1972938434265387442"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1969811115694563667"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965803868157259822"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1927926863063831026"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934708959740612713"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934862597448454476"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1935007705019908499"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1926330290705760359"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1953493025218519226"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1947718407744590077"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1946240432347791409"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1940278506099024185"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1989656945536704785"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1987589494049271901"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2024137303564644604"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1996641927366852793"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1985425533732069841"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/100milesss/status/1976057700300750908"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1975236566558871918"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1972938434265387442"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1969811115694563667"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965803868157259822"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1927926863063831026"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934708959740612713"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1934862597448454476"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1935007705019908499"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1926330290705760359"></a></blockquote></div>
     </div>
   </section>
 
@@ -583,69 +602,69 @@
       <h2>community</h2>
     </div>
     <div class="tweet-wall-wide">
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/brian_armstrong/status/1945211121092174070"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1949560028106723399"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/dwr/status/1968331883340763630"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/spencernoon/status/1938974922027794740"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/myprasanna/status/1977799724796424678"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/srijancse/status/1974183587235967313"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/base/status/1937496252645769544"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/arbitrum/status/1940789219318026753"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/seedclub/status/1935794965713457545"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/segall_max/status/1963295506878402573"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xLuo/status/1964369353769636137"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xnazo_/status/1963527468523942364"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rainbowdotme/status/1949837046194827479"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/kunalvg/status/1949702515777589532"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rachit/status/1945014230199005328"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/clipsofcrypto/status/1947308835729023274"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/saxenasaheb/status/1947230647002525965"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/segall_max/status/1945613672216498644"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Natan_benish/status/1945242925262053532"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/theborklar/status/1945675584698507379"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ShubhamTotu/status/1946475419878002706"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/satyaki44/status/1946478573579313332"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rahulbhadoriiya/status/1945706927893426373"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/aoifeodwyer/status/1949991967804264747"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BFreshHB/status/1949832999291240611"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1947029312789741723"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/latenightonbase/status/1943699511706013780"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/gmfarcaster/status/1943458321060475024"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ohmdreams/status/1943061848343089205"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/david_tomu/status/1942940320607686920"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rachit/status/1942242594286600534"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/eth_call/status/1942672264086036686"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/_twochanz/status/1942698995631153587"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/24_gutta/status/1942521478538244135"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1940912300703338715"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/kunalvg/status/1940060321085104413"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/bajpaiharsh244/status/1939803209243267448"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1939403303412252778"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1939020231835558044"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Abbasshaikh/status/1938870250503905754"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/deLeyritzluc/status/1938571104702087208"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1938029989267734684"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BagChaserXJ/status/1937419702306791588"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BFreshHB/status/1937477808525103148"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/mbstuart/status/1937334980020940890"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1934408981486637093"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1932942569421615447"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/iirfan/status/1935005161224839551"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/_twochanz/status/1934718997402145152"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/srijancse/status/1933642631156056458"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/yeak__/status/1932871119951806556"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/markmeyourze/status/1932470078890738147"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1950108627718508670"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/satyaki44/status/1950103973739786289"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/interfacedapp/status/1951311923531678181"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/shashankUX/status/1951978786016412107"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1951651954951884938"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1952838587688566912"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/314yush/status/1950854126826570149"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/wijuwiju0x/status/1949430632200786334"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xSiddesh/status/1949499955812634910"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1939569590054330539"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965646723436708229"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/brian_armstrong/status/1945211121092174070"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1949560028106723399"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/dwr/status/1968331883340763630"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/spencernoon/status/1938974922027794740"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/myprasanna/status/1977799724796424678"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/srijancse/status/1974183587235967313"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/base/status/1937496252645769544"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/arbitrum/status/1940789219318026753"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/seedclub/status/1935794965713457545"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/segall_max/status/1963295506878402573"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xLuo/status/1964369353769636137"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xnazo_/status/1963527468523942364"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rainbowdotme/status/1949837046194827479"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/kunalvg/status/1949702515777589532"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rachit/status/1945014230199005328"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/clipsofcrypto/status/1947308835729023274"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/saxenasaheb/status/1947230647002525965"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/segall_max/status/1945613672216498644"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Natan_benish/status/1945242925262053532"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/theborklar/status/1945675584698507379"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ShubhamTotu/status/1946475419878002706"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/satyaki44/status/1946478573579313332"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rahulbhadoriiya/status/1945706927893426373"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/aoifeodwyer/status/1949991967804264747"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BFreshHB/status/1949832999291240611"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1947029312789741723"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/latenightonbase/status/1943699511706013780"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/gmfarcaster/status/1943458321060475024"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ohmdreams/status/1943061848343089205"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/david_tomu/status/1942940320607686920"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rachit/status/1942242594286600534"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/eth_call/status/1942672264086036686"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/_twochanz/status/1942698995631153587"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/24_gutta/status/1942521478538244135"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1940912300703338715"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/kunalvg/status/1940060321085104413"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/bajpaiharsh244/status/1939803209243267448"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1939403303412252778"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1939020231835558044"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Abbasshaikh/status/1938870250503905754"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/deLeyritzluc/status/1938571104702087208"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1938029989267734684"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BagChaserXJ/status/1937419702306791588"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BFreshHB/status/1937477808525103148"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/mbstuart/status/1937334980020940890"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1934408981486637093"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1932942569421615447"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/iirfan/status/1935005161224839551"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/_twochanz/status/1934718997402145152"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/srijancse/status/1933642631156056458"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/yeak__/status/1932871119951806556"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/markmeyourze/status/1932470078890738147"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1950108627718508670"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/satyaki44/status/1950103973739786289"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/interfacedapp/status/1951311923531678181"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/shashankUX/status/1951978786016412107"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xratnakar/status/1951651954951884938"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1952838587688566912"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/314yush/status/1950854126826570149"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/wijuwiju0x/status/1949430632200786334"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xSiddesh/status/1949499955812634910"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1939569590054330539"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1965646723436708229"></a></blockquote></div>
     </div>
   </section>
 
@@ -687,25 +706,25 @@
 
     <div class="section-label" style="margin-bottom:24px;">launch videos</div>
     <div class="tweets-row" style="margin-bottom:60px;">
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1988296097807409355"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1988544832361447730"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1983168189694726445"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1988296097807409355"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1988544832361447730"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1983168189694726445"></a></blockquote></div>
     </div>
 
     <div class="section-label" style="margin-bottom:24px;">media on us</div>
     <div class="tweets-row">
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Bankless/status/1990420154006581349"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1988361609543311831"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/base/status/2014455773569679584"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rick_peak/status/1993062400262914545"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/sio_eth/status/1991554471713796222"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1991554915370713088"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/myprasanna/status/1988304499140972841"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xbasil/status/1988430900439273584"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/4484/status/1980356332713885713"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ikeacrisp/status/1980254622016233787"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xDeployer/status/1982169756904894864"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/alexanderchopan/status/1985069199107264897"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Bankless/status/1990420154006581349"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1988361609543311831"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/base/status/2014455773569679584"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/rick_peak/status/1993062400262914545"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/sio_eth/status/1991554471713796222"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/jessepollak/status/1991554915370713088"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/myprasanna/status/1988304499140972841"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xbasil/status/1988430900439273584"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/4484/status/1980356332713885713"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/ikeacrisp/status/1980254622016233787"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/0xDeployer/status/1982169756904894864"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/alexanderchopan/status/1985069199107264897"></a></blockquote></div>
     </div>
   </div>
 
@@ -739,12 +758,12 @@
     <div style="margin-bottom: 48px; font-size: 13px; opacity: 0.3; text-transform: uppercase; letter-spacing: 0.08em; margin-top: -48px;">1000.noice.so</div>
 
     <div class="tweets-row">
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2033582935077728363"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2034687669314474172"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/2035750510784098436"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2035734613918924859"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BharatJain8873/status/2036424365823480108"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/DsouzaJovian/status/2035776323197796521"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2033582935077728363"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2034687669314474172"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/2035750510784098436"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2035734613918924859"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/BharatJain8873/status/2036424365823480108"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/DsouzaJovian/status/2035776323197796521"></a></blockquote></div>
     </div>
   </div>
 
@@ -782,15 +801,15 @@
     <div style="margin-bottom: 60px; font-size: 13px; opacity: 0.3; text-transform: uppercase; letter-spacing: 0.08em;">noice.so/times-square</div>
 
     <div class="tweets-row">
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1995112824582938912"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1995811409729323363"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2039247702681354294"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2023483266767196445"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2001750952160973000"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2000623136681984104"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/StreetFDN/status/1992981259853701412"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Delphi_Digital/status/1981073663723258146"></a></blockquote></div>
-      <div class="tweet-embed-wrap"><blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1998430292982575232"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1995112824582938912"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/noicedotso/status/1995811409729323363"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2039247702681354294"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2023483266767196445"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2001750952160973000"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/2000623136681984104"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/StreetFDN/status/1992981259853701412"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/Delphi_Digital/status/1981073663723258146"></a></blockquote></div>
+      <div class="tweet-embed-wrap"><blockquote class="tweet-q" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://twitter.com/heettike/status/1998430292982575232"></a></blockquote></div>
     </div>
   </div>
 
@@ -841,7 +860,53 @@
     <a href="https://noice.so" target="_blank">noice.so ↗</a>
   </footer>
 
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script>
+  (function() {
+    var widgetsLoaded = false;
+    var callbacks = [];
+
+    function loadWidgetsJS(cb) {
+      if (widgetsLoaded) { cb && cb(); return; }
+      callbacks.push(cb);
+      if (callbacks.length > 1) return;
+      var s = document.createElement('script');
+      s.src = 'https://platform.twitter.com/widgets.js';
+      s.async = true;
+      s.onload = function() {
+        widgetsLoaded = true;
+        var fns = callbacks.slice(); callbacks = [];
+        fns.forEach(function(fn) { fn && fn(); });
+      };
+      document.head.appendChild(s);
+    }
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var wrap = entry.target;
+        observer.unobserve(wrap);
+        var bq = wrap.querySelector('.tweet-q');
+        if (!bq) return;
+        bq.className = 'twitter-tweet';
+        bq.setAttribute('data-theme', 'dark');
+        bq.setAttribute('data-dnt', 'true');
+        bq.setAttribute('data-conversation', 'none');
+        loadWidgetsJS(function() {
+          if (window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load(wrap);
+            wrap.classList.add('loaded');
+          }
+        });
+      });
+    }, { rootMargin: '500px 0px' });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.tweet-embed-wrap').forEach(function(el) {
+        observer.observe(el);
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>
