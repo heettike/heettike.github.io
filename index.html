@@ -52,7 +52,8 @@
 
     /* Hero Section */
     #hero {
-      min-height: 100vh;
+      min-height: auto;
+      padding: 140px 20px 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -185,7 +186,14 @@
     /* Writing Section */
     #writing {
       min-height: auto;
-      padding: 80px 20px;
+      padding: 40px 20px 80px;
+    }
+
+    .words-title {
+      font-size: 30px;
+      font-weight: 700;
+      opacity: 1;
+      margin-bottom: 12px;
     }
 
     .writing-list {
@@ -430,7 +438,7 @@
       }
 
       #hero {
-        min-height: 100vh;
+        padding: 80px 20px 30px;
       }
 
       .scroll-indicator {
@@ -469,7 +477,7 @@
         </div>
         <div class="hero-text">
           <h1>heet tike</h1>
-          <p>founded <a href="https://noice.so" target="_blank" class="hero-link">noice</a>, <a href="https://ripen.in" target="_blank" class="hero-link">ripen</a> & <a href="https://www.imagined.studio/" target="_blank" class="hero-link">imagined</a> (acq.). <a href="https://balajis.com/p/network-school-fellowship" target="_blank" class="hero-link">network school fellow</a>. write small <a href="/essays" class="hero-link">essays</a> and used to write <a href="https://musingsbyh33t.substack.com/" target="_blank" class="hero-link">substacks</a>. <span id="meditation-line"></span> 25&nbsp;and&nbsp;alive.</p>
+          <p>worked on <a href="https://noice.so" target="_blank" class="hero-link">noice</a>, <a href="https://ripen.in" target="_blank" class="hero-link">ripen</a> & <a href="https://www.imagined.studio/" target="_blank" class="hero-link">imagined</a> (acq.). <a href="https://balajis.com/p/network-school-fellowship" target="_blank" class="hero-link">network school fellow</a>. <span id="meditation-line"></span> 25 and alive. studied econ from <a href="https://www.srcc.edu/" target="_blank" class="hero-link">srcc</a>,&nbsp;du.</p>
 
           <div style="margin-top: 36px; font-size: 16px; display: flex; flex-wrap: wrap; gap: 4px 0;">
             <a href="https://x.com/HeetTike" target="_blank" class="hero-link" style="opacity:0.4; border:none;">x</a>
@@ -504,7 +512,7 @@
   <!-- Writing Section -->
   <section id="writing">
     <div class="container">
-      <div class="section-sublabel">writing</div>
+      <h2 class="words-title">words</h2>
       <ul class="writing-list">
         <li><a href="/dontdelegatethinking">don’t delegate thinking</a></li>
         <li><a href="/essays/nicevsgood.html">nice vs good</a></li>
@@ -574,7 +582,7 @@
       start.setHours(0,0,0,0);
       var days = Math.floor((today - start) / (1000 * 60 * 60 * 24));
       var el = document.getElementById('meditation-line');
-      if (el) el.innerHTML = 'i\u2019ve been meditating for <span style="text-decoration:underline;text-underline-offset:3px;">' + days + ' days consecutively</span>. i go for vipassana or spend a week with monks every quarter.';
+      if (el) el.innerHTML = 'i\u2019ve been meditating for <span style="text-decoration:underline;text-underline-offset:3px;">' + days + ' days consecutively</span>.';
     })();
   </script>
 
@@ -718,8 +726,9 @@
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
       updateScrollIndicator();
-      // Make hero visible immediately
+      // Make hero and the writing list visible immediately
       document.getElementById('hero').classList.add('visible');
+      document.getElementById('writing').classList.add('visible');
     });
   </script>
 
