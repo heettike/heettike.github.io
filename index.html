@@ -122,11 +122,6 @@
       margin-top: 20px;
     }
 
-    .hero-text .experiments {
-      font-size: 19px;
-      margin-top: 0;
-    }
-
     /* About Section */
     #about .about-text {
       font-size: 20px;
@@ -190,93 +185,37 @@
     /* Writing Section */
     #writing {
       min-height: auto;
-      padding: 100px 20px;
+      padding: 80px 20px;
     }
 
-    .essay-list {
-      margin-top: 40px;
+    .writing-list {
+      list-style: none;
+      max-width: 680px;
     }
 
-    .essay-item {
-      margin-bottom: 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
-    }
-
-    .essay-header {
-      padding: 30px 0;
-      cursor: pointer;
+    .writing-list a {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: baseline;
       gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 20px;
+      line-height: 1.4;
+      opacity: 0.75;
       transition: opacity 0.3s ease;
     }
 
-    .essay-header:hover {
-      opacity: 0.7;
+    .writing-list a:hover {
+      opacity: 1;
     }
 
-    .essay-title-area {
-      flex: 1;
-    }
-
-    .essay-title {
-      font-size: 22px;
-      margin-bottom: 8px;
-      font-weight: 400;
-    }
-
-    .essay-date {
+    .writing-list .ext {
       font-size: 14px;
-      opacity: 0.5;
-    }
-
-    .essay-preview {
-      font-size: 16px;
-      opacity: 0.6;
-      margin-top: 10px;
-      line-height: 1.5;
-    }
-
-    .essay-expand-icon {
-      font-size: 24px;
-      opacity: 0.5;
-      transition: transform 0.3s ease;
+      opacity: 0.4;
       flex-shrink: 0;
-    }
-
-    .essay-item.expanded .essay-expand-icon {
-      transform: rotate(45deg);
-    }
-
-    .essay-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-      padding: 0 0 0 0;
-    }
-
-    .essay-item.expanded .essay-content {
-      max-height: 10000px;
-      padding: 0 0 40px 0;
-    }
-
-    .essay-full-text {
-      font-size: 18px;
-      line-height: 1.8;
-      opacity: 0.85;
-    }
-
-    .essay-full-text p {
-      margin-bottom: 20px;
-    }
-
-    .essay-full-text img {
-      max-width: 100%;
-      height: auto;
-      margin: 30px 0;
-      border-radius: 4px;
     }
 
     /* Videos Section */
@@ -497,15 +436,6 @@
       .scroll-indicator {
         display: none;
       }
-
-      .essay-header {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .essay-expand-icon {
-        align-self: flex-start;
-      }
     }
 
     /* Loading animation */
@@ -539,10 +469,9 @@
         </div>
         <div class="hero-text">
           <h1>heet tike</h1>
-          <p>founded <a href="https://noice.so" target="_blank" class="hero-link">noice</a>, <a href="/ripen" class="hero-link">ripen</a> & <a href="/imagined" class="hero-link">imagined</a> (acq.)</p>
+          <p>founded <a href="https://noice.so" target="_blank" class="hero-link">noice</a>, <a href="https://ripen.in" target="_blank" class="hero-link">ripen</a> & <a href="https://www.imagined.studio/" target="_blank" class="hero-link">imagined</a> (acq.)</p>
           <p><a href="https://balajis.com/p/network-school-fellowship" target="_blank" class="hero-link">network school fellow</a></p>
           <p>write small <a href="/essays" class="hero-link">essays</a> and used to write <a href="https://musingsbyh33t.substack.com/" target="_blank" class="hero-link">substacks</a></p>
-          <p class="experiments">experiments: <a href="https://chat.whatsapp.com/GWWGkclNUyF3iwb0i3up2l?mode=gi_t" target="_blank" class="hero-link">tk's museum</a></p>
           <p id="meditation-line"></p>
           <p>24 and alive</p>
 
@@ -576,14 +505,38 @@
     </div>
   </section>
 
-  <!-- Writing Section (HIDDEN) -->
-  <section id="writing" style="display: none;">
+  <!-- Writing Section -->
+  <section id="writing">
     <div class="container">
-      <h2>writing</h2>
-      <p style="margin-top: -20px; margin-bottom: 40px; opacity: 0.5; font-size: 16px;">tweeting more than i write</p>
-      <div class="essay-list" id="essay-list">
-        <!-- Essays will be loaded here -->
-      </div>
+      <div class="section-sublabel">writing</div>
+      <ul class="writing-list">
+        <li><a href="/dontdelegatethinking">don’t delegate thinking</a></li>
+        <li><a href="/essays/nicevsgood.html">nice vs good</a></li>
+        <li><a href="/essays/insignificance.html">will i amount to anything?</a></li>
+        <li><a href="/essays/illusionoftraits.html">illusions that hurt your agency</a></li>
+        <li><a href="/essays/fishermen.html">when fishermen cannot go to sea, they repair nets.</a></li>
+        <li><a href="/essays/metaonmoney.html">meta on money</a></li>
+        <li><a href="/essays/rejection.html">rejection</a></li>
+        <li><a href="/essays/createartffs.html">create art ffs</a></li>
+        <li><a href="/essays/fewthingsaboutmoney.html">a few things about money</a></li>
+        <li><a href="/essays/perception.html">perception</a></li>
+        <li><a href="/essays/pursuit.html">the pursuit of intentionality</a></li>
+        <li><a href="/essays/couchsurfing.html">couch surfing</a></li>
+        <li><a href="/essays/problemsolvers.html">problem solvers</a></li>
+        <li><a href="/essays/opportunitycost.html">opportunity cost.</a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/household" target="_blank">household <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/we-take-ourselves-too-seriously" target="_blank">we take ourselves too seriously <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/being-critical" target="_blank">being critical <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/the-22nd-year-of-my-life" target="_blank">22nd year of life <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/the-21st-year-of-my-life" target="_blank">21st year of life <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/leap-of-faith" target="_blank">leap of faith <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/good-addiction-products" target="_blank">good addiction <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/corporate-to-startups-how-my-life" target="_blank">corporate to startups: 180° flip <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/monthly-resolutions-update-612" target="_blank">monthly resolutions <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/beginners-guide-to-personal-finance" target="_blank">beginner's guide to $$ <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/out-of-sync" target="_blank">out of sync <span class="ext">↗</span></a></li>
+        <li><a href="https://musingsbyh33t.substack.com/p/3-years-in-delhi-university-would" target="_blank">3 years in du <span class="ext">↗</span></a></li>
+      </ul>
     </div>
   </section>
 
@@ -700,142 +653,6 @@
   <div class="scroll-top" style="display: none;"></div>
 
   <script>
-    // Essays data
-    const essays = [
-      {
-        title: "nice vs good",
-        date: "18 Jan, 2025",
-        preview: "for the longest time, i've had this theory brewing in my head about nice vs good. they aren't the same thing when you're labelling a person...",
-        content: `<p>for the longest time, i've had this theory brewing in my head about nice vs good. they aren't the same thing when you're labelling a person, but instead, we use them as synonyms</p>
-<p>nice people are imprisoned by perception. they're slaves to others' opinions > their own reality. bound by society's definition of what's right. grew up being told what they should do. lack agency, so depend on others. they need constant validation & direction bcs they can't shape their own path, let alone shaping the world. these are the ones who keep asking for accountability partners, because they're weak & don't want it badly enough. you'll see nice people everywhere in every industry. shut your eyes & you'll get a face in your mind for sure.</p>
-<p>nice people are scared af of hurting others. but then there's the backwards law: the more u try to not hurt people, the more people u end up hurting. they will leave a trail of hurt behind bcs they never understood this simple truth.</p>
-<p>good people tho? they've figured their shit out.<br>
-• they can say no (& sleep peacefully after)<br>
-• they have agency (don't need validation to breathe)<br>
-• they serve themselves first (sounds selfish? good.)<br>
-• they're secure in who they are (no fake personalities)<br>
-• they know their priorities (& stick to them)</p>
-<p>when good people help others, it comes from a real place. not from some desperate need to be perceived well. they do it bcs they want to, not bcs they have to.</p>
-<p>i used to be nice. they has been me. it's a by-product of conditioning, childhood & fight/flight decisions you make everyday. things changed when i went into an exile for 2 weeks. i death-stared my fear, conditioning & violence inside. i started serving myself first. i & i alone, am responsible for how i think & feel. no matter how betrayed, guilty, or heartbroken i feel - it's on me. you'll see the difference when you either observe closely, or leave the nice-land.</p>
-<p>being nice is a curse. being good is freedom. pick your poison.</p>`
-      },
-      {
-        title: "will i amount to anything?",
-        date: "17 Jan, 2025",
-        preview: "my quest to sanity had an insane tussle b/w finding semblance between our insignificance with knowledge that i'm 1/8,00,00,000 humans...",
-        content: `<p>my quest to sanity had an insane tussle b/w finding semblance between our insignificance with knowledge that i'm 1/8,00,00,000 humans vs the belief that I'm different. the isolation of self from all humans makes us believe we're different (function of a strong ego). in this tussle, it soon turned out, that it's because my consciousness was the only one i knew, so isolating myself from the world was a by-product of the conditioning society grows u up in. and that there was nothing wrong with it. holons; a whole and a part of a collective consciousness. that's what we all are.</p>
-<p>after a while of taking myself far too seriously, i answered: yes. i'm insignificant and will continue to be. i won't amount to much. no matter how hard i try. everybody forgets. everybody comes alone & dies alone. naked. comes with no possession & goes with none. legacy of 'self' is again, an illusion. you won't have as big an impact on humanity as you grew up thinking. and that's the honest reality. solopreneurship is a cope for easy wi-fi money and a mid life. even if there's money and supposed "freedom".</p>
-<p>but, your work can. if you surrender to the act of it, and not what it can get you. it's naturally quite hard, because we grew up exclusively chasing outcomes (marks, a college / branch, a placement et al). but that killed me. freedom was in the act, not the reward.</p>
-<p>sanity was found when i realised that you've to take your work seriously & not yourself! it's a common advice that takes far too long to get a grip around. that my work can amount to a lot. that your work will last far, far longer than you. contributing to a mission that's larger than feeding goals of self (which are mostly materialistic: social relevance, wealth, security, identity) is far more fulfilling to any human being alive (certain about this)</p>
-<p>kill out ambition. ambition is the first curse: the great tempter of the man who is rising above his fellows. it is the simplest form of 'looking' for a reward. to work for self is to work for disappointment. work as those work who are ambitious. seek in the heart the source of evil and expunge it. only the strong can kill it out. the weak must wait for its growth, its fruition, its death. but by then, the coffee gets cold.</p>
-<p>note to reader: read karma yoga & light on the path.</p>`
-      },
-      {
-        title: "illusions that hurt your agency",
-        date: "16 Jan, 2025",
-        preview: "half a decade into surfing & studying from the internet, i've now learnt that curiosity is about depth, not breadth...",
-        content: `<p>half a decade into surfing & studying from the internet, i've now learnt that curiosity is about depth, not breadth. breadth is shallow (in 99% of cases, barring outliers). curiosity is also an illusion. much like agency, smartness, and intelligence. most of us started associating with these words bcs our 9th grade teacher told us so, or our friends who'd call us these to make us feel better when we're down.</p>
-<p>we took their presence rather seriously in us without ever questioning what it truly means to have it. u could live in this illusion all your life and die a happy man. ignorance is indeed, bliss. if you are so smart, why aren't you so rich? if you're so curious, why don't you write deep dives & papers? if you're so intelligent, why don't you have ONE innovative project to show for your 'intelligence'?</p>
-<p>just bcs u read a cool paper/report that landed on your feed and has a shmexy headline doesn't make u curious. neither is having a smart yt feed. these are all games of cheap dopamine; to make you believe you are something that you aren't (hi Duolingo).</p>
-<p>it's about the hours you've willingly put in diving deep to understand that word or concept you read in that shmexy-sounding article / yt video. and how well u truly understood it. whether you can eli5 it. question your depth, anon. you'll realise not only you, but most of the world around you is shallow. it's a world of pretence.</p>
-<p>oh and yeah, my writing this is also pretentious. i'm neither curious nor smart or intelligent. i dropped believing that a year ago. when i truly understood their functions (and how they affect outcomes).</p>`
-      },
-      {
-        title: "when fishermen cannot go to sea, they repair nets.",
-        date: "04 Jan, 2025",
-        preview: "when the sea is too rough to sail, the smart ones don't wait— they get to work...",
-        content: `<img src="/assets/images/IMG_2827.jpg" alt="Fisherman repairing nets illustration" style="width: 100%; height: auto; margin-bottom: 30px;">
-<p>when the sea is too rough to sail, the smart ones don't wait— they get to work. they mend their nets, sharpen their tools, and prepare for the moment the storm breaks. because even in stillness, there's progress. it's not about sitting idle; it's about building what's next.</p>`
-      },
-      {
-        title: "rejection",
-        date: "28 Nov, 2024",
-        preview: "functioning from a constant state of rejection is the only way to find what's best for you and what truly serves you...",
-        content: `<p>functioning from a constant state of rejection is the only way to find what's best for you and what truly serves you. it could be beliefs, habits, values, friends, cities, jobs, experiences, goals, ideas, or even love. this intuitive, universal process is one we all go through, yet we have such hard feelings towards the word "rejection." the quicker you start seeking comfort (vs avoidant) in the idea of rejection, the happier you will get.</p>
-<p>you have to keep a constant eye out for those red flags that are non-negotiable for you. you build a better lens for this as you start knowing yourself; who or what serves you & what doesn't. you can only reject actively if you're aware at all times & know yourself btw. 'if you don't know what you want,' you're sleep walking.</p>
-<p>there's a reason why there are 8b people but dunbar said you can only have a maximum of 150 friends & like 5 people you truly love.</p>
-<p>the faster you can iterate through rejection, the better you'll be able to find what gives you continous joy. and then you hold on it.</p>
-<p>keep rejecting. keep getting rejected. faster iterations of rejection differentiates success from failure. although, it's a lesson i learnt only after burning my hands.</p>`
-      },
-      {
-        title: "create art ffs",
-        date: "25 Jun, 2024",
-        preview: "95% of the reels suck. most of the creators out there are ass. to me, they are spineless...",
-        content: `<p>95% of the reels suck. most of the creators out there are ass. to me, they are spineless. standard fu*kin templates to get views, likes and vanity. doing it for all the wrong reasons known to mankind.</p>
-<p>literature, text, videos, music, paintings, sculptures were mediums created to express, while the mediums have evolved over time, the critical mass of content today is created for the wrong reasons. i despise the 'optimising my content' fodder people feed to themselves & others. man, just express. that's the muscle you want to actually exercise for the next few decades. a raw, natural, and a real way of being.</p>
-<p>create art, not 'content'. stop that consistency bs & add character to your expression. make your art, a reflection of who you are, painting a floozy picture of yourself to get fame & $$'s is a1, but you lose out on character & individuality. not sitting behind a mic yapping with 11 infographics running just like 23421 creators out there. stop trying to game the algorithm in entirety & create to express.</p>`
-      },
-      {
-        title: "couch surfing",
-        date: "27 Mar, 2024",
-        preview: "the past quarter has been chaotic; we had been house hunting for 4 months to no avail...",
-        content: `<p>hi. the past quarter has been chaotic; we had been house hunting for 4 months to no avail, partly bcs we were going through a company shut-down - confusion - trying 4 things - new company begins & although revenue started on day 1, we couldn't access monies till day. also, we were caught in this trap of finding the 'ticks all items' house. a small revelation has been that almost nothing ever ticks all items.</p>
-<p>you do the best you can with what you have.</p>
-<p>i've surfed couches every now & then, but never for like 4 months straight; this time i went from being an amateur to a full-fledged professional. i occupied 8 unique beds (for a week min) in 5 diff. houses across 2 cities.</p>
-<p>i've either forgotten, or purposely left something in each of these houses for one reason or the other –. i've ordered a shower gel 6 times in 4 months & a towel thrice. i've likely had 3 swiggy/instamart orders a day on average; made peace w/ living out of a suitcase</p>
-<p>you will have no personal space.<br>
-your clothes will be mostly dirty/crumpled.<br>
-you'll be wondering where some of your things are.<br>
-you will get hit by your friends' elbow while you're 😴💤😴.<br>
-your 'food choices' will go for a toss.<br>
-you will have to express gratitude, irrespective of how you must feel.<br>
-your select few possessions will either rot in a storage room somewhere, or will have to fit in that 26x18 suitcase of yours.<br>
-you will feel you don't belong anywhere.<br>
-you will need to put up w/ a smile anyway.</p>
-<p>if push comes to shove & you find yourself in the same spot as yours truly, here's..how you could be a better couch surfer</p>
-<p>there's a thrill to doing all this – but wouldn't be possible w/o my friends who put up w/ me all through. ya'll know who you are - i'm incredibly grateful.</p>`
-      },
-      {
-        title: "perception",
-        date: "10 Jun, 2024",
-        preview: "fondly remember the first line of life of a monk which went like 'i am not what i think i am...'",
-        content: `<p>fondly remember the first line of life of a monk which went like "i am not what i think i am. i am not what you think i am. i am what i think you think i am." this built my preliminary understanding of perception & how it will always be driven by subjectivity while there's barely anything you can, or rather, should do to change it</p>
-<p>in the end of it all, we're only humans, we care about what people would think of us, we're all driven by the fundamental desire to be appreciated; we put our best foot forward to be perceived well, while it's impossible (read: futile) to explain yourself to all, to impress all, to even try giving them all context of the why/what, which essentially = be ok being disliked</p>
-<p>you can't expect them to get it because you don't get it either. we reduce people to one mistake, one action of their lives. we stereotype all the time. rightly or wrongly — we take mental shortcuts to conserve energy. use pattern interrupts when we're being negatively stereotyped. life is short. not fair.</p>
-<p>all one-time criminals rot in jail for an act they committed once; a criminal could've been a philanthropist, good samaritan, a great husband or a great leader. the criminal knows it too, but he will be reduced to it for the rest of his life. replace criminal with any tag, and we realise that we've all done it to hundreds of people through our life - we've reduced them. how do we expect them to not do it to us, then? we judge, we label, we categorise because we can't think, and again, that's okay. the point is that we can't expect the world to get us. it's futile. all your efforts for the world to get who you are in vain.</p>
-<p>all we need to know is that we can't make their perception, into our identity. the second you believe them, you lose.</p>`
-      }
-    ];
-
-    // Load essays
-    function loadEssays() {
-      const essayList = document.getElementById('essay-list');
-      essays.forEach((essay, index) => {
-        const essayItem = document.createElement('div');
-        essayItem.className = 'essay-item';
-        essayItem.innerHTML = `
-          <div class="essay-header">
-            <div class="essay-title-area">
-              <div class="essay-title">${essay.title}</div>
-              <div class="essay-date">${essay.date}</div>
-              <div class="essay-preview">${essay.preview}</div>
-            </div>
-            <div class="essay-expand-icon">+</div>
-          </div>
-          <div class="essay-content">
-            <div class="essay-full-text">${essay.content}</div>
-          </div>
-        `;
-        essayList.appendChild(essayItem);
-
-        // Add click handler
-        const header = essayItem.querySelector('.essay-header');
-        header.addEventListener('click', () => {
-          const wasExpanded = essayItem.classList.contains('expanded');
-
-          // Close all essays
-          document.querySelectorAll('.essay-item').forEach(item => {
-            item.classList.remove('expanded');
-          });
-
-          // Toggle current essay
-          if (!wasExpanded) {
-            essayItem.classList.add('expanded');
-          }
-        });
-      });
-    }
-
     // Intersection Observer for fade-in effect
     const observerOptions = {
       threshold: 0.1,
@@ -904,7 +721,6 @@ you will need to put up w/ a smile anyway.</p>
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
-      loadEssays();
       updateScrollIndicator();
       // Make hero visible immediately
       document.getElementById('hero').classList.add('visible');
