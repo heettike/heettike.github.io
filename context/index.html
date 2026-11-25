@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>context - heet tike</title>
+
+  <link class="googlefont" href="https://fonts.googleapis.com/css2?family=Ovo&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Ovo', serif;
+    }
+
+    .text {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .back-link {
+      color: #999;
+      text-decoration: none;
+      opacity: 0.5;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+
+    .title {
+      margin-bottom: 30px;
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .main-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .hero-link {
+      color: inherit;
+      opacity: 0.7;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      transition: opacity 0.3s ease;
+    }
+
+    .hero-link:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="text">
+    <p>
+      <a href="/#writing" class="back-link">← back</a>
+    </p>
+
+    <h1 class="title">context</h1>
+
+    <a href="https://x.com/heettike/status/2124107412747731051" target="_blank">
+      <img src="/assets/images/context-tweet.png" width="924" height="1214" alt="tweet by @heettike: pretty exhausted of giving personal context to every ai app each time, i built a macOS app that has all my life's data and chats all converted into a single API. works pretty well for me. below it, a screenshot of the app's sources screen." class="main-image">
+    </a>
+
+    <p>
+      every ai app starts from zero. i open a new one and explain myself again: who i am, what i work on, who i talk to. then i do it again in the next app. i got tired of re-explaining myself to each one.
+    </p>
+
+    <p>
+      so i built a mac app that reads my history into one folder: messages, mail, notes, posts, saves, ai chats. it builds a wiki of people, projects and themes. any ai app can ask it through one local connection, or a local api with a key per app, scoped to what it may read. nothing leaves the mac except what the ai plan i already pay for reads to answer.
+    </p>
+
+    <p>
+      <a href="https://github.com/heettike/context" target="_blank" class="hero-link">the code, on github</a>. macos only. it runs on your own claude or chatgpt plan. it is early and i built it for myself. the security model is written down in the repo, with its open risks.
+    </p>
+  </div>
+
+  <script type="text/javascript">const fs = 3.5;</script>
+  <script type="text/javascript" src="https://temper.one/temper.js"></script>
+</body>
+</html>
